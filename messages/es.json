@@ -1,0 +1,107 @@
+{
+  "common": {
+    "whatsapp": "Contactar por WhatsApp"
+  },
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "products": "Productos",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "cta_contact": "Agendar Cita",
+    "open_menu": "Abrir menú",
+    "close_menu": "Cerrar menú"
+  },
+  "hero": {
+    "eyebrow": "Diseño & Calidad Premium",
+    "title": "Transforma tu hogar con la elegancia de Cortina Studio",
+    "subtitle": "Soluciones sofisticadas en cortinas que armonizan la luz, la privacidad y el descanso en cada espacio.",
+    "cta_whatsapp": "Cotizar por WhatsApp"
+  },
+  "problems": {
+    "eyebrow": "Tus espacios, tu paz",
+    "title": "¿Te identificas con alguno de estos problemas?",
+    "subtitle": "No tienes que acostumbrarte a las incomodidades de tu hogar. Tenemos la solución perfecta para ti.",
+    "cards": {
+      "heat": {
+        "title": "Tu casa se siente como un horno",
+        "desc": "El sol entra directo y el aire acondicionado no da abasto."
+      },
+      "privacy": {
+        "title": "Sientes que los vecinos ven todo",
+        "desc": "Te falta privacidad sin tener que vivir en la oscuridad."
+      },
+      "noise": {
+        "title": "El ruido de la calle no te deja descansar",
+        "desc": "Buscas silencio y tranquilidad en tu propio hogar."
+      },
+      "decor": {
+        "title": "Tu espacio se ve incompleto",
+        "desc": "Quieres ese toque final que transforme toda la decoración."
+      }
+    }
+  },
+  "projectCard": {
+    "space_label": "Espacio",
+    "problem_label": "Problemática",
+    "solution_label": "Solución Cortina Studio",
+    "benefit_label": "Beneficio Obtenido",
+    "info_open": "Ver detalles del proyecto",
+    "info_close": "Cerrar detalles"
+  },
+  "reels": {
+    "eyebrow": "Proyectos reales",
+    "title": "Proyectos que hablan por sí solos",
+    "subtitle": "Mira cómo transformamos espacios reales de clientes reales.",
+    "cta_text": "¿Te gustó algún estilo? Escríbenos y te ayudamos a replicarlo en tu hogar.",
+    "cta_button": "Quiero algo así",
+    "cta_whatsapp_message": "Hola, vi sus proyectos en redes sociales y me gustaría algo similar para mi espacio."
+  },
+  "process": {
+    "eyebrow": "Nuestro proceso",
+    "title_prefix_m": "Tu nuevo",
+    "title_prefix_f": "Tu nueva",
+    "title_suffix": "en 4 pasos",
+    "rotating_words": "hogar:m,espacio:m,sala:f,dormitorio:m,ambiente:m,oficina:f",
+    "subtitle": "Empezar es más fácil de lo que imaginas.",
+    "cta": "Empezar ahora",
+    "step_1_title": "Escríbenos por WhatsApp",
+    "step_1_desc": "Cuéntanos qué problema quieres resolver. Sin compromiso.",
+    "step_2_title": "Visita y asesoría gratis",
+    "step_2_desc": "Vamos a tu hogar, medimos y te asesoramos en sitio.",
+    "step_3_title": "Diseño y cotización",
+    "step_3_desc": "Te presentamos opciones adaptadas a tu estilo y presupuesto.",
+    "step_4_title": "Instalación profesional",
+    "step_4_desc": "Nos encargamos de todo. Tú solo disfruta el resultado."
+  },
+  "footer": {
+    "company": "Empresa",
+    "about": "Nosotros",
+    "services": "Servicios",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "products": "Productos",
+    "ripplefold": "Ripplefold",
+    "enrollables": "Enrollables",
+    "pliegue_frances": "Pliegue Francés",
+    "cenefas": "Cenefas",
+    "legal": "Legal",
+    "privacy_policy": "Política de Privacidad",
+    "terms_conditions": "Términos y Condiciones",
+    "cookies": "Cookies",
+    "contact_info": "Contacto",
+    "phone": "Teléfono",
+    "email": "Email",
+    "address": "Dirección",
+    "cta_title": "Diseñemos juntos tu espacio ideal",
+    "cta_description": "Estamos listos para asesorarte en la elección de las cortinas perfectas para tu hogar.",
+    "cta_button": "Hablar con un experto",
+    "copyright_text": "Cortina Studio",
+    "privacy_link": "Privacidad",
+    "terms_link": "Términos"
+  },
+  "home": {
+    "title": "Bienvenidos a Cortina Studio",
+    "subtitle": "Transformamos tus espacios con elegancia y privacidad"
+  }
+}

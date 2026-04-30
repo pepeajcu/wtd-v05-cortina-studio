@@ -1,0 +1,71 @@
+{
+  "project_name": "Cortina Studio Rediseño Headless",
+  "brand_info": {
+    "name": "Cortina Studio",
+    "domain": "cortinastudio.com.gt",
+    "target_audience": "Personas que buscan transformar sus espacios, enfocados en resolver problemas específicos sin necesidad de tener conocimientos técnicos sobre estilos de cortinas."
+  },
+  "business_goals": [
+    "Prioridad máxima: Conversión y generación de prospectos directamente hacia WhatsApp Business (+502).",
+    "Invitar a los nuevos usuarios a explorar productos y capacidades a través de la educación visual.",
+    "Enfoque de UX en problemas y soluciones reales antes que en catálogos técnicos."
+  ],
+  "design_system": {
+    "colors": {
+      "primary": "#3F4C42",
+      "secondary": "#D8CFC4",
+      "accent": "#B89B5E",
+      "background": "#FDFDFC",
+      "text": "#1A1A1A"
+    },
+    "typography": {
+      "provider": "next/font/google",
+      "headings": {
+        "family": "Plus Jakarta Sans",
+        "weight": "600"
+      },
+      "subtitles": {
+        "family": "Playfair Display",
+        "weight": "400",
+        "style": "italic"
+      },
+      "body": {
+        "family": "Plus Jakarta Sans",
+        "weight": "400"
+      }
+    }
+  },
+  "content_architecture": {
+    "problem_solutions": [
+      "Térmico Acústico",
+      "Privacidad",
+      "Decorativo",
+      "Calor / Efectos del Sol"
+    ],
+    "product_categories": [
+      "Cenefas",
+      "Cojines",
+      "Con Ojetes",
+      "Enrollable día y noche",
+      "Pliegue Francés",
+      "Ripplefold"
+    ]
+  },
+  "pages": [
+    {
+      "path": "/",
+      "name": "Home",
+      "layout_sections": [
+        "Hero Section: Mensaje aspiracional enfocado en el descanso y la privacidad, con CTA primario a WhatsApp.",
+        "Problem-Solution Grid: Tarjetas visuales destacando 'Privacidad', 'Calor', 'Acústica'.",
+        "Product Showcase: Carrusel o Grid minimalista mostrando las categorías (Ripplefold, Enrollable, etc.).",
+        "Social Proof Video Section: Integración o mockups para reproducir Reels de Instagram/TikTok.",
+        "Footer: Contacto directo y enlaces legales."
+      ]
+    }
+  ],
+  "global_components_required": [
+    "Botón flotante de WhatsApp Business siempre visible (Sticky CTA).",
+    "Navegación superior limpia (Header) con tipografía Plus Jakarta Sans."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "proyectos": {
+    "scalar": [
+      "video",
+      "video_poster",
+      "video_alt",
+      "platform",
+      "original_url",
+      "space_type",
+      "client_problem",
+      "solution",
+      "benefit",
+      "solution_summary"
+    ],
+    "repeater": []
+  },
+  "home-singleton": {
+    "scalar": [
+      "hero_eyebrow",
+      "hero_title",
+      "hero_subtitle",
+      "hero_image",
+      "hero_image_caption",
+      "hero_cta_label",
+      "hero_cta_message",
+      "problems_eyebrow",
+      "problems_title",
+      "problems_subtitle",
+      "reels_eyebrow",
+      "reels_title",
+      "reels_subtitle",
+      "reels_cta_text",
+      "reels_cta_button",
+      "reels_whatsapp_message",
+      "process_eyebrow",
+      "process_title_prefix_m",
+      "process_title_prefix_f",
+      "process_title_suffix",
+      "process_subtitle",
+      "process_cta_label"
+    ],
+    "repeater": [
+      "problems_cards",
+      "reels_selected",
+      "process_rotating_words",
+      "process_steps"
+    ]
+  }
+}
