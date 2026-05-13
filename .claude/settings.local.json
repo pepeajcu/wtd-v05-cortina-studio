@@ -1,11 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(php -l \"H:/Dev/Proyecto5/wordpress/plugins/cortinastudio-wpgraphql-bridge/cortinastudio-wpgraphql-bridge.php\")",
-      "Bash(php -r \"echo 'Lines: ' . count\\(file\\('H:/Dev/Proyecto5/wordpress/plugins/cortinastudio-wpgraphql-bridge/cortinastudio-wpgraphql-bridge.php'\\)\\);\")",
-      "Bash(php -r \"json_decode\\(file_get_contents\\('H:/Dev/Proyecto5/wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json'\\)\\); echo json_last_error\\(\\) === JSON_ERROR_NONE ? 'JSON valido' : 'JSON INVALIDO';\")",
+      "Bash(php -l \"D:/Users/José Miguel Ajcú/Proyecto5/wordpress/plugins/cortinastudio-wpgraphql-bridge/cortinastudio-wpgraphql-bridge.php\")",
+      "Bash(php -r \"echo 'Lines: ' . count\\(file\\('D:/Users/José Miguel Ajcú/Proyecto5/wordpress/plugins/cortinastudio-wpgraphql-bridge/cortinastudio-wpgraphql-bridge.php'\\)\\);\")",
+      "Bash(php -r \"json_decode\\(file_get_contents\\('D:/Users/José Miguel Ajcú/Proyecto5/wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json'\\)\\); echo json_last_error\\(\\) === JSON_ERROR_NONE ? 'JSON valido' : 'JSON INVALIDO';\")",
       "Bash(python *)",
-      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\)\\)\")"
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\)\\)\")",
+      "Read(//d/Users/José Miguel Ajcú/**)",
+      "Read(//c/Users/José Miguel Ajcú/.opencode/**)",
+      "Read(//c/Users/José Miguel Ajcú/.claude/**)"
     ]
   }
 }
