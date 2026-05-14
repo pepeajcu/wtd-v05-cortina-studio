@@ -1,6 +1,6 @@
 {
-  "endpoint": "https://cms.cortinastudio.com.gt/graphql",
-  "siteUrl": "https://cortinastudio.com.gt",
+  "endpoint": "http://lab-development-customers-wordpress-word-cca5f6-100-42-186-116.traefik.me/graphql",
+  "siteUrl": "http://lab-development-customers-wordpress-word-cca5f6-100-42-186-116.traefik.me",
   "revalidateSeconds": 3600,
   "locales": { "default": "es", "supported": ["es", "en"] },
   "cpt": {

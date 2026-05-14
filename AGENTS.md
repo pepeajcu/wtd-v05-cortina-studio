@@ -1,6 +1,18 @@
-# CLAUDE.md — Indice global
+# CLAUDE.md / AGENTS.md — Indice global
 
 Este repo es la **base estandar replicable** de una fabrica de sitios premium (Next.js 14 + WordPress headless). NO es un sitio. El cliente actual ocupando los slots de configuracion es Cortina Studio; cualquier futuro cliente reemplaza esos archivos sin tocar el motor.
+
+---
+
+## Espejo `CLAUDE.md` ↔ `AGENTS.md` (regla critica)
+
+`CLAUDE.md` (Claude Code) y `AGENTS.md` (OpenCode, Cursor y otros runners que no leen `CLAUDE.md`) son **el mismo documento**. Reglas no negociables:
+
+- Deben mantenerse **identicos byte-a-byte** en todo momento. La unica diferencia permitida es el nombre del archivo.
+- **Cualquier edicion en uno se replica en el otro en el mismo cambio.** Si editas solo uno, el repo queda en estado invalido.
+- **Toda referencia en el repo a `CLAUDE.md` aplica tambien a `AGENTS.md` (y viceversa).** Si una skill, doc, spec o comentario dice "actualiza `CLAUDE.md`" o "consulta `CLAUDE.md`", debes hacerlo en ambos archivos. Esto vale aunque la referencia diga solo uno de los dos nombres.
+- Razon: el runner activo determina cual de los dos archivos se carga en contexto. Mantenerlos identicos garantiza que el agente (sea cual sea) opere bajo las mismas reglas.
+- Verificacion rapida tras editar: `Compare-Object (Get-Content CLAUDE.md) (Get-Content AGENTS.md)` (PowerShell) o `diff CLAUDE.md AGENTS.md` (bash). El resultado debe estar vacio.
 
 ---
 

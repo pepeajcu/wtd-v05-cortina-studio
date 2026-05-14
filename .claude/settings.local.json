@@ -8,7 +8,9 @@
       "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\)\\)\")",
       "Read(//d/Users/José Miguel Ajcú/**)",
       "Read(//c/Users/José Miguel Ajcú/.opencode/**)",
-      "Read(//c/Users/José Miguel Ajcú/.claude/**)"
+      "Read(//c/Users/José Miguel Ajcú/.claude/**)",
+      "Bash(Remove-Item *)",
+      "PowerShell(Compare-Object *)"
     ]
   }
 }
