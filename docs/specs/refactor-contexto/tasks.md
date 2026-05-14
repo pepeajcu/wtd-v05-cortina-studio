@@ -2,6 +2,8 @@
 
 > Checklist verificable. Cada caja se marca a medida que se ejecuta. Las fases son secuenciales: NO empezar Fase 2 hasta que el usuario apruebe el plan.
 
+> **STATUS 2026-05-14 — superseded.** Este checklist registra el refactor **v1** completado (manual diseno-fabrica + puntero a taste-design). El 2026-05-14 se ejecuto el refactor v2 que reduce `diseno-fabrica` a contrato delgado + delega estetica a familias seleccionadas por brief (`design_system.vibe`). Las tareas de la Fase 2.3 ("Skill diseno-fabrica") quedaron parcialmente superseded: los puntos sobre layout, section blueprint, typography, animations, components y checklist premium ahora viven en las skills de familia (`high-end-visual-design` / `minimalist-ui` / `industrial-brutalist-ui`) y en `motion-calm-preset.md`. Ver `.claude/skills/diseno-fabrica/SKILL.md` para el estado vigente.
+
 ---
 
 ## Fase 1 — Spec (esta carpeta)

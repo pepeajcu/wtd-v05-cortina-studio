@@ -10,7 +10,10 @@
       "Read(//c/Users/José Miguel Ajcú/.opencode/**)",
       "Read(//c/Users/José Miguel Ajcú/.claude/**)",
       "Bash(Remove-Item *)",
-      "PowerShell(Compare-Object *)"
+      "PowerShell(Compare-Object *)",
+      "Bash(cp \".claude/skills/diseno-fabrica/SKILL.md\" \".opencode/skills/diseno-fabrica/SKILL.md\")",
+      "Bash(cp \".claude/skills/diseno-fabrica/motion-calm-preset.md\" \".opencode/skills/diseno-fabrica/motion-calm-preset.md\")",
+      "Bash(cp \".claude/skills/replicacion-cliente/SKILL.md\" \".opencode/skills/replicacion-cliente/SKILL.md\")"
     ]
   }
 }

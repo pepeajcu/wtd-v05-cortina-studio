@@ -13,7 +13,7 @@ description: Checklist de Fase 1-4 para levantar un cliente nuevo desde el repo 
 
 | # | Archivo | Que llevar del cliente | Quien lo edita |
 |---|---|---|---|
-| 1 | `client-brief.json` | Paleta, tipografias, audiencia, estructura de paginas | Dev/Disenador (input creativo) |
+| 1 | `client-brief.json` | Paleta, tipografias, **`design_system.vibe`** (`high-end` \| `minimalist` \| `brutalist`), **`design_system.motion`** (`calm` \| `fluid` \| `perpetual`), audiencia, estructura de paginas | Dev/Disenador (input creativo) |
 | 2 | `wp-config.json` | `endpoint`, `siteUrl`, `cpt.*` (slug, single, plural, limit), `fields.*.{seccion}.{campo}` (meta keys), `iconMap` | Dev (Fase 1 del cliente) |
 | 3 | `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json` | Lista plana de meta keys por CPT (`scalar` y `repeater`) | Dev (Fase 2 del cliente) — debe espejar el #2 |
 | 4 | `tailwind.config.ts` | `colors.*` y `fontFamily.*` derivados del brief; resto sin tocar | Dev (Fase 1) |
@@ -41,7 +41,7 @@ Si necesitas cambiar algo de esta lista, **es una evolucion de la fabrica**, no 
 ### Frontend (Fase 1 del cliente)
 
 - [ ] Clonar el repo base. Verificar que `lib/wordpress/`, `app/api/revalidate/`, `components/motion/`, `codegen.ts` esten intactos.
-- [ ] Reemplazar `client-brief.json` con el del nuevo cliente.
+- [ ] Reemplazar `client-brief.json` con el del nuevo cliente. Confirmar que **`design_system.vibe`** y **`design_system.motion`** esten poblados con valores validos del enum (si faltan, definirlos con el cliente antes de avanzar — sin esos campos `diseno-fabrica` no puede seleccionar familia ni preset de motion).
 - [ ] Mapear colores y tipografias del brief en `tailwind.config.ts`.
 - [ ] Cargar fuentes con `next/font/google` en `app/[locale]/layout.tsx`.
 - [ ] Editar `wp-config.json`: `endpoint`, `siteUrl`, `cpt.*`, `fields.*` placeholders (los meta keys finales se confirman tras crear los CPTs en WP).
@@ -79,7 +79,7 @@ Si necesitas cambiar algo de esta lista, **es una evolucion de la fabrica**, no 
 
 ## 4. Flujo de Trabajo — Paso a Paso (resumen)
 
-1. Lee `client-brief.json` para obtener paleta, tipografia y estructura del cliente.
+1. Lee `client-brief.json` para obtener paleta, tipografia, **`design_system.vibe`**, **`design_system.motion`** y estructura del cliente. Con el `vibe` cargas UNA skill de familia de `.claude/skills/taste-design/` (ver `diseno-fabrica` seccion 4). Con el `motion` decides si aplicar `motion-calm-preset.md` o delegar motion a la familia.
 2. Configura `tailwind.config.ts` con los tokens exactos del brief + tokens estandar.
 3. Configura `next-intl` con locales `es` (default) y `en` (ver `i18n-fabrica`).
 4. Configura `globals.css` con la base CSS (ver `diseno-fabrica`).

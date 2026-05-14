@@ -36,13 +36,13 @@ Carga la skill cuando el trigger aplique a la tarea actual. No cargues skills "p
 | Skill | Cuando usarla |
 |---|---|
 | `arquitectura-fabrica` | Estructura de carpetas, stack, RSC vs client, reglas de TypeScript/Tailwind, performance |
-| `diseno-fabrica` | UI, tokens, layout, secciones, tipografia, animaciones, componentes, accesibilidad. **Esta skill exige consultar `.claude/skills/taste-design/` antes de proponer UI** |
+| `diseno-fabrica` | UI, tokens, accesibilidad, container y `globals.css`. Es un **contrato delgado**: selecciona UNA skill de familia en `taste-design/` segun `design_system.vibe` del brief (`high-end` \| `minimalist` \| `brutalist`) y carga `motion-calm-preset.md` o delega motion segun `design_system.motion` (`calm` \| `fluid` \| `perpetual`). |
 | `wordpress-bridge` | Plugin propio, `bridge-fields.json`, naming GraphQL, codegen, problemas conocidos |
 | `data-layer` | `lib/wordpress/`, queries, fetchers tipados, Zod en repeaters, revalidacion por tags |
 | `i18n-fabrica` | next-intl, layouts, namespaces, patron labels delegadas |
 | `replicacion-cliente` | Levantar un cliente nuevo (Fase 1-4) y reglas de oro de la fabrica |
 | `save-session-memory` | Comando `/save-session-memory` — escribe snapshot de la sesion en `memoryLTS/` |
-| `taste-design/` | Skills de referencia visual de terceros (lectura cuando `diseno-fabrica` lo indica) |
+| `taste-design/` | Skills de gusto/estetica. **Transversales (siempre):** `design-taste-frontend` (solo secciones 5+7) y `full-output-enforcement`. **Familias excluyentes (UNA segun `vibe`):** `high-end-visual-design`, `minimalist-ui`, `industrial-brutalist-ui`. **Condicionales:** `redesign-existing-projects` (sitios fuera del motor), `stitch-design-taste` (target Stitch). Reglas de seleccion en `diseno-fabrica`. |
 
 ## Memoria entre sesiones
 
@@ -50,5 +50,4 @@ Carga la skill cuando el trigger aplique a la tarea actual. No cargues skills "p
 
 ## Lo que NO debes leer salvo peticion explicita
 
-- `Plan/PLANv1.md`, `Plan/PLANv2.md` — historial de construccion del motor, no son instrucciones para nuevos clientes.
 - `docs/specs/*` — especificaciones cerradas; consulta solo si el usuario lo pide.

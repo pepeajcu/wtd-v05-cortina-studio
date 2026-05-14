@@ -11,6 +11,8 @@
     "Enfoque de UX en problemas y soluciones reales antes que en catálogos técnicos."
   ],
   "design_system": {
+    "vibe": "high-end",
+    "motion": "calm",
     "colors": {
       "primary": "#3F4C42",
       "secondary": "#D8CFC4",

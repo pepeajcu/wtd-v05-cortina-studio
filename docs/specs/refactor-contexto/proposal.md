@@ -2,6 +2,8 @@
 
 > Spec Driven Development (SDD). Esta es la **especificacion** del refactor: el *que* y el *por que*. El *como* paso a paso vive en `tasks.md`.
 
+> **STATUS 2026-05-14 — superseded.** Este spec describe el modelo **v1** del refactor: `diseno-fabrica` como manual de UI completo (~800 lineas) con puntero obligatorio a `taste-design/`. El modelo evoluciono el 2026-05-14 a una arquitectura de **contrato delgado + familias estetico-excluyentes seleccionadas por `client-brief.json` (`design_system.vibe`)** + preset de motion condicional (`design_system.motion`). Para el modelo vigente leer `.claude/skills/diseno-fabrica/SKILL.md` y `.claude/skills/diseno-fabrica/motion-calm-preset.md`. Las referencias internas (matriz de migracion, "regla clave de diseno-fabrica", etc.) corresponden al modelo v1 y se conservan para trazabilidad historica.
+
 ---
 
 ## 1. Problema

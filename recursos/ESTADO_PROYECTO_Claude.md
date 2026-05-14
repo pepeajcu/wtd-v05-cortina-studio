@@ -1,5 +1,5 @@
 # ESTADO DEL PROYECTO — Analisis Claude
-> Actualizado: 2026-05-13 | Modelo: Claude Opus 4.7 | Rama: main
+> Actualizado: 2026-05-14 | Modelo: Claude Opus 4.7 | Rama: main
 
 Este documento contrasta lo que `CLAUDE.md` y las skills bajo `.claude/skills/` establecen como estandar de fabrica contra el estado real del repositorio. Responde tres preguntas: ¿que se hizo?, ¿que ya no aplica?, ¿que falta?.
 
@@ -199,7 +199,7 @@ Los componentes de seccion usan datos estaticos internos (arrays hardcodeados co
 
 ## 6. TRABAJO EXTRA — UI COMPLETA CONSTRUIDA
 
-Esto no esta en ninguna fase del SDD original pero se completo antes de conectar WP. Los componentes ya cumplen los patrones de `diseno-fabrica` (eyebrow + H2 + subtitle + divider, `py-24 lg:py-32`, tokens semanticos, `focus-visible:ring-2`, `aria-labelledby`).
+Esto no esta en ninguna fase del SDD original pero se completo antes de conectar WP. Los componentes ya cumplen los **invariantes del motor** definidos en `diseno-fabrica` (tokens semanticos del brief, container `max-w-7xl`, `focus-visible:ring-2`, `aria-labelledby`, semantica HTML) **y** los patrones de la familia `high-end-visual-design` declarada en `client-brief.json` (anatomia eyebrow + H2 + subtitle + divider, `py-24 lg:py-32`, ritmo light/soft/dark). Tras el refactor v2 del 2026-05-14, los patrones esteticos viven en la skill de familia, no en `diseno-fabrica`.
 
 | Componente | Descripcion |
 |---|---|
@@ -323,7 +323,7 @@ Son la implementacion modular de lo que antes era el manual `AGENTS.md`. Se carg
 | Skill | Trigger |
 |---|---|
 | `arquitectura-fabrica` | Estructura, stack, RSC, reglas TS/Tailwind, performance |
-| `diseno-fabrica` | UI, tokens, secciones, tipografia, animaciones. Exige consultar `taste-design/` antes de proponer UI |
+| `diseno-fabrica` | Contrato delgado: tokens del brief, container, a11y, `globals.css`. Selecciona UNA familia de `taste-design/` segun `design_system.vibe` y carga `motion-calm-preset.md` o delega motion segun `design_system.motion` (refactor v2 del 2026-05-14) |
 | `wordpress-bridge` | Plugin propio, `bridge-fields.json`, naming GraphQL, codegen, problemas conocidos |
 | `data-layer` | `lib/wordpress/`, queries, fetchers tipados, Zod en repeaters, `/api/revalidate` |
 | `i18n-fabrica` | next-intl, layouts, namespaces, patron labels delegadas |
