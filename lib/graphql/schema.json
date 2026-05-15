@@ -479,6 +479,18 @@
               "deprecationReason": null
             },
             {
+              "name": "general",
+              "description": "Options Page: general",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "General",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "generalSettings",
               "description": "Fields of the &#039;GeneralSettings&#039; settings group",
               "args": [],
@@ -40764,6 +40776,197 @@
             {
               "name": "defaultPingStatus",
               "description": "Permite notificaciones de enlaces desde otros sitios (pingbacks y trackbacks) en los nuevos artículos.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "General",
+          "description": "[Options Page] general",
+          "fields": [
+            {
+              "name": "brandLogo",
+              "description": "[Options scalar] brand_logo",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "brandName",
+              "description": "[Options scalar] brand_name",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "contactAddress",
+              "description": "[Options scalar] contact_address",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "contactEmail",
+              "description": "[Options scalar] contact_email",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "contactPhone",
+              "description": "[Options scalar] contact_phone",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "footerCopyright",
+              "description": "[Options scalar] footer_copyright",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "footerCtaButton",
+              "description": "[Options scalar] footer_cta_button",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "footerCtaDescription",
+              "description": "[Options scalar] footer_cta_description",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "footerCtaTitle",
+              "description": "[Options scalar] footer_cta_title",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "navItems",
+              "description": "[Options repeater-&gt;JSON] nav_items",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "socialFacebook",
+              "description": "[Options scalar] social_facebook",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "socialInstagram",
+              "description": "[Options scalar] social_instagram",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "socialTiktok",
+              "description": "[Options scalar] social_tiktok",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "whatsappDefaultMessage",
+              "description": "[Options scalar] whatsapp_default_message",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "whatsappNumber",
+              "description": "[Options scalar] whatsapp_number",
               "args": [],
               "type": {
                 "kind": "SCALAR",

@@ -6,7 +6,7 @@
  *               CPTs: detectados por lista negra (funciona con cualquier plugin/version).
  *               Meta fields: leidos de bridge-fields.json (unico archivo que cambia por cliente).
  *               Para un cliente nuevo: copia el plugin, actualiza bridge-fields.json. Cero PHP.
- * Version:      3.0.0
+ * Version:      3.1.0
  * Author:       Cortina Studio
  * License:      Private
  */
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CSB_VERSION', '3.0.0' );
+define( 'CSB_VERSION', '3.1.0' );
 define( 'CSB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CSB_FIELDS_FILE', CSB_DIR . 'bridge-fields.json' );
 
@@ -123,6 +123,12 @@ function csb_register_fields_from_config(): void {
 	}
 
 	foreach ( $config as $post_type => $field_groups ) {
+		// Las claves con prefijo "_" son meta-configuracion (ej. _options para options pages),
+		// no CPTs. Se procesan en otro handler.
+		if ( strpos( (string) $post_type, '_' ) === 0 ) {
+			continue;
+		}
+
 		$pt_obj = get_post_type_object( $post_type );
 		if ( ! $pt_obj || empty( $pt_obj->graphql_single_name ) ) {
 			continue;
@@ -150,6 +156,136 @@ function csb_register_fields_from_config(): void {
 			] );
 		}
 	}
+}
+
+
+// ======================================================
+// BLOQUE 2.5 - REGISTRAR OPTIONS PAGES EN WPGRAPHQL
+// Lee bridge-fields.json["_options"] y por cada page expone
+// un tipo GraphQL nuevo y un campo en RootQuery.
+// Los valores se leen de wp_options (no post_meta).
+// ======================================================
+
+add_action( 'graphql_register_types', 'csb_register_options_pages_from_config' );
+
+function csb_register_options_pages_from_config(): void {
+	$config = csb_load_fields_config();
+
+	if ( empty( $config['_options'] ) || ! is_array( $config['_options'] ) ) {
+		return;
+	}
+
+	foreach ( $config['_options'] as $page_slug => $field_groups ) {
+		if ( empty( $page_slug ) || ! is_array( $field_groups ) ) {
+			continue;
+		}
+
+		$gql_field = csb_to_camel( $page_slug );
+		$gql_type  = ucfirst( $gql_field );
+
+		$scalars   = (array) ( $field_groups['scalar']   ?? [] );
+		$repeaters = (array) ( $field_groups['repeater'] ?? [] );
+
+		$type_fields = [];
+
+		foreach ( $scalars as $meta_key ) {
+			if ( empty( $meta_key ) ) continue;
+			$type_fields[ csb_to_camel( $meta_key ) ] = [
+				'type'        => 'String',
+				'description' => "[Options scalar] {$meta_key}",
+				'resolve'     => csb_options_scalar_resolver( $page_slug, $meta_key ),
+			];
+		}
+
+		foreach ( $repeaters as $meta_key ) {
+			if ( empty( $meta_key ) ) continue;
+			$type_fields[ csb_to_camel( $meta_key ) ] = [
+				'type'        => 'String',
+				'description' => "[Options repeater->JSON] {$meta_key}",
+				'resolve'     => csb_options_repeater_resolver( $page_slug, $meta_key ),
+			];
+		}
+
+		if ( empty( $type_fields ) ) {
+			continue;
+		}
+
+		register_graphql_object_type( $gql_type, [
+			'description' => "[Options Page] {$page_slug}",
+			'fields'      => $type_fields,
+		] );
+
+		register_graphql_field( 'RootQuery', $gql_field, [
+			'type'        => $gql_type,
+			'description' => "Options Page: {$page_slug}",
+			'resolve'     => static function () use ( $page_slug ) {
+				// Source vacio: cada resolver de campo lee wp_options con su propia logica.
+				return [ '_page_slug' => $page_slug ];
+			},
+		] );
+	}
+}
+
+/**
+ * Resuelve un campo escalar de una Options Page leyendo de wp_options.
+ * Soporta tres patrones de almacenamiento que usa JetEngine:
+ *   1) get_option($page_slug) retorna un array [field => value]
+ *   2) get_option($page_slug . '_' . $field) retorna el valor suelto
+ *   3) get_option($field) retorna el valor suelto sin prefijo
+ */
+function csb_options_scalar_resolver( string $page_slug, string $meta_key ): Closure {
+	return static function () use ( $page_slug, $meta_key ): ?string {
+		$value = csb_options_read_value( $page_slug, $meta_key );
+		if ( $value === '' || $value === null || $value === false ) {
+			return null;
+		}
+		return is_scalar( $value ) ? (string) $value : null;
+	};
+}
+
+function csb_options_repeater_resolver( string $page_slug, string $meta_key ): Closure {
+	return static function () use ( $page_slug, $meta_key ): ?string {
+		$value = csb_options_read_value( $page_slug, $meta_key );
+		if ( empty( $value ) ) {
+			return null;
+		}
+		if ( is_array( $value ) ) {
+			return wp_json_encode( $value ) ?: null;
+		}
+		if ( is_string( $value ) ) {
+			// JetEngine a veces guarda el repeater ya serializado como JSON string.
+			return $value;
+		}
+		return null;
+	};
+}
+
+/**
+ * Lee un campo de una Options Page intentando los 3 patrones de JetEngine.
+ * Devuelve null si ningun patron tiene un valor presente.
+ *
+ * @return mixed
+ */
+function csb_options_read_value( string $page_slug, string $meta_key ) {
+	// Patron 1: array bajo un solo option_name == page_slug
+	$page_data = get_option( $page_slug );
+	if ( is_array( $page_data ) && array_key_exists( $meta_key, $page_data ) ) {
+		return $page_data[ $meta_key ];
+	}
+
+	// Patron 2: opcion individual con prefijo "<page_slug>_<field>"
+	$prefixed = get_option( $page_slug . '_' . $meta_key, null );
+	if ( $prefixed !== null && $prefixed !== false ) {
+		return $prefixed;
+	}
+
+	// Patron 3: opcion suelta con el meta_key directamente
+	$loose = get_option( $meta_key, null );
+	if ( $loose !== null && $loose !== false ) {
+		return $loose;
+	}
+
+	return null;
 }
 
 
@@ -369,6 +505,7 @@ function csb_admin_page(): void {
 			<p>El archivo existe pero esta vacio o tiene formato invalido.</p>
 		<?php else : ?>
 			<?php foreach ( $config as $pt => $groups ) :
+				if ( strpos( (string) $pt, '_' ) === 0 ) continue; // skip meta-config (_options, etc.)
 				$pt_obj   = get_post_type_object( $pt );
 				$gql_type = $pt_obj ? ucfirst( $pt_obj->graphql_single_name ?? '' ) : '(no expuesto)';
 				$scalars  = (array) ( $groups['scalar']  ?? [] );
@@ -379,6 +516,44 @@ function csb_admin_page(): void {
 					<thead><tr><th>meta_key</th><th>GraphQL field</th><th>Tipo</th></tr></thead>
 					<tbody>
 					<?php foreach ( array_merge( array_fill_keys( $scalars, 'scalar' ), array_fill_keys( $repeaters, 'repeater' ) ) as $mk => $type ) : ?>
+						<tr>
+							<td><code><?php echo esc_html( $mk ); ?></code></td>
+							<td><code><?php echo esc_html( csb_to_camel( $mk ) ); ?></code></td>
+							<td><?php echo $type === 'repeater' ? 'repeater &rarr; JSON' : 'scalar'; ?></td>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+			<?php endforeach; ?>
+		<?php endif; ?>
+
+		<?php // ── OPTIONS PAGES ── ?>
+		<?php $options_config = (array) ( $config['_options'] ?? [] ); ?>
+		<?php if ( ! empty( $options_config ) ) : ?>
+			<h2 style="margin-top:2rem">Options Pages expuestas <small style="font-weight:normal;font-size:13px">(bridge-fields.json &rarr; _options)</small></h2>
+			<?php foreach ( $options_config as $page_slug => $groups ) :
+				$gql_field = csb_to_camel( (string) $page_slug );
+				$gql_type  = ucfirst( $gql_field );
+				$scalars   = (array) ( $groups['scalar']   ?? [] );
+				$repeaters = (array) ( $groups['repeater'] ?? [] );
+				$all       = array_merge(
+					array_fill_keys( $scalars,   'scalar' ),
+					array_fill_keys( $repeaters, 'repeater' )
+				);
+				$probe     = csb_options_read_value( (string) $page_slug, (string) ( array_key_first( $all ) ?? '' ) );
+				?>
+				<h3><code><?php echo esc_html( $page_slug ); ?></code> &rarr; query <code><?php echo esc_html( $gql_field ); ?></code> · tipo <code><?php echo esc_html( $gql_type ); ?></code></h3>
+				<p style="color:#666;font-size:12px">
+					<?php if ( $probe !== null ) : ?>
+						<span style="color:green">Valores detectados</span> en <code>wp_options</code> con uno de los 3 patrones soportados.
+					<?php else : ?>
+						<span style="color:orange">Sin valores detectados</span> aun. Llena los campos en la Options Page de JetEngine y guarda.
+					<?php endif; ?>
+				</p>
+				<table class="widefat striped" style="max-width:700px;margin-bottom:1rem">
+					<thead><tr><th>option key</th><th>GraphQL field</th><th>Tipo</th></tr></thead>
+					<tbody>
+					<?php foreach ( $all as $mk => $type ) : ?>
 						<tr>
 							<td><code><?php echo esc_html( $mk ); ?></code></td>
 							<td><code><?php echo esc_html( csb_to_camel( $mk ) ); ?></code></td>
@@ -460,5 +635,20 @@ function csb_generate_test_query( array $config, array $custom_pt ): string {
 		}
 		$query .= "    }\n  }\n";
 	}
+
+	// Options Pages
+	foreach ( (array) ( $config['_options'] ?? [] ) as $page_slug => $groups ) {
+		$gql_field  = csb_to_camel( (string) $page_slug );
+		$all_fields = array_merge(
+			(array) ( $groups['scalar']   ?? [] ),
+			(array) ( $groups['repeater'] ?? [] )
+		);
+		$query .= "  {$gql_field} {\n";
+		foreach ( array_slice( $all_fields, 0, 3 ) as $mk ) {
+			$query .= '    ' . csb_to_camel( $mk ) . "\n";
+		}
+		$query .= "  }\n";
+	}
+
 	return $query . '}';
 }

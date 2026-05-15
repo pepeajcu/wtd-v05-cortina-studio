@@ -13,7 +13,13 @@
       "PowerShell(Compare-Object *)",
       "Bash(cp \".claude/skills/diseno-fabrica/SKILL.md\" \".opencode/skills/diseno-fabrica/SKILL.md\")",
       "Bash(cp \".claude/skills/diseno-fabrica/motion-calm-preset.md\" \".opencode/skills/diseno-fabrica/motion-calm-preset.md\")",
-      "Bash(cp \".claude/skills/replicacion-cliente/SKILL.md\" \".opencode/skills/replicacion-cliente/SKILL.md\")"
+      "Bash(cp \".claude/skills/replicacion-cliente/SKILL.md\" \".opencode/skills/replicacion-cliente/SKILL.md\")",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(curl *)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(Stop-Process *)"
     ]
   }
 }

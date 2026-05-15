@@ -1,3 +1,4 @@
+import { print, type DocumentNode } from 'graphql';
 import { wpConfig } from './config';
 import type { WpTag } from './tags';
 
@@ -16,11 +17,12 @@ export class WordPressFetchError extends Error {
 const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL ?? wpConfig.endpoint;
 
 export async function wpFetch<TData, TVariables extends Record<string, unknown> = Record<string, never>>(
-  query: string,
+  query: string | DocumentNode,
   variables?: TVariables,
   options: WpFetchOptions = {},
 ): Promise<TData> {
   const { tags = [], revalidate } = options;
+  const queryString = typeof query === 'string' ? query : print(query);
 
   const res = await fetch(endpoint, {
     method: 'POST',
@@ -28,7 +30,7 @@ export async function wpFetch<TData, TVariables extends Record<string, unknown> 
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    body: JSON.stringify({ query, variables: variables ?? {} }),
+    body: JSON.stringify({ query: queryString, variables: variables ?? {} }),
     next: {
       tags,
       revalidate: revalidate === false ? undefined : (revalidate ?? wpConfig.revalidateSeconds),

@@ -1,6 +1,6 @@
 {
-  "endpoint": "http://lab-development-customers-wordpress-word-cca5f6-100-42-186-116.traefik.me/graphql",
-  "siteUrl": "http://lab-development-customers-wordpress-word-cca5f6-100-42-186-116.traefik.me",
+  "endpoint": "https://cortinastudio.gainweb.site/graphql",
+  "siteUrl": "https://cortinastudio.gainweb.site",
   "revalidateSeconds": 3600,
   "locales": { "default": "es", "supported": ["es", "en"] },
   "cpt": {

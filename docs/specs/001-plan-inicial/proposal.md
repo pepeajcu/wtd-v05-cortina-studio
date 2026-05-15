@@ -73,13 +73,13 @@ codegen.ts              # Configuracion de graphql-codegen
 | Hero | `hero_image`, `hero_image_caption` | Media / Text |
 | Hero | `hero_cta_label`, `hero_cta_message` | Text / Textarea |
 | Problemas | `problems_eyebrow`, `problems_title`, `problems_subtitle` | Text / Textarea |
-| Problemas | `problems_cards` | Repeater (`icon`, `title`, `description`) |
+| Problemas | `problems_cards` | Repeater (`key`, `icon`, `title`, `description`) — `key` es slug unico por card; `wp-config.json.iconMap.problems_cards` lo mapea a un componente Lucide. Decision 2026-05-15. |
 | Reels | `reels_eyebrow`, `reels_title`, `reels_subtitle` | Text / Textarea |
 | Reels | `reels_selected` | Relacion 1→N a CPT `proyecto` |
 | Reels | `reels_cta_text`, `reels_cta_button`, `reels_whatsapp_message` | Textarea / Text |
 | Proceso | `process_eyebrow`, `process_subtitle`, `process_cta_label` | Text / Textarea |
 | Proceso | `process_rotating_words` | Repeater (`word`, `gender`) |
-| Proceso | `process_steps` | Repeater (`icon`, `title`, `description`) |
+| Proceso | `process_steps` | Repeater (`number`, `icon`, `title`, `description`) — `number` 1..4, define el orden visual del paso. Decision 2026-05-15. |
 | SEO | `seo_title`, `seo_description`, `seo_og_image` | Text / Textarea / Media |
 
 **CPT `proyecto`**

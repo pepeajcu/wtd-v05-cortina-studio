@@ -2233,6 +2233,41 @@ export type EnqueuedStylesheetConnectionPageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
+/** [Options Page] general */
+export type General = {
+  __typename?: 'General';
+  /** [Options scalar] brand_logo */
+  brandLogo?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] brand_name */
+  brandName?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] contact_address */
+  contactAddress?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] contact_email */
+  contactEmail?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] contact_phone */
+  contactPhone?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] footer_copyright */
+  footerCopyright?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] footer_cta_button */
+  footerCtaButton?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] footer_cta_description */
+  footerCtaDescription?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] footer_cta_title */
+  footerCtaTitle?: Maybe<Scalars['String']['output']>;
+  /** [Options repeater-&gt;JSON] nav_items */
+  navItems?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] social_facebook */
+  socialFacebook?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] social_instagram */
+  socialInstagram?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] social_tiktok */
+  socialTiktok?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] whatsapp_default_message */
+  whatsappDefaultMessage?: Maybe<Scalars['String']['output']>;
+  /** [Options scalar] whatsapp_number */
+  whatsappNumber?: Maybe<Scalars['String']['output']>;
+};
+
 /** The general setting type */
 export type GeneralSettings = {
   __typename?: 'GeneralSettings';
@@ -6575,6 +6610,8 @@ export type RootQuery = {
   contentTypes?: Maybe<RootQueryToContentTypeConnection>;
   /** Fields of the &#039;DiscussionSettings&#039; settings group */
   discussionSettings?: Maybe<DiscussionSettings>;
+  /** Options Page: general */
+  general?: Maybe<General>;
   /** Fields of the &#039;GeneralSettings&#039; settings group */
   generalSettings?: Maybe<GeneralSettings>;
   /** An object of the homeSingleton Type.  */
@@ -10569,6 +10606,11 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']['output']>;
 };
 
+export type GetGeneralQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetGeneralQuery = { __typename?: 'RootQuery', general?: { __typename?: 'General', whatsappNumber?: string | null | undefined, whatsappDefaultMessage?: string | null | undefined, contactPhone?: string | null | undefined, contactEmail?: string | null | undefined, contactAddress?: string | null | undefined, socialInstagram?: string | null | undefined, socialTiktok?: string | null | undefined, socialFacebook?: string | null | undefined, brandName?: string | null | undefined, brandLogo?: string | null | undefined, footerCtaTitle?: string | null | undefined, footerCtaDescription?: string | null | undefined, footerCtaButton?: string | null | undefined, footerCopyright?: string | null | undefined, navItems?: string | null | undefined } | null | undefined };
+
 export type GetHomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -10580,5 +10622,6 @@ export type GetProyectosQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetProyectosQuery = { __typename?: 'RootQuery', proyectos?: { __typename?: 'RootQueryToProyectoConnection', nodes: Array<{ __typename?: 'Proyecto', id: string, title?: string | null | undefined, slug?: string | null | undefined, video?: string | null | undefined, videoPoster?: string | null | undefined, videoAlt?: string | null | undefined, platform?: string | null | undefined, originalUrl?: string | null | undefined, spaceType?: string | null | undefined, clientProblem?: string | null | undefined, solution?: string | null | undefined, benefit?: string | null | undefined, solutionSummary?: string | null | undefined }> } | null | undefined };
 
 
+export const GetGeneralDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGeneral"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"whatsappNumber"}},{"kind":"Field","name":{"kind":"Name","value":"whatsappDefaultMessage"}},{"kind":"Field","name":{"kind":"Name","value":"contactPhone"}},{"kind":"Field","name":{"kind":"Name","value":"contactEmail"}},{"kind":"Field","name":{"kind":"Name","value":"contactAddress"}},{"kind":"Field","name":{"kind":"Name","value":"socialInstagram"}},{"kind":"Field","name":{"kind":"Name","value":"socialTiktok"}},{"kind":"Field","name":{"kind":"Name","value":"socialFacebook"}},{"kind":"Field","name":{"kind":"Name","value":"brandName"}},{"kind":"Field","name":{"kind":"Name","value":"brandLogo"}},{"kind":"Field","name":{"kind":"Name","value":"footerCtaTitle"}},{"kind":"Field","name":{"kind":"Name","value":"footerCtaDescription"}},{"kind":"Field","name":{"kind":"Name","value":"footerCtaButton"}},{"kind":"Field","name":{"kind":"Name","value":"footerCopyright"}},{"kind":"Field","name":{"kind":"Name","value":"navItems"}}]}}]}}]} as unknown as DocumentNode<GetGeneralQuery, GetGeneralQueryVariables>;
 export const GetHomeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"homeSingletons"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"heroEyebrow"}},{"kind":"Field","name":{"kind":"Name","value":"heroTitle"}},{"kind":"Field","name":{"kind":"Name","value":"heroSubtitle"}},{"kind":"Field","name":{"kind":"Name","value":"heroImage"}},{"kind":"Field","name":{"kind":"Name","value":"heroImageCaption"}},{"kind":"Field","name":{"kind":"Name","value":"heroCtaLabel"}},{"kind":"Field","name":{"kind":"Name","value":"heroCtaMessage"}},{"kind":"Field","name":{"kind":"Name","value":"problemsEyebrow"}},{"kind":"Field","name":{"kind":"Name","value":"problemsTitle"}},{"kind":"Field","name":{"kind":"Name","value":"problemsSubtitle"}},{"kind":"Field","name":{"kind":"Name","value":"problemsCards"}},{"kind":"Field","name":{"kind":"Name","value":"reelsEyebrow"}},{"kind":"Field","name":{"kind":"Name","value":"reelsTitle"}},{"kind":"Field","name":{"kind":"Name","value":"reelsSubtitle"}},{"kind":"Field","name":{"kind":"Name","value":"reelsSelected"}},{"kind":"Field","name":{"kind":"Name","value":"reelsCtaText"}},{"kind":"Field","name":{"kind":"Name","value":"reelsCtaButton"}},{"kind":"Field","name":{"kind":"Name","value":"reelsWhatsappMessage"}},{"kind":"Field","name":{"kind":"Name","value":"processEyebrow"}},{"kind":"Field","name":{"kind":"Name","value":"processTitlePrefixM"}},{"kind":"Field","name":{"kind":"Name","value":"processTitlePrefixF"}},{"kind":"Field","name":{"kind":"Name","value":"processTitleSuffix"}},{"kind":"Field","name":{"kind":"Name","value":"processRotatingWords"}},{"kind":"Field","name":{"kind":"Name","value":"processSubtitle"}},{"kind":"Field","name":{"kind":"Name","value":"processCtaLabel"}},{"kind":"Field","name":{"kind":"Name","value":"processSteps"}}]}}]}}]}}]} as unknown as DocumentNode<GetHomeQuery, GetHomeQueryVariables>;
 export const GetProyectosDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProyectos"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"proyectos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"12"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"videoPoster"}},{"kind":"Field","name":{"kind":"Name","value":"videoAlt"}},{"kind":"Field","name":{"kind":"Name","value":"platform"}},{"kind":"Field","name":{"kind":"Name","value":"originalUrl"}},{"kind":"Field","name":{"kind":"Name","value":"spaceType"}},{"kind":"Field","name":{"kind":"Name","value":"clientProblem"}},{"kind":"Field","name":{"kind":"Name","value":"solution"}},{"kind":"Field","name":{"kind":"Name","value":"benefit"}},{"kind":"Field","name":{"kind":"Name","value":"solutionSummary"}}]}}]}}]}}]} as unknown as DocumentNode<GetProyectosQuery, GetProyectosQueryVariables>;

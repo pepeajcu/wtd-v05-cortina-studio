@@ -81,7 +81,7 @@
 - [x] Crear todos los meta fields de `proyectos` segun `proposal.md` §4.4 (10 escalares en `bridge-fields.json`).
 - [x] Crear Options Page `general` en JetEngine: slug `general`.
 - [x] Crear todos los campos de `general` segun la tabla de `proposal.md` §4.4.
-- [ ] **Exponer Options Page `general` a GraphQL** — pendiente: requiere `register_graphql_field('RootQuery', 'general', { ... })` en el plugin (lee de `wp_options`, no `post_meta`).
+- [x] **Exponer Options Page `general` a GraphQL** — resuelto en plugin v3.1.0 (BLOQUE 2.5). El plugin lee `_options.general` de `bridge-fields.json` y registra el tipo `General` + campo `general` en `RootQuery`, con resolver que prueba 3 patrones de `wp_options`.
 
 ### 2.3 Webhook
 
@@ -103,17 +103,17 @@
 
 ## Fase 3 — Queries, fetchers y tipos generados
 
-> Estado: 🔶 Parcial al 2026-05-13. Queries de `home` y `proyectos` existen; codegen ejecutado; fetchers no creados; Options Page `general` no expuesta aun.
+> Estado: 🔶 Parcial al 2026-05-15. Codigo de fetchers validado contra CMS real (bug `.toString()` corregido); `getProyectos` y `getGeneral` retornan datos reales. `getHome` bloqueado por contenido en WP que no respeta el contrato del repeater (ver 3.6).
 
 ### 3.1 Variables de entorno
 
-- [ ] Crear `.env.local` copiando `.env.example` con URL real del CMS y secret de revalidacion.
+- [x] Crear `.env.local` copiando `.env.example` con URL real del CMS y secret de revalidacion. *(Existe desde 2026-04-29 con endpoint Traefik del CMS dev, ambos secrets generados y `NEXT_PUBLIC_SITE_URL` apuntando al mismo host.)*
 
 ### 3.2 Queries GraphQL
 
 - [x] Crear `lib/graphql/queries/getHome.graphql` — query para todos los campos del CPT `home-singleton`.
 - [x] Crear `lib/graphql/queries/getProyectos.graphql` — query para lista de `proyectos`.
-- [ ] Crear `lib/graphql/queries/getGeneral.graphql` — query para la Options Page `general` (bloqueada hasta que la Options Page se exponga a GraphQL — Fase 2.2).
+- [x] Crear `lib/graphql/queries/getGeneral.graphql` — query para la Options Page `general` (14 escalares + repeater `navItems`).
 
 ### 3.3 Codegen
 
@@ -122,9 +122,9 @@
 
 ### 3.4 Fetchers tipados
 
-- [ ] Crear `lib/wordpress/getHome.ts` — llama `wpFetch` + valida con Zod + retorna tipo tipado. Incluir schemas Zod inline para los 4 repeaters: `problems_cards`, `reels_selected`, `process_rotating_words`, `process_steps`.
-- [ ] Crear `lib/wordpress/getProyectos.ts` (sin repeaters — todos escalares).
-- [ ] Crear `lib/wordpress/getGeneral.ts`.
+- [x] Crear `lib/wordpress/getHome.ts` — llama `wpFetch` + valida con Zod + retorna tipo tipado. Schemas Zod inline para los 4 repeaters (`problems_cards`, `reels_selected`, `process_rotating_words`, `process_steps`) con helper `parseRepeater` tolerante a array plano u object indexado.
+- [x] Crear `lib/wordpress/getProyectos.ts` (sin repeaters — todos escalares).
+- [x] Crear `lib/wordpress/getGeneral.ts` — usa `GetGeneralDocument` / `GetGeneralQuery` del codegen regenerado contra `https://cortinastudio.gainweb.site/graphql`. Schema Zod de `navItems` parte de object indexado `item-N` con keys prefijadas `nav_items_*` y ordena por `nav_items_order` (ver memoria `project-jetengine-options-repeater-shape`).
 
 ### 3.5 Mappers ~~separados~~ → inline en fetchers
 
@@ -132,8 +132,19 @@
 
 ### 3.6 Verificacion Fase 3
 
-- [ ] `npx tsc --noEmit` — 0 errores.
-- [ ] Los fetchers retornan datos reales en una prueba manual (console.log en dev).
+- [x] `npx tsc --noEmit` — 0 errores nuevos en archivos de Fase 3 (queda 1 error preexistente en `components/ui/ReelCard.tsx`: `Instagram` no exportado por `lucide-react`, fuera de scope).
+- [x] `npm run codegen` ejecutado contra el nuevo endpoint `https://cortinastudio.gainweb.site/graphql` — tipo `General` y `GetGeneralDocument` ya generados; `getGeneral.ts` refactorizado para usarlos.
+- [~] Los fetchers retornan datos reales en una prueba manual (validado 2026-05-15 via route handler temporal `/api/debug/fetchers`).
+  - `getProyectos` ✅ — 1 proyecto real con video.
+  - `getGeneral` ✅ — whatsappNumber, brandName, navItems (parseo `nav_items_*` correcto).
+  - `getHome` ❌ datos — el post `home-singleton` existe en WP (ID 26) pero los sub-campos de los 4 repeaters no respetan el contrato `proposal.md §4.4` ni los schemas Zod de `getHome.ts`:
+    - `problems_cards` viene con keys `problemas_icono`, `problemas_title`, `problemas_descripcion` (esperado: `icon`, `title`, `description`, `key`).
+    - `process_steps` viene con `proceso_icon`, `proceso_title`, `proceso_description` (esperado: `icon`, `title`, `description`, `number`).
+    - `process_rotating_words` viene `null` (esperado: array con `word`/`gender`).
+    - `reels_selected` viene como string literal `"reels_selected"` (esperado: Relacion N→1 a CPT `proyecto`).
+  - Cierre del bullet pendiente al corregir el contenido en JetEngine; se cubrira en Fase 4 al migrar el Home.
+  - **Bug corregido en motor:** `wpFetch` recibia `GetXDocument.toString()` que produce `"[object Object]"` (los `Documents` son `DocumentNode` AST, no strings); `lib/wordpress/client.ts` ahora acepta `string | DocumentNode` y aplica `print()` de `graphql` para serializar.
+  - **Mismatch motor vs spec detectado:** `getHome.ts` exige `key` en `problemCardSchema` y `number` (1-4) en `processStepSchema`; ninguno aparece en `proposal.md §4.4`. Decision pendiente: agregar esos sub-campos en JetEngine, o sacarlos del schema Zod.
 
 ---
 

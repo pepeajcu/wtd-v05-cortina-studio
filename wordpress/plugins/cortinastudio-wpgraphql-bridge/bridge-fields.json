@@ -45,5 +45,28 @@
       "process_rotating_words",
       "process_steps"
     ]
+  },
+  "_options": {
+    "general": {
+      "scalar": [
+        "whatsapp_number",
+        "whatsapp_default_message",
+        "contact_phone",
+        "contact_email",
+        "contact_address",
+        "social_instagram",
+        "social_tiktok",
+        "social_facebook",
+        "brand_name",
+        "brand_logo",
+        "footer_cta_title",
+        "footer_cta_description",
+        "footer_cta_button",
+        "footer_copyright"
+      ],
+      "repeater": [
+        "nav_items"
+      ]
+    }
   }
 }
