@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Info, X, Instagram, Music2 } from 'lucide-react';
+import { useReducedMotion } from 'framer-motion';
+import { Info, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface ProjectDetails {

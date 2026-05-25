@@ -1,0 +1,9 @@
+query GetMediaUrls($ids: [ID]!) {
+  mediaItems(first: 100, where: { in: $ids }) {
+    nodes {
+      databaseId
+      mediaItemUrl
+      sourceUrl
+    }
+  }
+}

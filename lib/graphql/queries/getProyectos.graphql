@@ -2,6 +2,7 @@ query GetProyectos {
   proyectos(first: 12) {
     nodes {
       id
+      databaseId
       title
       slug
       video

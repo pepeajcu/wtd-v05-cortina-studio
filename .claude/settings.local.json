@@ -19,7 +19,8 @@
       "Bash(curl *)",
       "PowerShell(Get-Process *)",
       "PowerShell(Get-NetTCPConnection *)",
-      "PowerShell(Stop-Process *)"
+      "PowerShell(Stop-Process *)",
+      "PowerShell(Copy-Item *)"
     ]
   }
 }

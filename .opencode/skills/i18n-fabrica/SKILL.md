@@ -150,10 +150,31 @@ export function ReelCard({ reel, labels }: ReelCardProps) { ... }
 
 ---
 
-## 8. Lo que NO debes hacer
+## 8. Frontera con WordPress (modelo de 3 tiers)
+
+Por defecto, **todo el copy del sitio vive en `messages/{locale}.json`** — incluyendo titulos, subtitulos, eyebrows, CTAs, copy de seccion, microcopy, labels de UI y navegacion. Es Tier A (ver `arquitectura-fabrica` seccion 7).
+
+A WordPress solo van:
+- **Tier B (datos operativos):** numero de WhatsApp, telefono, email, direccion, redes sociales, asset de logo, imagenes del hero/galerias.
+- **Tier C (datos dinamicos):** colecciones que el cliente crece o reordena (proyectos, blog, testimonios), incluyendo el selector de cuales aparecen en home.
+
+**Regla de decision:** ¿el cliente lo va a editar mas de 2 veces al ano? Si no → `messages/`. Si si → WP.
+
+Esto significa que en un sitio bilingue:
+- El cliente NO edita copy desde WP (lo hace el dev en el JSON con codigo).
+- El bundle de mensajes i18n tiene el copy editorial completo, no solo labels.
+- Las queries GraphQL son delgadas (solo IDs, assets, datos operativos).
+
+Excepciones validas (escalar de A a B solo cuando lo justifique):
+- Un cliente especifico pide editar copy de hero sin avisar al dev → mover ese campo concreto a WP **solo para ese cliente**, no para el motor.
+- Un campo bilingue que vive en WP requiere fields `<key>_es` y `<key>_en` separados o un plugin de i18n en WP (caso raro).
+
+---
+
+## 9. Lo que NO debes hacer
 
 - Hardcodear strings en JSX — todo via `t('key')`.
 - Olvidar `setRequestLocale(locale)` en layout o page → rompe SSG.
 - Llamar `useTranslations` en client components cuando el RSC padre puede pasarlas como labels.
 - Anadir locales nuevos sin actualizar `middleware.ts` y `messages/`.
-- Mezclar contenido editorializable (titulos, copies) con UI estatica (labels) — los primeros van a WP, los segundos a `messages/`.
+- Mover copy estatico a WP "por si el cliente quiere editarlo" — empezar siempre en JSON; escalar solo cuando el cliente lo pida explicitamente.

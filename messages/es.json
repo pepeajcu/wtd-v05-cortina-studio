@@ -12,11 +12,15 @@
     "open_menu": "Abrir menú",
     "close_menu": "Cerrar menú"
   },
+  "brand": {
+    "name": "Cortina Studio"
+  },
   "hero": {
     "eyebrow": "Diseño & Calidad Premium",
     "title": "Transforma tu hogar con la elegancia de Cortina Studio",
     "subtitle": "Soluciones sofisticadas en cortinas que armonizan la luz, la privacidad y el descanso en cada espacio.",
-    "cta_whatsapp": "Cotizar por WhatsApp"
+    "cta_label": "Cotizar por WhatsApp",
+    "cta_whatsapp_message": "Hola, vi su sitio y me gustaría cotizar cortinas para mi hogar."
   },
   "problems": {
     "eyebrow": "Tus espacios, tu paz",
@@ -62,17 +66,35 @@
     "title_prefix_m": "Tu nuevo",
     "title_prefix_f": "Tu nueva",
     "title_suffix": "en 4 pasos",
-    "rotating_words": "hogar:m,espacio:m,sala:f,dormitorio:m,ambiente:m,oficina:f",
+    "rotating_words": [
+      { "text": "hogar", "gender": "m" },
+      { "text": "espacio", "gender": "m" },
+      { "text": "sala", "gender": "f" },
+      { "text": "dormitorio", "gender": "m" },
+      { "text": "ambiente", "gender": "m" },
+      { "text": "oficina", "gender": "f" }
+    ],
     "subtitle": "Empezar es más fácil de lo que imaginas.",
-    "cta": "Empezar ahora",
-    "step_1_title": "Escríbenos por WhatsApp",
-    "step_1_desc": "Cuéntanos qué problema quieres resolver. Sin compromiso.",
-    "step_2_title": "Visita y asesoría gratis",
-    "step_2_desc": "Vamos a tu hogar, medimos y te asesoramos en sitio.",
-    "step_3_title": "Diseño y cotización",
-    "step_3_desc": "Te presentamos opciones adaptadas a tu estilo y presupuesto.",
-    "step_4_title": "Instalación profesional",
-    "step_4_desc": "Nos encargamos de todo. Tú solo disfruta el resultado."
+    "cta_label": "Empezar ahora",
+    "cta_whatsapp_message": "Hola, quisiera iniciar el proceso para cotizar cortinas para mi espacio.",
+    "steps": {
+      "step_1": {
+        "title": "Escríbenos por WhatsApp",
+        "desc": "Cuéntanos qué problema quieres resolver. Sin compromiso."
+      },
+      "step_2": {
+        "title": "Visita y asesoría gratis",
+        "desc": "Vamos a tu hogar, medimos y te asesoramos en sitio."
+      },
+      "step_3": {
+        "title": "Diseño y cotización",
+        "desc": "Te presentamos opciones adaptadas a tu estilo y presupuesto."
+      },
+      "step_4": {
+        "title": "Instalación profesional",
+        "desc": "Nos encargamos de todo. Tú solo disfruta el resultado."
+      }
+    }
   },
   "footer": {
     "company": "Empresa",

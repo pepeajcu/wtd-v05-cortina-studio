@@ -1,57 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { FadeInStagger } from '@/components/motion/FadeInStagger';
-import { Thermometer, EyeOff, VolumeX, Sparkles } from 'lucide-react';
+import { getIcon } from '@/lib/iconMap';
 
-interface ProblemCard {
-  id: string;
-  Icon: React.ComponentType<any>;
-  titleKey: string;
-  descKey: string;
-  iconBg: string;
-  iconColor: string;
-}
+const PROBLEM_CARDS = [
+  { key: 'heat', icon: 'Thermometer', iconBg: 'bg-orange-50', iconColor: 'text-orange-600' },
+  { key: 'privacy', icon: 'EyeOff', iconBg: 'bg-blue-50', iconColor: 'text-blue-600' },
+  { key: 'noise', icon: 'VolumeX', iconBg: 'bg-slate-50', iconColor: 'text-slate-600' },
+  { key: 'decor', icon: 'Sparkles', iconBg: 'bg-amber-50', iconColor: 'text-amber-600' },
+] as const;
 
-const PROBLEMS: ProblemCard[] = [
-  {
-    id: 'heat',
-    Icon: Thermometer,
-    titleKey: 'cards.heat.title',
-    descKey: 'cards.heat.desc',
-    iconBg: 'bg-orange-50',
-    iconColor: 'text-orange-600',
-  },
-  {
-    id: 'privacy',
-    Icon: EyeOff,
-    titleKey: 'cards.privacy.title',
-    descKey: 'cards.privacy.desc',
-    iconBg: 'bg-blue-50',
-    iconColor: 'text-blue-600',
-  },
-  {
-    id: 'noise',
-    Icon: VolumeX,
-    titleKey: 'cards.noise.title',
-    descKey: 'cards.noise.desc',
-    iconBg: 'bg-slate-50',
-    iconColor: 'text-slate-600',
-  },
-  {
-    id: 'decor',
-    Icon: Sparkles,
-    titleKey: 'cards.decor.title',
-    descKey: 'cards.decor.desc',
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-600',
-  },
-];
-
-export function ProblemsSection() {
-  const t = useTranslations('problems');
+export async function ProblemsSection() {
+  const t = await getTranslations('problems');
 
   return (
     <section
@@ -82,40 +45,43 @@ export function ProblemsSection() {
 
         <div className="mt-14">
           <FadeInStagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-            {PROBLEMS.map((problem) => (
-              <Link
-                key={problem.id}
-                href="#soluciones"
-                className={cn(
-                  'group flex h-full flex-col rounded-2xl bg-background p-7',
-                  'border border-border/60',
-                  'shadow-soft',
-                  'transition-all duration-300 ease-premium',
-                  'hover:-translate-y-1.5 hover:border-accent/35 hover:shadow-medium',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
-                )}
-              >
-                <div
+            {PROBLEM_CARDS.map((card) => {
+              const Icon = getIcon(card.icon);
+              return (
+                <Link
+                  key={card.key}
+                  href="#soluciones"
                   className={cn(
-                    'mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl',
-                    'transition-transform duration-300 ease-premium group-hover:scale-110',
-                    problem.iconBg,
+                    'group flex h-full flex-col rounded-2xl bg-background p-7',
+                    'border border-border/60',
+                    'shadow-soft',
+                    'transition-all duration-300 ease-premium',
+                    'hover:-translate-y-1.5 hover:border-accent/35 hover:shadow-medium',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
                   )}
                 >
-                  <problem.Icon
-                    className={cn('h-5 w-5', problem.iconColor)}
-                    aria-hidden="true"
-                    strokeWidth={1.75}
-                  />
-                </div>
-                <h3 className="font-sans text-base font-semibold leading-snug text-foreground mb-2">
-                  {t(problem.titleKey)}
-                </h3>
-                <p className="text-sm leading-relaxed text-foreground/55">
-                  {t(problem.descKey)}
-                </p>
-              </Link>
-            ))}
+                  <div
+                    className={cn(
+                      'mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl',
+                      'transition-transform duration-300 ease-premium group-hover:scale-110',
+                      card.iconBg,
+                    )}
+                  >
+                    <Icon
+                      className={cn('h-5 w-5', card.iconColor)}
+                      aria-hidden="true"
+                      strokeWidth={1.75}
+                    />
+                  </div>
+                  <h3 className="font-sans text-base font-semibold leading-snug text-foreground mb-2">
+                    {t(`cards.${card.key}.title`)}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-foreground/55">
+                    {t(`cards.${card.key}.desc`)}
+                  </p>
+                </Link>
+              );
+            })}
           </FadeInStagger>
         </div>
       </div>

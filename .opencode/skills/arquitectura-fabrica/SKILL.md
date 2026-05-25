@@ -149,7 +149,33 @@ Manual del **motor**. Aplica a cualquier cliente. Lo que cambia por cliente vive
 
 ---
 
-## 6. Lo que NO debes hacer (arquitectura)
+## 7. Modelo de 3 tiers para los datos del cliente
+
+Toda informacion que el sitio renderiza cae en **un tier** segun **quien la edita** y **con que frecuencia**. La frontera entre WP y JSON se decide por tier, no por componente.
+
+| Tier | Donde vive | Que va aqui | Quien edita | Frecuencia |
+|---|---|---|---|---|
+| **A. Copy de marca / UI** | `messages/{es,en}.json` | Titulos, subtitulos, eyebrows, CTAs, microcopy, labels, navegacion, footer copy, mensajes prellenados de WhatsApp | Dev / agencia | Lanzamiento + cambios puntuales |
+| **B. Datos operativos** | WP Options Page (singleton) | Telefono, WhatsApp, email, direccion, redes sociales, logo (asset) | Cliente desde WP | Mensual / cuando cambian datos reales |
+| **C. Contenido dinamico** | WP CPTs | Proyectos, blog, galerias, testimonios, equipo, selector de cuales aparecen en home | Cliente desde WP | Recurrente, parte del negocio |
+
+**Regla de decision:** ¿el cliente lo edita mas de 2 veces al ano? Si no → Tier A (JSON). Si es un dato puntual operativo → Tier B (Options). Si es una coleccion que crece → Tier C (CPT).
+
+### Consecuencias para la arquitectura
+
+- Las queries GraphQL (`lib/graphql/queries/*.graphql`) son **delgadas**: solo Tier B + Tier C.
+- Los fetchers (`lib/wordpress/get*.ts`) devuelven solo Tier B + Tier C tipado.
+- Los componentes de seccion consumen Tier A via `getTranslations`/`useTranslations` (RSC y client) y reciben Tier B/C como props desde `app/[locale]/page.tsx`.
+- `wp-config.json.fields` y `bridge-fields.json` solo listan Tier B/C (mirror obligatorio).
+- Las constantes estructurales que acompanan el copy (keys de cards, numeros de pasos, iconos por seccion) viven como `const` en el componente cliente — no en WP, no en JSON. Son codigo.
+
+### Cuando escalar de A a B
+
+Solo si un cliente especifico exige editar copy estatico sin contactar al dev. Mover **ese campo concreto** a WP **solo para ese cliente**. Nunca evolucionar el motor para acomodar la peticion de un cliente puntual — eso rompe la promesa de replicacion rapida.
+
+---
+
+## 8. Lo que NO debes hacer (arquitectura)
 
 - Usar Pages Router.
 - Usar `any` en TypeScript.

@@ -29,10 +29,6 @@ const wpConfigSchema = z.object({
     proyecto: z.record(z.string(), z.string()),
     general: z.record(z.string(), z.string()),
   }),
-  iconMap: z.object({
-    problems: z.record(z.string(), z.string()),
-    process: z.record(z.string(), z.string()),
-  }),
 });
 
 export type WpConfig = z.infer<typeof wpConfigSchema>;

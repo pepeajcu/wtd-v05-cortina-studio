@@ -16,57 +16,26 @@
   },
   "home-singleton": {
     "scalar": [
-      "hero_eyebrow",
-      "hero_title",
-      "hero_subtitle",
       "hero_image",
-      "hero_image_caption",
-      "hero_cta_label",
-      "hero_cta_message",
-      "problems_eyebrow",
-      "problems_title",
-      "problems_subtitle",
-      "reels_eyebrow",
-      "reels_title",
-      "reels_subtitle",
-      "reels_cta_text",
-      "reels_cta_button",
-      "reels_whatsapp_message",
-      "process_eyebrow",
-      "process_title_prefix_m",
-      "process_title_prefix_f",
-      "process_title_suffix",
-      "process_subtitle",
-      "process_cta_label"
+      "hero_image_caption"
     ],
     "repeater": [
-      "problems_cards",
-      "reels_selected",
-      "process_rotating_words",
-      "process_steps"
+      "reels_selected"
     ]
   },
   "_options": {
     "general": {
       "scalar": [
         "whatsapp_number",
-        "whatsapp_default_message",
         "contact_phone",
         "contact_email",
         "contact_address",
         "social_instagram",
         "social_tiktok",
         "social_facebook",
-        "brand_name",
-        "brand_logo",
-        "footer_cta_title",
-        "footer_cta_description",
-        "footer_cta_button",
-        "footer_copyright"
+        "brand_logo"
       ],
-      "repeater": [
-        "nav_items"
-      ]
+      "repeater": []
     }
   }
 }

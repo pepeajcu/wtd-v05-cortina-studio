@@ -3,39 +3,12 @@ query GetHome {
     nodes {
       id
 
-      # Hero
-      heroEyebrow
-      heroTitle
-      heroSubtitle
+      # Hero (asset + caption)
       heroImage
       heroImageCaption
-      heroCtaLabel
-      heroCtaMessage
 
-      # Problems
-      problemsEyebrow
-      problemsTitle
-      problemsSubtitle
-      problemsCards        # repeater → JSON string
-
-      # Reels
-      reelsEyebrow
-      reelsTitle
-      reelsSubtitle
-      reelsSelected        # repeater → JSON string
-      reelsCtaText
-      reelsCtaButton
-      reelsWhatsappMessage
-
-      # Process
-      processEyebrow
-      processTitlePrefixM
-      processTitlePrefixF
-      processTitleSuffix
-      processRotatingWords # repeater → JSON string
-      processSubtitle
-      processCtaLabel
-      processSteps         # repeater → JSON string
+      # Reels: selector de proyectos (IDs); el copy va en messages/{locale}.json
+      reelsSelected         # repeater → JSON string
     }
   }
 }

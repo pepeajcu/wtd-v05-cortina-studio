@@ -22,38 +22,11 @@
   "fields": {
     "home": {
       "hero": {
-        "eyebrow": "hero_eyebrow",
-        "title": "hero_title",
-        "subtitle": "hero_subtitle",
         "image": "hero_image",
-        "imageCaption": "hero_image_caption",
-        "ctaLabel": "hero_cta_label",
-        "ctaMessage": "hero_cta_message"
-      },
-      "problems": {
-        "eyebrow": "problems_eyebrow",
-        "title": "problems_title",
-        "subtitle": "problems_subtitle",
-        "cards": "problems_cards"
+        "imageCaption": "hero_image_caption"
       },
       "reels": {
-        "eyebrow": "reels_eyebrow",
-        "title": "reels_title",
-        "subtitle": "reels_subtitle",
-        "selected": "reels_selected",
-        "ctaText": "reels_cta_text",
-        "ctaButton": "reels_cta_button",
-        "whatsappMessage": "reels_whatsapp_message"
-      },
-      "process": {
-        "eyebrow": "process_eyebrow",
-        "titlePrefixM": "process_title_prefix_m",
-        "titlePrefixF": "process_title_prefix_f",
-        "titleSuffix": "process_title_suffix",
-        "rotatingWords": "process_rotating_words",
-        "subtitle": "process_subtitle",
-        "ctaLabel": "process_cta_label",
-        "steps": "process_steps"
+        "selected": "reels_selected"
       }
     },
     "proyecto": {
@@ -70,24 +43,13 @@
     },
     "general": {
       "whatsappNumber": "whatsapp_number",
-      "whatsappDefaultMessage": "whatsapp_default_message",
       "contactPhone": "contact_phone",
       "contactEmail": "contact_email",
       "contactAddress": "contact_address",
       "socialInstagram": "social_instagram",
       "socialTiktok": "social_tiktok",
       "socialFacebook": "social_facebook",
-      "brandName": "brand_name",
-      "brandLogo": "brand_logo",
-      "footerCtaTitle": "footer_cta_title",
-      "footerCtaDescription": "footer_cta_description",
-      "footerCtaButton": "footer_cta_button",
-      "footerCopyright": "footer_copyright",
-      "navItems": "nav_items"
+      "brandLogo": "brand_logo"
     }
-  },
-  "iconMap": {
-    "problems": { "heat": "Thermometer", "privacy": "EyeOff", "noise": "VolumeX", "decor": "Sparkles" },
-    "process": { "whatsapp": "WhatsApp", "mappin": "MapPin", "palette": "Palette", "wrench": "Wrench" }
   }
 }

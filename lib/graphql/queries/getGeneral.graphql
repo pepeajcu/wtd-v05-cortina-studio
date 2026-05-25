@@ -2,7 +2,6 @@ query GetGeneral {
   general {
     # Contacto / WhatsApp
     whatsappNumber
-    whatsappDefaultMessage
     contactPhone
     contactEmail
     contactAddress
@@ -12,18 +11,7 @@ query GetGeneral {
     socialTiktok
     socialFacebook
 
-    # Marca
-    brandName
+    # Asset de marca
     brandLogo
-
-    # Footer CTA
-    footerCtaTitle
-    footerCtaDescription
-    footerCtaButton
-    footerCopyright
-
-    # Navegacion (repeater Options Page → JSON string,
-    # shape `{item-N: {nav_items_label, nav_items_url, nav_items_order}}`)
-    navItems
   }
 }

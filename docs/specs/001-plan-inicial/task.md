@@ -103,7 +103,7 @@
 
 ## Fase 3 — Queries, fetchers y tipos generados
 
-> Estado: 🔶 Parcial al 2026-05-15. Codigo de fetchers validado contra CMS real (bug `.toString()` corregido); `getProyectos` y `getGeneral` retornan datos reales. `getHome` bloqueado por contenido en WP que no respeta el contrato del repeater (ver 3.6).
+> Estado: ✅ Completa al 2026-05-16. Los 3 fetchers retornan datos reales validados contra CMS. Contenido escalar del Home aun tiene placeholders/typos que el cliente corregira durante Fase 4; no bloquea cierre de Fase 3 (contrato de repeaters validado).
 
 ### 3.1 Variables de entorno
 
@@ -134,47 +134,56 @@
 
 - [x] `npx tsc --noEmit` — 0 errores nuevos en archivos de Fase 3 (queda 1 error preexistente en `components/ui/ReelCard.tsx`: `Instagram` no exportado por `lucide-react`, fuera de scope).
 - [x] `npm run codegen` ejecutado contra el nuevo endpoint `https://cortinastudio.gainweb.site/graphql` — tipo `General` y `GetGeneralDocument` ya generados; `getGeneral.ts` refactorizado para usarlos.
-- [~] Los fetchers retornan datos reales en una prueba manual (validado 2026-05-15 via route handler temporal `/api/debug/fetchers`).
-  - `getProyectos` ✅ — 1 proyecto real con video.
-  - `getGeneral` ✅ — whatsappNumber, brandName, navItems (parseo `nav_items_*` correcto).
-  - `getHome` ❌ datos — el post `home-singleton` existe en WP (ID 26) pero los sub-campos de los 4 repeaters no respetan el contrato `proposal.md §4.4` ni los schemas Zod de `getHome.ts`:
-    - `problems_cards` viene con keys `problemas_icono`, `problemas_title`, `problemas_descripcion` (esperado: `icon`, `title`, `description`, `key`).
-    - `process_steps` viene con `proceso_icon`, `proceso_title`, `proceso_description` (esperado: `icon`, `title`, `description`, `number`).
-    - `process_rotating_words` viene `null` (esperado: array con `word`/`gender`).
-    - `reels_selected` viene como string literal `"reels_selected"` (esperado: Relacion N→1 a CPT `proyecto`).
-  - Cierre del bullet pendiente al corregir el contenido en JetEngine; se cubrira en Fase 4 al migrar el Home.
-  - **Bug corregido en motor:** `wpFetch` recibia `GetXDocument.toString()` que produce `"[object Object]"` (los `Documents` son `DocumentNode` AST, no strings); `lib/wordpress/client.ts` ahora acepta `string | DocumentNode` y aplica `print()` de `graphql` para serializar.
-  - **Mismatch motor vs spec detectado:** `getHome.ts` exige `key` en `problemCardSchema` y `number` (1-4) en `processStepSchema`; ninguno aparece en `proposal.md §4.4`. Decision pendiente: agregar esos sub-campos en JetEngine, o sacarlos del schema Zod.
+- [x] Los fetchers retornan datos reales en una prueba manual (validado 2026-05-16 via route handler temporal `/api/debug/fetchers`).
+  - `getProyectos` ✅ — 1 proyecto real con video (validado 2026-05-15).
+  - `getGeneral` ✅ — whatsappNumber, brandName, navItems (parseo `nav_items_*` correcto, validado 2026-05-15).
+  - `getHome` ✅ — `problems_cards` (4), `reels_selected` (3 IDs), `process_rotating_words` (4), `process_steps` (4) parsean limpio contra los schemas Zod. Validado 2026-05-16 tras corregir contenido en JetEngine segun `HOME-SINGLETON-CONTENIDO.md`.
+    - **Pendiente no-bloqueante:** varios campos escalares del Home (`hero.eyebrow/title/imageCaption/...`, `problems.eyebrow/title/subtitle`, `reels.*`, `process.eyebrow/subtitle/ctaLabel`) aun contienen el nombre del campo como placeholder. Algunos typos en copy real (`hornod` → `horno`, `buttond` → `button`, `titlePrefixM` cortado, etc.). El cliente los corregira durante Fase 4 al editar contenido. No bloquea cierre del bullet ni de Fase 3.
+  - **Bug corregido en motor (2026-05-15):** `wpFetch` recibia `GetXDocument.toString()` que produce `"[object Object]"` (los `Documents` son `DocumentNode` AST, no strings); `lib/wordpress/client.ts` ahora acepta `string | DocumentNode` y aplica `print()` de `graphql` para serializar.
+  - **Mismatch motor vs spec resuelto:** `getHome.ts` exige `key` en `problemCardSchema` y `number` (1-4) en `processStepSchema`; se opto por agregar esos sub-campos en JetEngine (no se relajo el schema Zod). Decision documentada en `memoryLTS/memory_2026-05-15-2.md`.
 
 ---
 
 ## Fase 4 — Migracion del Home
 
-- [ ] Convertir `app/[locale]/page.tsx` a RSC que llame `getHome()`, `getProyectos()` y `getGeneral()`.
-- [ ] Pasar datos por props a las secciones (`HeroSection`, `ProblemsSection`, `ReelsSection`, `ProcessSection`).
-- [ ] Actualizar los tipos de props de cada seccion para recibir datos desde WP (en lugar de los arrays hardcodeados).
-- [ ] Eliminar arrays hardcodeados: `REELS`, `PROBLEMS`, `STEPS` y cualquier constante de contenido del archivo.
-- [ ] Reemplazar `502XXXXXXXX` literal por `general.whatsappNumber` desde la query.
-- [ ] Verificar que el sitio se ve igual con datos reales de WP.
+> Estado: ✅ Codigo completo al 2026-05-16. Pendiente unica verificacion: prueba end-to-end del webhook (bullet final).
+> **Hallazgos:**
+> 1. El bridge devuelve attachment IDs crudos para campos Media de JetEngine. Workaround: nuevo fetcher `lib/wordpress/getMediaUrls.ts` que resuelve IDs a URLs via `mediaItems(where: { in: [...] })`. Centralizado en `page.tsx`. Solucion ideal pendiente: agregar tipo `media` al plugin `cortinastudio-wpgraphql-bridge`.
+> 2. WPGraphQL solo popula `sourceUrl` para imagenes; para videos usar `mediaItemUrl`. La query `getMediaUrls.graphql` pide ambos y el fetcher cae primero en `mediaItemUrl`.
+> 3. Cleanup colateral: removidos imports muertos en `components/ui/ReelCard.tsx` (`Link`, `motion`, `AnimatePresence`, `Instagram`, `Music2`) y typeo de `ease` en `FadeInStagger.tsx` (de `any` a tupla numerica). Eran preexistentes pero bloqueaban `next build`.
+
+- [x] Convertir `app/[locale]/page.tsx` a RSC que llame `getHome()`, `getProyectos()` y `getGeneral()`. (Tambien `getMediaUrls()` para resolver attachments.)
+- [x] Pasar datos por props a las secciones (`Hero`, `ProblemsSection`, `ReelsSection`, `ProcessSection`).
+- [x] Actualizar los tipos de props de cada seccion para recibir datos desde WP (en lugar de los arrays hardcodeados). Tipos derivan de `HomeData[seccion]` para no duplicar.
+- [x] Eliminar arrays hardcodeados: `REELS`, `PROBLEMS`, `STEPS` y cualquier constante de contenido del archivo. Iconos resueltos via nuevo helper `lib/iconMap.tsx` (registry unificado: Lucide names + slugs; `whatsapp` es SVG custom local).
+- [x] Reemplazar `502XXXXXXXX` literal por `general.whatsappNumber` desde la query (Hero, ReelsSection y ProcessSection).
+- [x] Verificar que el sitio se ve igual con datos reales de WP. (Confirmado por usuario 2026-05-16, incluido carrusel de videos tras fix de `mediaItemUrl`.)
+
+### Cambios al motor en Fase 4
+
+- `lib/iconMap.tsx` — nuevo helper de iconos (motor, no cliente).
+- `lib/wordpress/getMediaUrls.ts` + `lib/graphql/queries/getMediaUrls.graphql` — resolucion de attachment IDs (motor).
+- `lib/wordpress/getProyectos.ts` + query — agregado `databaseId` para hacer match con `reels.selected`.
+- `lib/wordpress/tags.ts` — nuevo tag `wp:media` para cache.
 
 ### Verificacion Fase 4
 
-- [ ] `npx tsc --noEmit` — 0 errores.
-- [ ] `npm run lint` — sin errores.
-- [ ] `npm run build` — build exitoso con `.env.local` configurado.
-- [ ] El Home carga correctamente en `http://localhost:3000`.
-- [ ] Editar un campo en WP → guardar → el webhook dispara → el cambio se refleja en el frontend en < 5 segundos.
+- [x] `npx tsc --noEmit` — 0 errores.
+- [x] `npm run lint` — sin errores.
+- [x] `npm run build` — build exitoso con `.env.local` configurado; SSG de `/es` y `/en`.
+- [x] El Home carga correctamente en `http://localhost:3000`.
+- [~] Editar un campo en WP → guardar → el cambio se refleja en el frontend en < 5 segundos. Validado en `next dev` (refresh inmediato; dev no cachea fetches). Validacion estricta del webhook + `revalidateTag` solo aplica en `next start`/deploy y requiere tunel o sitio publicado — pendiente para Fase 5.
 
 ---
 
 ## Fase 5 — QA y replicacion
 
-- [ ] Validar revalidacion en todos los CPTs: cambio en `home` invalida `wp:home`, cambio en `proyecto` invalida `wp:proyectos`, etc.
+- [ ] Validar revalidacion en todos los CPTs: cambio en `home` invalida `wp:home`, cambio en `proyecto` invalida `wp:proyectos`, etc. *(Bloqueado por deploy/tunel — diferido hasta que el sitio este publicado.)*
 - [ ] Validar fallback si WP esta caido: el sitio muestra `notFound()` o datos en cache; no crashea.
-- [ ] Validar que los iconos del Repeater `problems_cards` mapean correctamente a Lucide via `iconMap`.
-- [ ] Exportar setup de JetEngine (JetEngine → Tools → Export) y guardar el JSON en `recursos/` como plantilla de fabrica.
-- [ ] Documentar el playbook de replicacion en `README.md` del proyecto: clonar → editar `wp-config.json` + `.env.local` → `npm run codegen` → deploy.
-- [ ] Verificar que un segundo proyecto nuevo puede conectarse a otro WP solo editando `wp-config.json` y `.env.local`.
+- [x] Validar que los iconos del Repeater `problems_cards` mapean correctamente a Lucide via `iconMap`. *(2026-05-16: los 8 nombres del CMS — `Thermometer`/`EyeOff`/`VolumeX`/`Sparkles` en `problems_cards` y `whatsapp`/`mappin`/`palette`/`wrench` en `process_steps` — resuelven contra el REGISTRY de `lib/iconMap.tsx`. Corregido mismatch en `wp-config.json.iconMap.process` que declaraba valores PascalCase no presentes en el CMS ni en el REGISTRY; ahora los valores reflejan los slugs lowercase reales.)*
+- [~] Exportar setup de JetEngine (JetEngine → Tools → Export) y guardar el JSON en `recursos/` como plantilla de fabrica. *(2026-05-16: la accion de export la realiza el usuario en el panel WP; `recursos/README.md` documenta el procedimiento y el nombre/ubicacion esperados del archivo `jetengine-cortinastudio.json`.)*
+- [x] Documentar el playbook de replicacion en `README.md` del proyecto: clonar → editar `wp-config.json` + `.env.local` → `npm run codegen` → deploy. *(2026-05-16: `README.md` reescrito completo — reglas no negociables, setup, scripts, estructura, playbook por fase y referencias a skills.)*
+- [ ] Verificar que un segundo proyecto nuevo puede conectarse a otro WP solo editando `wp-config.json` y `.env.local`. *(Pendiente cliente real para probar end-to-end.)*
 
 ---
 

@@ -12,11 +12,15 @@
     "open_menu": "Open menu",
     "close_menu": "Close menu"
   },
+  "brand": {
+    "name": "Cortina Studio"
+  },
   "hero": {
     "eyebrow": "Premium Design & Quality",
     "title": "Transform your home with the elegance of Cortina Studio",
     "subtitle": "Sophisticated curtain solutions that harmonize light, privacy, and rest in every space.",
-    "cta_whatsapp": "Get a Quote via WhatsApp"
+    "cta_label": "Get a Quote via WhatsApp",
+    "cta_whatsapp_message": "Hello, I saw your site and I'd like to get a quote for curtains for my home."
   },
   "problems": {
     "eyebrow": "Your spaces, your peace",
@@ -62,17 +66,35 @@
     "title_prefix_m": "Your new",
     "title_prefix_f": "Your new",
     "title_suffix": "in 4 steps",
-    "rotating_words": "home:m,space:m,room:f,bedroom:m,atmosphere:m,office:f",
+    "rotating_words": [
+      { "text": "home", "gender": "m" },
+      { "text": "space", "gender": "m" },
+      { "text": "room", "gender": "f" },
+      { "text": "bedroom", "gender": "m" },
+      { "text": "atmosphere", "gender": "m" },
+      { "text": "office", "gender": "f" }
+    ],
     "subtitle": "Getting started is easier than you imagine.",
-    "cta": "Start now",
-    "step_1_title": "Write to us on WhatsApp",
-    "step_1_desc": "Tell us what problem you want to solve. No commitment.",
-    "step_2_title": "Free visit and advisory",
-    "step_2_desc": "We visit your home, measure and advise you on site.",
-    "step_3_title": "Design and quote",
-    "step_3_desc": "We present options adapted to your style and budget.",
-    "step_4_title": "Professional installation",
-    "step_4_desc": "We take care of everything. You just enjoy the result."
+    "cta_label": "Start now",
+    "cta_whatsapp_message": "Hello, I'd like to start the process to quote curtains for my space.",
+    "steps": {
+      "step_1": {
+        "title": "Write to us on WhatsApp",
+        "desc": "Tell us what problem you want to solve. No commitment."
+      },
+      "step_2": {
+        "title": "Free visit and advisory",
+        "desc": "We visit your home, measure and advise you on site."
+      },
+      "step_3": {
+        "title": "Design and quote",
+        "desc": "We present options adapted to your style and budget."
+      },
+      "step_4": {
+        "title": "Professional installation",
+        "desc": "We take care of everything. You just enjoy the result."
+      }
+    }
   },
   "footer": {
     "company": "Company",

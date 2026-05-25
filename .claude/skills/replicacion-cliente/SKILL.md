@@ -14,10 +14,13 @@ description: Checklist de Fase 1-4 para levantar un cliente nuevo desde el repo 
 | # | Archivo | Que llevar del cliente | Quien lo edita |
 |---|---|---|---|
 | 1 | `client-brief.json` | Paleta, tipografias, **`design_system.vibe`** (`high-end` \| `minimalist` \| `brutalist`), **`design_system.motion`** (`calm` \| `fluid` \| `perpetual`), audiencia, estructura de paginas | Dev/Disenador (input creativo) |
-| 2 | `wp-config.json` | `endpoint`, `siteUrl`, `cpt.*` (slug, single, plural, limit), `fields.*.{seccion}.{campo}` (meta keys), `iconMap` | Dev (Fase 1 del cliente) |
-| 3 | `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json` | Lista plana de meta keys por CPT (`scalar` y `repeater`) | Dev (Fase 2 del cliente) — debe espejar el #2 |
-| 4 | `tailwind.config.ts` | `colors.*` y `fontFamily.*` derivados del brief; resto sin tocar | Dev (Fase 1) |
-| 5 | `messages/{es,en}.json` | Eyebrows, labels, errores, microcopy de UI | Dev a medida que construye secciones |
+| 2 | `messages/{es,en}.json` | **Tier A completo**: copy de marca (hero, problems, reels, process, footer), navegacion, microcopy, mensajes prellenados de WhatsApp. Es la fuente de verdad del copy del sitio | Dev (Fase 1 del cliente) |
+| 3 | `wp-config.json` | `endpoint`, `siteUrl`, `cpt.*` (slug, single, plural, limit), `fields.*.{seccion}.{campo}` solo Tier B/C (operativo y dinamico) | Dev (Fase 1 del cliente) |
+| 4 | `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json` | Lista plana de meta keys solo Tier B/C — debe espejar el #3 | Dev (Fase 2 del cliente) |
+| 5 | `tailwind.config.ts` | `colors.*` y `fontFamily.*` derivados del brief; resto sin tocar | Dev (Fase 1) |
+| 6 | `app/[locale]/page.tsx` y `components/sections/*` | Constantes estructurales (keys de cards, iconos por seccion); el copy viene de `messages/` | Dev (Fase 1 / Fase 4) |
+
+**Cambio de modelo importante:** el copy no se sube a WP. Solo van a WP datos operativos (contacto/redes/assets — Tier B) y contenido dinamico que el cliente edita recurrente (proyectos, blog — Tier C). Detalle del marco de 3 tiers en `arquitectura-fabrica` seccion 7.
 
 ---
 
@@ -44,18 +47,19 @@ Si necesitas cambiar algo de esta lista, **es una evolucion de la fabrica**, no 
 - [ ] Reemplazar `client-brief.json` con el del nuevo cliente. Confirmar que **`design_system.vibe`** y **`design_system.motion`** esten poblados con valores validos del enum (si faltan, definirlos con el cliente antes de avanzar — sin esos campos `diseno-fabrica` no puede seleccionar familia ni preset de motion).
 - [ ] Mapear colores y tipografias del brief en `tailwind.config.ts`.
 - [ ] Cargar fuentes con `next/font/google` en `app/[locale]/layout.tsx`.
-- [ ] Editar `wp-config.json`: `endpoint`, `siteUrl`, `cpt.*`, `fields.*` placeholders (los meta keys finales se confirman tras crear los CPTs en WP).
+- [ ] **Llenar `messages/es.json` y `messages/en.json` con el copy completo del cliente** (Tier A: hero, problems, reels, process, footer, nav, microcopy). Si el brief trae los textos en un solo idioma, traducir antes de avanzar.
+- [ ] Editar `wp-config.json`: `endpoint`, `siteUrl`, `cpt.*`, `fields.*` **solo Tier B/C** (contacto/redes/assets + colecciones dinamicas — nada de copy).
 - [ ] Crear `.env.local` con `NEXT_PUBLIC_WORDPRESS_API_URL`, `WORDPRESS_REVALIDATION_SECRET`, `NEXT_PUBLIC_SITE_URL`.
 - [ ] `npx tsc --noEmit` sin errores nuevos.
 
-### Backend WordPress (Fase 2 del cliente)
+### Backend WordPress (Fase 2 del cliente) — solo Tier B/C
 
 - [ ] WP nuevo con HTTPS y dominio propio (`cms.<dominio>`).
 - [ ] Instalar y activar: WPGraphQL, JetEngine, Rank Math, WP Webhooks (ver `wordpress-bridge`).
 - [ ] Subir el plugin `cortinastudio-wpgraphql-bridge` a `wp-content/plugins/`. Activarlo.
-- [ ] Crear los CPTs en JetEngine. Anotar los slugs reales.
-- [ ] En cada CPT crear los meta fields (scalar y repeater). Anotar los meta keys.
-- [ ] Editar `bridge-fields.json` del plugin con los meta keys exactos. Subir el archivo actualizado al servidor (FTP/SSH/UI del plugin).
+- [ ] Crear **solo los CPTs que aportan contenido dinamico** (Tier C: proyectos, blog, testimonios). Para datos operativos puntuales (Tier B) usar Options Page (`general`). Anotar los slugs reales.
+- [ ] En cada CPT/Options crear **solo los meta fields que el cliente realmente edita** (telefonos, redes, assets, campos editoriales del CPT dinamico). No subir copy de hero/secciones — eso vive en `messages/`.
+- [ ] Editar `bridge-fields.json` del plugin con los meta keys exactos (Tier B/C unicamente). Subir el archivo actualizado al servidor (FTP/SSH/UI del plugin).
 - [ ] Verificar en `Settings → WPGraphQL Bridge` que los CPTs aparezcan como "Expuesto" y los fields como configurados.
 - [ ] Validar en GraphiQL IDE que los queries devuelvan datos.
 - [ ] Configurar webhooks en `WP Webhooks → Send Data`.
@@ -109,11 +113,12 @@ Si necesitas cambiar algo de esta lista, **es una evolucion de la fabrica**, no 
 ## 6. Estado actual del repo (Cortina Studio como ocupante)
 
 - **Fase 1 — Base de fabrica** [completa]: `lib/wordpress/`, `wp-config.json`, `/api/revalidate`, codegen y `.env.example`.
-- **Fase 2 — Backend WordPress** [completa]: plugin `cortinastudio-wpgraphql-bridge` v3.0.0 instalado, CPTs (`proyectos`, `home-singleton`) expuestos a WPGraphQL, fields validados en GraphiQL.
-- **Fase 3 — Queries y fetchers** [pendiente]: crear `.graphql` por seccion + `getHome()`, `getProyectos()` en `lib/wordpress/`, correr `npm run codegen`.
-- **Fase 4 — Conectar componentes** [pendiente]: reemplazar arrays estaticos en `components/sections/*` por props que vengan de los fetchers.
+- **Fase 2 — Backend WordPress** [completa]: plugin `cortinastudio-wpgraphql-bridge` v3.0.0 instalado, CPTs (`proyectos`, `home-singleton`) y Options Page `general` expuestos a WPGraphQL.
+- **Fase 3 — Queries y fetchers** [completa]: `.graphql` adelgazados a Tier B/C (`getHome`, `getGeneral`, `getProyectos`, `getMediaUrls`); fetchers tipados; Zod en repeaters.
+- **Fase 4 — Conectar componentes** [completa]: secciones consumen Tier A via `getTranslations`/`useTranslations`; reciben Tier B/C como props desde `app/[locale]/page.tsx`.
+- **Limpieza WP pendiente:** borrar de JetEngine los meta fields de copy migrados a JSON. Ver `recursos/LIMPIEZA_WP_CORTINA.md` para la lista exacta.
 
-Para cualquier cliente nuevo, las Fases 1 y 2 ya estan resueltas conceptualmente — la replicacion se concentra en personalizar los archivos de la columna izquierda y ejecutar las Fases 3 y 4.
+Para cualquier cliente nuevo, las Fases 1 y 2 ya estan resueltas conceptualmente — la replicacion se concentra en personalizar los archivos de la columna izquierda (especialmente `messages/{es,en}.json`) y ejecutar las Fases 3 y 4 con setup WP minimo (~10 campos vs los ~35 del modelo anterior).
 
 ---
 

@@ -63,6 +63,37 @@ Vive en `wordpress/plugins/cortinastudio-wpgraphql-bridge/`. Se compone de **dos
 }
 ```
 
+**`bridge-fields.json` solo contiene Tier B (operativo) y Tier C (dinamico).** El copy de marca (titulos, eyebrows, CTAs, microcopy) vive en `messages/{locale}.json` y nunca aparece aqui. Ver `arquitectura-fabrica` seccion 7 para el marco completo de 3 tiers.
+
+**Referencia: ejemplo minimo validado en Cortina Studio** (post-refactor 2026-05-17):
+
+```json
+{
+  "proyectos": {
+    "scalar": [
+      "video", "video_poster", "video_alt", "platform", "original_url",
+      "space_type", "client_problem", "solution", "benefit", "solution_summary"
+    ],
+    "repeater": []
+  },
+  "home-singleton": {
+    "scalar": ["hero_image", "hero_image_caption"],
+    "repeater": ["reels_selected"]
+  },
+  "_options": {
+    "general": {
+      "scalar": [
+        "whatsapp_number", "contact_phone", "contact_email", "contact_address",
+        "social_instagram", "social_tiktok", "social_facebook", "brand_logo"
+      ],
+      "repeater": []
+    }
+  }
+}
+```
+
+Total: 11 campos en WP (vs ~35 en el modelo anterior donde todo el copy estaba en WP). Reduccion del 68% en setup por cliente.
+
 **Regla de oro (MIRROR OBLIGATORIO):** lo que aparece como meta_key en `bridge-fields.json` debe aparecer (en camelCase) bajo `wp-config.json.fields.<cpt>.*`. Si no, el frontend pedira un campo que el backend no expone, o viceversa. Cuando se modifica uno, modificar el otro en el mismo PR.
 
 ---

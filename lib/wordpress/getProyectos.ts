@@ -4,6 +4,7 @@ import { GetProyectosDocument, type GetProyectosQuery } from '@/lib/graphql/gene
 
 export interface ProyectoData {
   id: string;
+  databaseId: number;
   title: string;
   slug: string;
   video: string;
@@ -27,6 +28,7 @@ export async function getProyectos(): Promise<ProyectoData[]> {
 
   return nodes.map((n) => ({
     id: n.id,
+    databaseId: n.databaseId,
     title: n.title ?? '',
     slug: n.slug ?? '',
     video: n.video ?? '',

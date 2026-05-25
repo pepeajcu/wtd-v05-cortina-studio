@@ -2,6 +2,7 @@ export const WP_TAGS = {
   home: 'wp:home',
   proyectos: 'wp:proyectos',
   general: 'wp:general',
+  media: 'wp:media',
 } as const;
 
 export type WpTag = (typeof WP_TAGS)[keyof typeof WP_TAGS];

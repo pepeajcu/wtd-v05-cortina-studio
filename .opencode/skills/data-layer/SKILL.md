@@ -39,10 +39,11 @@ Como fluyen los datos del CMS al RSC. La capa `lib/wordpress/` es **codigo de fa
   "options": { "general": "general" },
   "fields": {
     "<cpt-key>": { "<seccion>": { "<campo>": "<meta_key>" } }
-  },
-  "iconMap": { "<grupo>": { "<key>": "<LucideIconName>" } }
+  }
 }
 ```
+
+**Solo Tier B/C va aqui** (ver `arquitectura-fabrica` seccion 7): assets, datos operativos del cliente, campos editoriales de CPTs dinamicos. El copy estatico (titulos, eyebrows, CTAs, microcopy) vive en `messages/{locale}.json`, no en `wp-config.json.fields`.
 
 `endpoint` se sobreescribe en runtime con `process.env.NEXT_PUBLIC_WORDPRESS_API_URL` cuando exista. Asi mismo codigo apunta a CMS distintos en dev/staging/prod.
 
@@ -93,17 +94,14 @@ const STEPS: Step[] = [
 ## 4. GraphQL — Estructura de Queries
 
 ```graphql
-# lib/graphql/queries/getHome.graphql (ejemplo de plantilla)
+# lib/graphql/queries/getHome.graphql (ejemplo de plantilla — solo Tier B/C)
 query GetHome {
   homeSingletons(first: 1) {
     nodes {
       id
-      heroEyebrow
-      heroTitle
-      heroSubtitle
-      heroImage
-      problemsCards    # repeater → JSON string, parsear en el fetcher
-      processSteps     # repeater → JSON string
+      heroImage             # asset (Tier B)
+      heroImageCaption      # texto pegado al asset (Tier B, monolingue)
+      reelsSelected         # repeater de IDs de proyectos a destacar (Tier C selector)
     }
   }
 }
@@ -111,9 +109,10 @@ query GetHome {
 
 **Reglas:**
 - Un archivo `.graphql` por dominio (Home, Proyectos, General). No mezclar dominios.
+- Solo se piden campos Tier B/C. El copy estatico no vive en WP.
 - Fragments nombrados por destino: `HomeHeroFragment`, `ProyectoCardFragment`.
 - Repeaters se nombran exactamente como en `bridge-fields.json` (camelCase) y se documentan como "JSON string" en el comentario.
-- Para multi-idioma con WPML/Polylang: pasar `$language: LanguageCodeEnum!` cuando el plugin de i18n este activo. Si el cliente no usa multi-idioma en WP, el i18n vive solo en `messages/{locale}.json` (ver `i18n-fabrica`).
+- Para multi-idioma con WPML/Polylang: pasar `$language: LanguageCodeEnum!` cuando el plugin de i18n este activo. Para Tier A i18n vive en `messages/{locale}.json` (ver `i18n-fabrica`).
 - Naming de query y tipo: derivado del slug del CPT por el plugin. Verificar en GraphiQL antes de escribir (ver `wordpress-bridge`).
 
 ---
@@ -121,26 +120,23 @@ query GetHome {
 ## 5. Funcion de Fetch Tipada
 
 ```ts
-// lib/wordpress/getHome.ts (plantilla)
+// lib/wordpress/getHome.ts (plantilla — solo Tier B/C)
 import { z } from 'zod';
 import { wpFetch, WP_TAGS } from '@/lib/wordpress';
 import { GetHomeDocument, type GetHomeQuery } from '@/lib/graphql/generated';
 
-const problemCardSchema = z.object({
-  key: z.string(),
-  title: z.string(),
-  description: z.string(),
-  iconKey: z.string(),
-});
-const problemCardsSchema = z.array(problemCardSchema);
+const reelSelectedSchema = z.object({
+  id: z.union([z.string(), z.number()]).optional(),
+  slug: z.string().min(1).optional(),
+}).passthrough();
 
 export interface HomeData {
-  hero: { eyebrow: string; title: string; subtitle: string; image: string | null };
-  problems: { cards: z.infer<typeof problemCardSchema>[] };
+  hero: { image: string | null; imageCaption: string };
+  reels: { selected: z.infer<typeof reelSelectedSchema>[] };
 }
 
 export async function getHome(): Promise<HomeData> {
-  const data = await wpFetch<GetHomeQuery>(GetHomeDocument.toString(), undefined, {
+  const data = await wpFetch<GetHomeQuery>(GetHomeDocument, undefined, {
     tags: [WP_TAGS.home],
   });
 
@@ -149,13 +145,11 @@ export async function getHome(): Promise<HomeData> {
 
   return {
     hero: {
-      eyebrow:  node.heroEyebrow  ?? '',
-      title:    node.heroTitle    ?? '',
-      subtitle: node.heroSubtitle ?? '',
-      image:    node.heroImage    ?? null,
+      image:        node.heroImage        ?? null,
+      imageCaption: node.heroImageCaption ?? '',
     },
-    problems: {
-      cards: problemCardsSchema.parse(JSON.parse(node.problemsCards ?? '[]')),
+    reels: {
+      selected: z.array(reelSelectedSchema).parse(parseRepeater(node.reelsSelected)),
     },
   };
 }
@@ -164,30 +158,41 @@ export async function getHome(): Promise<HomeData> {
 **Reglas del fetcher:**
 - Siempre `wpFetch` + tag de `WP_TAGS`. Nunca `fetch` directo.
 - Siempre Zod en frontera para repeaters (vienen como JSON string sin tipos).
-- Devuelve el shape exacto que consume el componente; sin `null`s sueltos cuando hay defaults posibles.
-- El fetcher debe devolver tipos que coincidan con las props que el componente ya consumia — la migracion estatico→dinamico no debe forzar a cambiar el componente.
+- Devuelve **solo Tier B/C tipado**. El copy se consume desde i18n en el componente, no se pasa por el fetcher.
+- Devuelve el shape exacto que consume `app/[locale]/page.tsx`; sin `null`s sueltos cuando hay defaults posibles.
+- Las constantes estructurales (keys de cards, numeros de pasos, iconos) viven como `const` en el componente — no en el fetcher, no en WP.
 
 ---
 
-## 6. Migracion estatico → WordPress (Fase 3 → 4 de cada cliente)
+## 6. Donde vive cada dato (tier-based)
+
+Antes de pedir un campo en GraphQL, decide su tier (ver `arquitectura-fabrica` seccion 7):
+
+| Tier | Dato | Fuente |
+|---|---|---|
+| **A** | Titulos, eyebrows, subtitulos, CTAs, microcopy, labels, navegacion, mensajes prellenados | `messages/{locale}.json` |
+| **B** | Telefono, WhatsApp number, email, direccion, redes sociales, logo, imagenes hero | WP Options Page → `getGeneral()` |
+| **C** | Proyectos, blog posts, testimonios, galerias, selector de cuales destacar | WP CPT → `getProyectos()`, `getHome().reels.selected`, etc. |
+
+**Migracion estatico → dinamico (solo para Tier B/C):**
 
 ```ts
-// ANTES (estatico):
-const STEPS: Step[] = [ { number: 1, Icon: WhatsAppIcon, ... } ];
+// ANTES (estatico, durante el desarrollo de un cliente nuevo):
+const SELECTED_PROYECTOS_IDS = [12, 17, 23];
 
-// DESPUES (dinamico):
-// 1. CPT y meta fields creados en JetEngine (Fase 2 del cliente).
-// 2. bridge-fields.json actualizado (espejo de wp-config.json.fields).
-// 3. Query GraphQL en /lib/graphql/queries/getHome.graphql.
-// 4. npm run codegen → genera GetHomeDocument tipado.
-// 5. Fetcher en /lib/wordpress/getHome.ts (parsea repeaters JSON, valida con Zod).
-// 6. Llamar desde el RSC: const home = await getHome(locale);
-// 7. Mapear al componente: <ProcessSection steps={home.process.steps} />
+// DESPUES (Tier C dinamico):
+// 1. CPT en JetEngine + repeater `reels_selected` en home-singleton.
+// 2. bridge-fields.json mirror de wp-config.json.fields.
+// 3. Query GraphQL adelgazado (solo Tier B/C).
+// 4. npm run codegen.
+// 5. Fetcher valida con Zod y devuelve solo IDs/datos.
+// 6. RSC resuelve IDs a entidades completas y los pasa al componente.
 ```
 
-**Reglas de migracion:**
-- Los textos de UI puramente cosmeticos (eyebrow, CTA labels que no edita el cliente) siguen en `next-intl`. Lo editorializable (titulos, subtitulos, copies de seccion) vive en WP via JetEngine.
-- Si esta en `wp-config.json.fields`, esta en WP. Si no, vive en `messages/{locale}.json`.
+**Reglas:**
+- Por defecto, **todo el copy nuevo arranca en `messages/{locale}.json`** (Tier A). Solo se escala a WP si un cliente especifico pide editar sin contactar al dev.
+- Si esta en `wp-config.json.fields`, esta en WP (Tier B o C). Si no, vive en `messages/{locale}.json` (Tier A).
+- Constantes estructurales (PROBLEM_CARDS = [{key, icon}, ...]) viven como `const` en el componente. No suben a WP, no viven en JSON.
 
 ---
 

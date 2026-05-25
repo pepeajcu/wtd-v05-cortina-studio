@@ -10,3 +10,7 @@
 - [2026-05-14 #3](./memory_2026-05-14-3.md) — Fase 3.2 y 3.4: getGeneral.graphql + 3 fetchers tipados con Zod. Endpoint CMS migrado a cortinastudio.gainweb.site. Codegen OK.
 - [2026-05-15 #1](./memory_2026-05-15-1.md) — reels_selected: usar Repeater + sub-campo 'id' tipo Posts. Plugin bridge solo lee post_meta; relaciones JetEngine viven aparte.
 - [2026-05-15 #2](./memory_2026-05-15-2.md) — Llenar problems_cards y process_steps: key/icon literales del iconMap (heat/Thermometer, whatsapp/mappin, etc.), tablas listas para copiar.
+- [2026-05-16 #1](./memory_2026-05-16-1.md) — Cierre Fase 3.6: getHome() parsea limpio los 4 repeaters tras correccion de contenido en JetEngine. Spec actualizada a Fase 3 completa.
+- [2026-05-16 #2](./memory_2026-05-16-2.md) — Fase 4 completa: Home RSC con 3 fetchers + getMediaUrls (mediaItemUrl resuelve videos). iconMap motor. Webhook estricto pendiente Fase 5.
+- [2026-05-16 #3](./memory_2026-05-16-3.md) — Fase 5: validado iconMap (fix mismatch wp-config), preparado recursos/ para export JetEngine, reescrito README con playbook de replicacion
+- [2026-05-18 #1](./memory_2026-05-18-1.md) — Refactor 3 tiers: copy a messages/{es,en}.json. -73% campos en WP (35→11). Skills+docs. Pendiente: borrar campos JetEngine + codegen.
