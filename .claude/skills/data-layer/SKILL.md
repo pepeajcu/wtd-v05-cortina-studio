@@ -21,7 +21,8 @@ Como fluyen los datos del CMS al RSC. La capa `lib/wordpress/` es **codigo de fa
 
 **Reglas:**
 - En RSC los fetchers se llaman con `await`. Nada de hooks de React en la capa de datos.
-- Repeaters de JetEngine llegan como **JSON string** (decision del plugin) — el fetcher es responsable de hacer `JSON.parse()` y validar con Zod antes de devolver al RSC.
+- Repeaters de JetEngine llegan como **JSON string** (decision del plugin) — el fetcher es responsable de hacer `JSON.parse()` y validar con Zod antes de devolver al RSC. Detalle de la forma real en §5.1.
+- `wpFetch` acepta `string | DocumentNode` y serializa con `print()` de `graphql`. Pasa el `*Document` del codegen **directamente** (es un AST `DocumentNode`, no un string); nunca le hagas `.toString()` — produce `"[object Object]"` y rompe la query.
 
 ---
 
@@ -161,6 +162,44 @@ export async function getHome(): Promise<HomeData> {
 - Devuelve **solo Tier B/C tipado**. El copy se consume desde i18n en el componente, no se pasa por el fetcher.
 - Devuelve el shape exacto que consume `app/[locale]/page.tsx`; sin `null`s sueltos cuando hay defaults posibles.
 - Las constantes estructurales (keys de cards, numeros de pasos, iconos) viven como `const` en el componente — no en el fetcher, no en WP.
+
+### 5.1 Forma de los repeaters y el helper `parseRepeater`
+
+El repeater llega como **JSON string**. Al parsear, JetEngine lo serializa de dos formas segun el contexto:
+
+- **Array plano** `[{...}, {...}]` — comun en repeaters de CPT.
+- **Object indexado** `{ "item-0": {...}, "item-1": {...} }` (o claves `"0"`, `"1"`) — comun en repeaters de **Options Page**. Ademas los sub-campos pueden venir **prefijados por el slug del repeater** (un repeater `nav_items` expone `nav_items_label`, `nav_items_order`...) y a veces hay un sub-campo de orden que toca ordenar a mano.
+
+Por eso el helper normaliza ambas formas a array con `Object.values`:
+
+```ts
+function parseRepeater(raw: string | null | undefined): unknown[] {
+  if (!raw) return [];
+  let parsed: unknown;
+  try { parsed = JSON.parse(raw); } catch { return []; }
+  if (Array.isArray(parsed)) return parsed;
+  if (parsed && typeof parsed === 'object') return Object.values(parsed as Record<string, unknown>);
+  return [];
+}
+```
+
+Luego se valida: `z.array(miSchema).parse(parseRepeater(node.miRepeater))`. Si el shape no calza, el `.parse` falla en frontera con error claro, no un crash silencioso aguas abajo.
+
+> Ejemplo vivo: `getHome.ts` con `reels_selected`. El caso historico de Options Page con claves `item-N` prefijadas (`nav_items_*`) motivo la rama `Object.values`; ese repeater concreto se movio a `messages/` en el refactor de 3 tiers, pero la tolerancia del helper sigue siendo necesaria para cualquier repeater de Options futuro.
+
+### 5.2 Resolucion de assets (campos Media)
+
+El bridge devuelve el **attachment ID crudo** (`databaseId` numerico) para campos Media de JetEngine, no la URL. El frontend resuelve los IDs a URLs con un segundo fetch centralizado en el RSC:
+
+```ts
+// lib/wordpress/getMediaUrls.ts — IDs → URL absoluta (Map<number, string>)
+// query: mediaItems(first: 100, where: { in: $ids }) { nodes { databaseId mediaItemUrl sourceUrl } }
+const url = node.mediaItemUrl ?? node.sourceUrl ?? null;
+```
+
+**Regla critica:** WPGraphQL popula `sourceUrl` solo para **imagenes**; para **video** ese campo viene vacio — usar `mediaItemUrl`. La query pide ambos y el fetcher resuelve con `mediaItemUrl ?? sourceUrl`. Patron: juntar todos los IDs en `page.tsx`, una sola llamada a `getMediaUrls`, mapear. Tag de cache: `WP_TAGS.media`.
+
+> Solucion ideal pendiente (motor): un tipo `media` en el plugin que resuelva el ID a URL en el backend y elimine este segundo fetch. Ver `wordpress-bridge`.
 
 ---
 

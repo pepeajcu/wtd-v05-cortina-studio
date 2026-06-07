@@ -119,6 +119,30 @@ export function Hero({ image, imageCaption, whatsappNumber }: HeroProps) {
                 </span>
               </Link>
             </motion.div>
+
+            {/* Stats row */}
+            <motion.div
+              initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.45, duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+              className="mt-10 flex items-stretch divide-x divide-border/40"
+            >
+              {([
+                { value: t('fact_1_value'), label: t('fact_1_label') },
+                { value: t('fact_2_value'), label: t('fact_2_label') },
+                { value: t('fact_3_value'), label: t('fact_3_label') },
+              ] as const).map((fact) => (
+                <div key={fact.label} className="flex flex-col px-6 first:pl-0 last:pr-0">
+                  <span className="text-2xl font-semibold text-foreground tracking-tight leading-none">
+                    {fact.value}
+                  </span>
+                  <span className="mt-1.5 text-[10px] uppercase tracking-[0.18em] text-foreground/50">
+                    {fact.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
           </div>
 
         </div>

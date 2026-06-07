@@ -5,6 +5,8 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { getGeneral } from '@/lib/wordpress/getGeneral';
+import { getAllProducts } from '@/lib/products';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -34,16 +36,24 @@ export default async function LocaleLayout({
   const { locale } = params;
   setRequestLocale(locale);
   const messages = await getMessages();
+  const general = await getGeneral();
+  const SOLUTION_SLUGS = new Set(['calor', 'privacidad', 'acustica', 'decorativo']);
+  const productLinks = getAllProducts()
+    .filter((p) => !SOLUTION_SLUGS.has(p.slug))
+    .map((p) => ({
+      label: p.name,
+      href: `/productos/${p.slug}`,
+    }));
 
   return (
     <html lang={locale} className={`${plusJakartaSans.variable} ${playfairDisplay.variable}`}>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          <Header products={productLinks} />
           <main>
             {children}
           </main>
-          <Footer />
+          <Footer general={general} />
         </NextIntlClientProvider>
       </body>
     </html>
@@ -51,5 +61,5 @@ export default async function LocaleLayout({
 }
 
 export function generateStaticParams() {
-  return [{ locale: 'es' }, { locale: 'en' }];
+  return [{ locale: 'es' }];
 }

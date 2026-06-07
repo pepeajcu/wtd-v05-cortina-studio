@@ -97,7 +97,7 @@ memoryLTS/               # Índice de sesiones para contexto histórico
 
 ## Playbook de replicación a un cliente nuevo
 
-> Resumen ejecutivo. La checklist completa por fase está en la skill `replicacion-cliente` (`.claude/skills/replicacion-cliente/SKILL.md`).
+> **Para arrancar un cliente nuevo, invoca la skill `nuevo-cliente` y déjate guiar** — conduce el flujo fase por fase, carga las skills en orden y valida cada compuerta. El resumen de abajo y la checklist completa (skill `replicacion-cliente`) son su contrato de referencia.
 
 ### Fase 1 — Frontend (1–2 días)
 

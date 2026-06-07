@@ -14,3 +14,4 @@
 - [2026-05-16 #2](./memory_2026-05-16-2.md) — Fase 4 completa: Home RSC con 3 fetchers + getMediaUrls (mediaItemUrl resuelve videos). iconMap motor. Webhook estricto pendiente Fase 5.
 - [2026-05-16 #3](./memory_2026-05-16-3.md) — Fase 5: validado iconMap (fix mismatch wp-config), preparado recursos/ para export JetEngine, reescrito README con playbook de replicacion
 - [2026-05-18 #1](./memory_2026-05-18-1.md) — Refactor 3 tiers: copy a messages/{es,en}.json. -73% campos en WP (35→11). Skills+docs. Pendiente: borrar campos JetEngine + codegen.
+- [2026-05-25 #1](./memory_2026-05-25-1.md) — Plan 002 fabrica autoguiada: orquestadora nuevo-cliente, lecciones Cortina destiladas a skills, plantillas+backlog por cliente. Aditivo.

@@ -43,8 +43,18 @@ export function ProcessTitle({
     const firstWord = words[0];
     const prefix = firstWord.gender === 'm' ? prefixM : prefixF;
     return (
-      <h2 id={id} className={cn('whitespace-nowrap', className)}>
-        {prefix} <span className="font-display italic text-accent">{firstWord.text}</span> {suffix}
+      <h2
+        id={id}
+        className={cn(
+          'flex flex-col items-center justify-center gap-y-1 lg:flex-row lg:gap-x-2 lg:gap-y-0 lg:whitespace-nowrap',
+          className,
+        )}
+      >
+        <span className="flex items-center justify-center gap-x-2">
+          <span>{prefix}</span>
+          <span className="font-display italic text-accent">{firstWord.text}</span>
+        </span>
+        <span>{suffix}</span>
       </h2>
     );
   }
@@ -53,34 +63,42 @@ export function ProcessTitle({
   const currentPrefix = currentWord.gender === 'm' ? prefixM : prefixF;
 
   return (
-    <h2 id={id} className={cn('whitespace-nowrap flex items-center justify-center gap-x-2', className)}>
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={currentPrefix}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          {currentPrefix}
-        </motion.span>
-      </AnimatePresence>
+    <h2
+      id={id}
+      className={cn(
+        'flex flex-col items-center justify-center gap-y-1 lg:flex-row lg:gap-x-2 lg:gap-y-0 lg:whitespace-nowrap',
+        className,
+      )}
+    >
+      <span className="flex items-center justify-center gap-x-2">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={currentPrefix}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {currentPrefix}
+          </motion.span>
+        </AnimatePresence>
 
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={currentWord.text}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ 
-            duration: 0.35, 
-            ease: [0.22, 1, 0.36, 1] 
-          }}
-          className="font-display italic text-accent"
-        >
-          {currentWord.text}
-        </motion.span>
-      </AnimatePresence>
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={currentWord.text}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{
+              duration: 0.35,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="font-display italic text-accent"
+          >
+            {currentWord.text}
+          </motion.span>
+        </AnimatePresence>
+      </span>
 
       <span>{suffix}</span>
     </h2>

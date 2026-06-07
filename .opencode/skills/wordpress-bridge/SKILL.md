@@ -96,6 +96,14 @@ Total: 11 campos en WP (vs ~35 en el modelo anterior donde todo el copy estaba e
 
 **Regla de oro (MIRROR OBLIGATORIO):** lo que aparece como meta_key en `bridge-fields.json` debe aparecer (en camelCase) bajo `wp-config.json.fields.<cpt>.*`. Si no, el frontend pedira un campo que el backend no expone, o viceversa. Cuando se modifica uno, modificar el otro en el mismo PR.
 
+### Limitaciones conocidas del bridge (validadas en Cortina)
+
+**1. Campos Media devuelven el ID, no la URL.** Para un campo Media de JetEngine, el resolver del bridge devuelve el attachment ID crudo (`databaseId`), no la URL del archivo. El frontend lo resuelve con una segunda query a `mediaItems` (`lib/wordpress/getMediaUrls.ts`; ver `data-layer` §5.2). Ojo: `sourceUrl` solo se popula para imagenes — para **video** usar `mediaItemUrl`.
+
+> **TODO de motor:** agregar un tipo `media` a `bridge-fields.json` + resolver en el plugin que devuelva la URL directamente. Eliminaria el segundo fetch. Subir `CSB_VERSION` y aplicar a todos los clientes.
+
+**2. Relaciones entre CPTs no son nativas del bridge.** El plugin solo lee `post_meta`; las relaciones de JetEngine viven en sus propias tablas y no se exponen. Para modelar "el CPT A referencia posts del CPT B" (p.ej. `reels_selected` = proyectos destacados en el home), usar un **Repeater con un sub-campo `id` de tipo Posts**: el repeater es `post_meta` y si lo expone el bridge. El frontend recibe los IDs y resuelve las entidades completas (otra query, o match contra `getProyectos()` por `databaseId`).
+
 ---
 
 ## 3. Codegen (`graphql-codegen`)

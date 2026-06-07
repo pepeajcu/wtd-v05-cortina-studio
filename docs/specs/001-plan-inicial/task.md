@@ -2,6 +2,8 @@
 
 > Checklist verificable. Cada caja se marca a medida que se ejecuta. Las fases son secuenciales: NO empezar una fase hasta que la anterior este completa y el usuario la apruebe.
 
+> **Pendientes / backlog de Cortina** (deudas, bloqueos por infra, fuera-de-alcance): ver `pendientes.md` en esta misma carpeta. Las cajas de abajo son el avance del plan inicial; el backlog vivo se lleva alli.
+
 ---
 
 ## Fase 0 — Spec (esta carpeta)

@@ -50,7 +50,7 @@ export async function ProblemsSection() {
               return (
                 <Link
                   key={card.key}
-                  href="#soluciones"
+                  href={`#solucion-${card.key}`}
                   className={cn(
                     'group flex h-full flex-col rounded-2xl bg-background p-7',
                     'border border-border/60',

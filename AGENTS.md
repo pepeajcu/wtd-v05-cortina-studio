@@ -20,7 +20,8 @@ Este repo es la **base estandar replicable** de una fabrica de sitios premium (N
 
 - Responde en **espanol**, directo y tecnico. Si una decision del usuario es suboptima, dilo y propon la alternativa antes de ejecutar.
 - **No commits sin que el usuario lo pida.**
-- **Separacion estricta motor vs cliente.** Lo que cambia por cliente vive solo en: `client-brief.json`, `wp-config.json`, `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json`, `messages/{es,en}.json`, `tailwind.config.ts`, `app/[locale]/page.tsx`, `components/sections/*`, `.env.local`. Si un cambio te obliga a tocar otra cosa **PARA y avisa** — es evolucion del motor, no parche del cliente.
+- **Separacion estricta motor vs cliente.** Lo que cambia por cliente vive solo en: `client-brief.json`, `wp-config.json`, `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json`, `messages/{es,en}.json`, `tailwind.config.ts`, `app/[locale]/page.tsx`, rutas/paginas propias del cliente bajo `app/[locale]/<ruta-cliente>/*`, `components/sections/*`, contenido local en `content/*.json`, `.env.local`. Si un cambio te obliga a tocar otra cosa **PARA y avisa** — es evolucion del motor, no parche del cliente.
+- **Cada cliente suele necesitar mas rutas que la home** (catalogo de productos/servicios, paginas informativas, etc.). Tanto la **estructura** (que secciones, que layout) como el **contenido** de esas paginas son del cliente — el motor no impone una plantilla de pagina fija; solo aporta la maquinaria reutilizable (rutas dinamicas, secciones componibles, loader de contenido local). Contrato detallado en `replicacion-cliente`.
 - Cortina Studio es el cliente actual de ejemplo. Sus colores, copies y datos NO son reglas globales; son contenido de los archivos de cliente.
 
 ## Verificacion despues de cualquier cambio significativo
@@ -40,7 +41,8 @@ Carga la skill cuando el trigger aplique a la tarea actual. No cargues skills "p
 | `wordpress-bridge` | Plugin propio, `bridge-fields.json`, naming GraphQL, codegen, problemas conocidos |
 | `data-layer` | `lib/wordpress/`, queries, fetchers tipados, Zod en repeaters, revalidacion por tags |
 | `i18n-fabrica` | next-intl, layouts, namespaces, patron labels delegadas |
-| `replicacion-cliente` | Levantar un cliente nuevo (Fase 1-4) y reglas de oro de la fabrica |
+| `nuevo-cliente` | **EMPIEZA AQUI para levantar un cliente nuevo.** Orquestadora interactiva: conduce el flujo Fase 0-5, carga las skills en orden y valida cada compuerta. Bootstrapea el tracker del cliente en `docs/specs/NNN-<cliente>/` |
+| `replicacion-cliente` | Contrato del levantamiento: que archivos cambian por cliente, reglas de oro, test motor-vs-cliente. La orquestadora `nuevo-cliente` lo hace cumplir |
 | `save-session-memory` | Comando `/save-session-memory` — escribe snapshot de la sesion en `memoryLTS/` |
 | `taste-design/` | Skills de gusto/estetica. **Transversales (siempre):** `design-taste-frontend` (solo secciones 5+7) y `full-output-enforcement`. **Familias excluyentes (UNA segun `vibe`):** `high-end-visual-design`, `minimalist-ui`, `industrial-brutalist-ui`. **Condicionales:** `redesign-existing-projects` (sitios fuera del motor), `stitch-design-taste` (target Stitch). Reglas de seleccion en `diseno-fabrica`. |
 

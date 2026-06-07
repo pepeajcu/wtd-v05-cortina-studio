@@ -4,7 +4,7 @@
   },
   "nav": {
     "home": "Inicio",
-    "services": "Servicios",
+    "solutions": "Soluciones",
     "products": "Productos",
     "about": "Nosotros",
     "contact": "Contacto",
@@ -16,11 +16,19 @@
     "name": "Cortina Studio"
   },
   "hero": {
-    "eyebrow": "Diseño & Calidad Premium",
-    "title": "Transforma tu hogar con la elegancia de Cortina Studio",
-    "subtitle": "Soluciones sofisticadas en cortinas que armonizan la luz, la privacidad y el descanso en cada espacio.",
-    "cta_label": "Cotizar por WhatsApp",
-    "cta_whatsapp_message": "Hola, vi su sitio y me gustaría cotizar cortinas para mi hogar."
+    "eyebrow": "Diseño, confección e instalación",
+    "title": "Cortinas a la medida que transforman tu espacio",
+    "title_prefix": "Cortinas a la medida que transforman tu",
+    "title_rotating_words": ["espacio", "hogar", "oficina", "sala", "patio"],
+    "subtitle": "Diseñamos cortinas a medida que permiten disfrutar tus espacios.",
+    "cta_label": "Cotiza por Whatsapp",
+    "cta_whatsapp_message": "Hola, vi su sitio y me gustaría cotizar cortinas para mi hogar.",
+    "fact_1_value": "+3000",
+    "fact_1_label": "Proyectos ejecutados",
+    "fact_2_value": "+30 años",
+    "fact_2_label": "Experiencia",
+    "fact_3_value": "100%",
+    "fact_3_label": "Personalizado"
   },
   "problems": {
     "eyebrow": "Tus espacios, tu paz",
@@ -44,6 +52,30 @@
         "desc": "Quieres ese toque final que transforme toda la decoración."
       }
     }
+  },
+  "solutions": {
+    "eyebrow": "Identifica tu problema",
+    "title": "¿Te identificas con alguno de estos problemas?",
+    "subtitle": "No necesitas saber nada de cortinas. Solo dinos qué te molesta y nosotros lo resolvemos.",
+    "cards": {
+      "heat": {
+        "title": "Tu espacio se siente como un horno.",
+        "desc": "Telas técnicas que bloquean hasta el 95% de los rayos UV y reducen la temperatura de tu hogar."
+      },
+      "privacy": {
+        "title": "Cualquiera puede verte desde afuera.",
+        "desc": "Telas Blackout, lino y películas espejo para que nadie vea dentro de tu casa."
+      },
+      "noise": {
+        "title": "El ruido de la calle no te deja dormir.",
+        "desc": "Textiles pesados de alta densidad que absorben el eco y aíslan el ruido exterior."
+      },
+      "decor": {
+        "title": "Tu espacio se ve bien, pero las cortinas arruinan todo.",
+        "desc": "Asesoría personalizada en telas, texturas y sistemas para vestir tus ventanas con estilo."
+      }
+    },
+    "cta_label": "Ver solución"
   },
   "projectCard": {
     "space_label": "Espacio",
@@ -75,12 +107,12 @@
       { "text": "oficina", "gender": "f" }
     ],
     "subtitle": "Empezar es más fácil de lo que imaginas.",
-    "cta_label": "Empezar ahora",
+    "cta_label": "Empieza Ahora",
     "cta_whatsapp_message": "Hola, quisiera iniciar el proceso para cotizar cortinas para mi espacio.",
     "steps": {
       "step_1": {
         "title": "Escríbenos por WhatsApp",
-        "desc": "Cuéntanos qué problema quieres resolver. Sin compromiso."
+        "desc": "Cuéntanos qué problema quieres resolver."
       },
       "step_2": {
         "title": "Visita y asesoría gratis",
@@ -96,6 +128,43 @@
       }
     }
   },
+  "faq": {
+    "eyebrow": "Sin letra chica",
+    "title": "Preguntas frecuentes",
+    "subtitle": "Resolvemos las dudas que frenan la decisión antes de que las preguntes.",
+    "list_label": "Lista de preguntas frecuentes",
+    "indicator_label": "Imagen",
+    "items": {
+      "q1": {
+        "q": "¿Cuánto cuestan las cortinas?",
+        "a": "Cada proyecto es distinto porque se hacen a medida. Por eso ofrecemos cotización gratuita sin compromiso. Solo escríbenos y en minutos te orientamos."
+      },
+      "q2": {
+        "q": "¿Hacen visita a domicilio?",
+        "a": "Sí. La visita, medición y asesoría en sitio son completamente gratis. Vamos a tu espacio, tomamos medidas y te recomendamos la mejor solución."
+      },
+      "q3": {
+        "q": "¿En cuánto tiempo instalan?",
+        "a": "Depende del diseño y la tela, pero normalmente entre 2 y 4 semanas desde la aprobación del proyecto."
+      },
+      "q4": {
+        "q": "¿Tienen garantía?",
+        "a": "Sí. Todos nuestros trabajos incluyen garantía en tela e instalación. Tu inversión está protegida."
+      },
+      "q5": {
+        "q": "¿A qué zonas de Guatemala llegan?",
+        "a": "Cubrimos Guatemala City y sus alrededores. Escríbenos con tu dirección y confirmamos cobertura sin ningún compromiso."
+      },
+      "q6": {
+        "q": "¿Puedo ver las telas antes de decidir?",
+        "a": "Por supuesto. Llevamos muestras físicas de tela en la visita para que veas y toques los materiales antes de elegir."
+      }
+    },
+    "carousel_cta": "Escríbenos por WhatsApp",
+    "carousel_cta_message": "Hola, vi las preguntas frecuentes en su sitio y me gustaría resolver algunas dudas sobre las cortinas.",
+    "bottom_cta_label": "Resolver mis dudas",
+    "bottom_cta_message": "Hola, tengo algunas dudas sobre sus cortinas y quisiera más información."
+  },
   "footer": {
     "company": "Empresa",
     "about": "Nosotros",
@@ -103,6 +172,11 @@
     "faq": "Preguntas Frecuentes",
     "contact": "Contacto",
     "products": "Productos",
+    "solutions": "Soluciones",
+    "solution_heat": "Cortinas Anti-Calor",
+    "solution_privacy": "Cortinas para Privacidad",
+    "solution_acoustic": "Cortinas Acústicas y Térmicas",
+    "solution_decorative": "Cortinas de Diseño Decorativo",
     "ripplefold": "Ripplefold",
     "enrollables": "Enrollables",
     "pliegue_frances": "Pliegue Francés",
@@ -125,5 +199,17 @@
   "home": {
     "title": "Bienvenidos a Cortina Studio",
     "subtitle": "Transformamos tus espacios con elegancia y privacidad"
+  },
+  "productGallery": {
+    "eyebrow": "Galería",
+    "title": "Inspírate con estas imágenes",
+    "subtitle": "Una selección de proyectos reales donde transformamos espacios con este producto.",
+    "open_image": "Ver imagen ampliada: {alt} ({index} de {total})",
+    "lightbox_close": "Cerrar galería",
+    "lightbox_prev": "Imagen anterior",
+    "lightbox_next": "Imagen siguiente",
+    "lightbox_counter": "Imagen {current} de {total}",
+    "load_more": "Ver {count} más",
+    "load_less": "Ver menos"
   }
 }

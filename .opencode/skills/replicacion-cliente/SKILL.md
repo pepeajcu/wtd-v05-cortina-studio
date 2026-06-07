@@ -19,8 +19,13 @@ description: Checklist de Fase 1-4 para levantar un cliente nuevo desde el repo 
 | 4 | `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json` | Lista plana de meta keys solo Tier B/C — debe espejar el #3 | Dev (Fase 2 del cliente) |
 | 5 | `tailwind.config.ts` | `colors.*` y `fontFamily.*` derivados del brief; resto sin tocar | Dev (Fase 1) |
 | 6 | `app/[locale]/page.tsx` y `components/sections/*` | Constantes estructurales (keys de cards, iconos por seccion); el copy viene de `messages/` | Dev (Fase 1 / Fase 4) |
+| 7 | `.env.local` | `NEXT_PUBLIC_WORDPRESS_API_URL`, secrets de revalidacion/preview, `NEXT_PUBLIC_SITE_URL`. **No commiteado** (secreto de entorno) | Dev (Fase 1) |
+| 8 | `app/[locale]/<ruta-cliente>/*` | Rutas/paginas propias del cliente mas alla de la home (catalogo de producto/servicio, paginas informativas, landings). **Estructura y contenido los define el cliente** | Dev (Fase 1 / Fase 4) |
+| 9 | `content/*.json` | Contenido local de esas paginas (pre-WP), leido por un loader tipado en `lib/` con Zod. Migrable a WP (Tier C) si el cliente lo edita recurrente | Dev (Fase 1 / Fase 4) |
 
 **Cambio de modelo importante:** el copy no se sube a WP. Solo van a WP datos operativos (contacto/redes/assets — Tier B) y contenido dinamico que el cliente edita recurrente (proyectos, blog — Tier C). Detalle del marco de 3 tiers en `arquitectura-fabrica` seccion 7.
+
+**Paginas y rutas por cliente:** la home (`app/[locale]/page.tsx`) es solo el punto de partida. Casi todo cliente necesita **rutas adicionales** (catalogo de productos/servicios, paginas informativas, landings). Tanto la **estructura** de esas paginas (que secciones, en que orden, que layout) como su **contenido** son del cliente; el motor **no** define una plantilla de pagina fija mas alla de la home. Lo que el motor aporta y se reusa intacto es la **maquinaria**: rutas dinamicas (`app/[locale]/<ruta>/[slug]/page.tsx` con `generateStaticParams`/`generateMetadata`), las secciones componibles de `components/sections/*`, y el patron de **contenido local** (`content/*.json` validado con Zod por un loader tipado en `lib/`, pre-WP y migrable a CPT — ver `data-layer`). El cliente **compone** con esa maquinaria; si para lograrlo tienes que tocar codigo de fabrica (§2), es evolucion del motor.
 
 ---
 
@@ -37,9 +42,24 @@ description: Checklist de Fase 1-4 para levantar un cliente nuevo desde el repo 
 
 Si necesitas cambiar algo de esta lista, **es una evolucion de la fabrica**, no del cliente. Discutela con el usuario, actualiza la base para todos los proyectos, y deja un commit explicito.
 
+### Test: ¿parche de cliente o evolucion del motor?
+
+Regla binaria, sin ambiguedad:
+
+> Un cambio es **parche de cliente** (permitido, libre) **solo si toca exclusivamente** archivos de la columna izquierda del contrato (la tabla de §1, incluido `.env.local`). Si toca **cualquier otro archivo**, es **evolucion del motor**: PARA, discutelo con el usuario, versiona el cambio para TODOS los clientes y deja un commit explicito.
+
+Dos preguntas de desempate para casos grises (¿un componente nuevo en `components/ui/`? ¿un helper en `lib/`?):
+
+1. ¿Lo necesitaria **cualquier cliente futuro**? → **motor** (va a la base, se hereda).
+2. ¿Es **composicion concreta de este cliente** (esta seccion, este dato, este copy)? → **cliente** (va en la columna izquierda).
+
+Si las dos preguntas tiran a lados distintos, gana **motor**: extraelo a la base de forma generica y deja que el cliente solo lo componga.
+
 ---
 
 ## 3. Checklist de levantamiento
+
+> **Ownership:** el paso-a-paso *ejecutable* lo conduce la orquestadora `nuevo-cliente` (skill de flujo). Esta checklist es el **contrato de referencia** que la orquestadora hace cumplir, no la fuente de ejecucion. Frontera completa en `docs/specs/002-fabrica-autoguiada/proposal.md` §7.
 
 ### Frontend (Fase 1 del cliente)
 
