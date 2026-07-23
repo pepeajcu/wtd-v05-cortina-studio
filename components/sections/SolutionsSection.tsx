@@ -90,6 +90,7 @@ export async function SolutionsSection() {
                   <div
                     className={cn(
                       'mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl',
+                      'mx-auto sm:mx-0',
                       'transition-transform duration-500 ease-premium group-hover:scale-110',
                       solution.iconBg,
                     )}

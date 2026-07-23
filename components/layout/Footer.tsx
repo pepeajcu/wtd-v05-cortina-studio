@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { ComponentType } from 'react';
 import type { GeneralData } from '@/lib/wordpress/getGeneral';
+import { buildWhatsAppUrl } from '@/lib/utils';
+import { getIcon } from '@/lib/iconMap';
 
 const FacebookIcon: ComponentType<{ className?: string }> = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -26,6 +28,8 @@ const InstagramIcon: ComponentType<{ className?: string }> = ({ className }) => 
 
 export function Footer({ general }: { general: GeneralData }) {
   const t = useTranslations('footer');
+  const whatsappUrl = buildWhatsAppUrl(general.whatsappNumber, t('cta_whatsapp_message'));
+  const WhatsAppIcon = getIcon('whatsapp');
 
   const contactLinks = [
     general.contactPhone && {
@@ -49,10 +53,10 @@ export function Footer({ general }: { general: GeneralData }) {
     {
       title: t('company'),
       links: [
-        { label: t('about'), href: '/nosotros' },
-        { label: t('services'), href: '/servicios' },
-        { label: t('faq'), href: '/faq' },
-        { label: t('contact'), href: '/contacto' },
+        { label: t('about'), href: '/' },
+        { label: t('services'), href: '/#soluciones' },
+        { label: t('faq'), href: '/#proyectos' },
+        { label: t('contact'), href: '/#faq' },
       ],
     },
     {
@@ -62,14 +66,6 @@ export function Footer({ general }: { general: GeneralData }) {
         { label: t('solution_privacy'), href: '/productos/privacidad' },
         { label: t('solution_acoustic'), href: '/productos/acustica' },
         { label: t('solution_decorative'), href: '/productos/decorativo' },
-      ],
-    },
-    {
-      title: t('legal'),
-      links: [
-        { label: t('privacy_policy'), href: '/privacidad' },
-        { label: t('terms_conditions'), href: '/terminos' },
-        { label: t('cookies'), href: '/cookies' },
       ],
     },
     {
@@ -83,13 +79,17 @@ export function Footer({ general }: { general: GeneralData }) {
       {/* 0. Brand */}
       <div className="border-b border-white/10 py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <Link href="/" aria-label="Cortina Studio - Inicio" className="inline-flex items-center">
+          <Link
+            href="/"
+            aria-label="Cortina Studio - Inicio"
+            className="inline-flex items-center rounded-xl bg-black/90 px-4 py-3"
+          >
             <Image
-              src="/images/logo/logo_guatemala_cortina_studio_1.png"
+              src="/images/logo/logo_guatemala_cortina_studio_3.png"
               alt="Cortina Studio"
-              width={200}
-              height={64}
-              className="h-16 w-auto"
+              width={225}
+              height={90}
+              className="h-12 w-auto"
             />
           </Link>
         </div>
@@ -108,9 +108,12 @@ export function Footer({ general }: { general: GeneralData }) {
               </p>
             </div>
             <Link
-              href="/contacto"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:brightness-105 hover:shadow-strong hover:-translate-y-0.5 active:translate-y-0"
             >
+              <WhatsAppIcon className="h-4 w-4" />
               {t('cta_button')}
             </Link>
           </div>
@@ -122,7 +125,7 @@ export function Footer({ general }: { general: GeneralData }) {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {footerLinks.map((column) => (
-              <div key={column.title}>
+              <div key={column.title} className="last:lg:col-start-4">
                 <h3 className="mb-5 text-xs font-semibold uppercase tracking-widest text-primary-foreground/40">
                   {column.title}
                 </h3>

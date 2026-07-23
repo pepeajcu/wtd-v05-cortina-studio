@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { MessageCircle } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { buildWhatsAppUrl } from '@/lib/utils';
+import { getIcon } from '@/lib/iconMap';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 
@@ -28,6 +28,7 @@ export function ProductHero({
 }: ProductHeroProps) {
   const reduced = useReducedMotion();
   const whatsappUrl = buildWhatsAppUrl(whatsappNumber, whatsappMessage);
+  const WhatsAppIcon = getIcon('whatsapp');
 
   const fadeUp = (delay = 0) => ({
     initial: reduced ? { opacity: 0 } : { opacity: 0, y: 24 },
@@ -91,7 +92,7 @@ export function ProductHero({
 
           <motion.p
             {...fadeUp(0.22)}
-            className="mx-auto mt-5 max-w-xl font-display text-base italic leading-relaxed text-primary-foreground/80 lg:mx-0 lg:text-lg"
+            className="mx-auto mt-5 max-w-xl font-sans text-xs font-light leading-relaxed text-primary-foreground/80 lg:mx-0 lg:text-sm"
           >
             {subtitle}
           </motion.p>
@@ -104,7 +105,7 @@ export function ProductHero({
             >
               {ctaLabel}
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 ease-premium group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:scale-110">
-                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
               </span>
             </Link>
           </motion.div>

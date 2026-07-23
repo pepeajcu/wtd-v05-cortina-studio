@@ -5,8 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, buildWhatsAppUrl } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getIcon } from '@/lib/iconMap';
 
 export interface HeaderProductLink {
   label: string;
@@ -15,12 +16,15 @@ export interface HeaderProductLink {
 
 interface HeaderProps {
   products: HeaderProductLink[];
+  whatsappNumber: string;
 }
 
 const PRODUCTS_CLOSE_DELAY = 150;
 
-export function Header({ products }: HeaderProps) {
+export function Header({ products, whatsappNumber }: HeaderProps) {
   const t = useTranslations('nav');
+  const whatsappUrl = buildWhatsAppUrl(whatsappNumber, t('cta_whatsapp_message'));
+  const WhatsAppIcon = getIcon('whatsapp');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
@@ -81,8 +85,8 @@ export function Header({ products }: HeaderProps) {
     { label: t('home'), href: '/' },
     { label: t('solutions'), href: '/#soluciones' },
     { label: t('products'), href: '/productos', isProducts: true },
-    { label: t('about'), href: '/nosotros', hideOnTablet: true },
-    { label: t('contact'), href: '/contacto' },
+    { label: t('about'), href: '/#proyectos', hideOnTablet: true },
+    { label: t('contact'), href: '/#faq' },
   ];
 
   return (
@@ -99,14 +103,14 @@ export function Header({ products }: HeaderProps) {
         <Link
           href="/"
           aria-label="Cortina Studio - Inicio"
-          className="flex items-center"
+          className="flex items-center rounded-3xl bg-black/90 px-3 py-2"
         >
           <Image
-            src="/images/logo/logo_guatemala_cortina_studio_1.png"
+            src="/images/logo/logo_guatemala_cortina_studio_3.png"
             alt="Cortina Studio"
-            width={108}
-            height={36}
-            className="h-9 w-auto"
+            width={225}
+            height={90}
+            className="h-7 w-auto"
             priority
           />
         </Link>
@@ -232,12 +236,14 @@ export function Header({ products }: HeaderProps) {
         {/* CTA - Right (Desktop) */}
         <div className="hidden md:block">
           <Link
-            href="/contacto"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all duration-300 active:scale-[0.98] hover:shadow-medium"
           >
             {t('cta_contact')}
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-110">
-              <ArrowRight className="h-3 w-3" />
+              <WhatsAppIcon className="h-3 w-3" />
             </span>
           </Link>
         </div>
@@ -357,10 +363,13 @@ export function Header({ products }: HeaderProps) {
                 className="mt-4"
               >
                 <Link
-                  href="/contacto"
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg"
+                  className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg"
                 >
+                  <WhatsAppIcon className="h-5 w-5" />
                   {t('cta_contact')}
                 </Link>
               </motion.div>

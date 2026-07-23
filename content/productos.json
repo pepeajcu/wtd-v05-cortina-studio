@@ -9,7 +9,7 @@
     "hero": {
       "title": "Cenefas en Guatemala: El Toque Decorativo Perfecto para tus Ventanas",
       "subtitle": "¿Quieres elevar el estilo de tus habitaciones y darle un acabado premium a tus cortinas? Nuestras cenefas hechas a la medida son el accesorio ideal para transformar cualquier espacio, ocultar los detalles de instalación superiores y aportar una elegancia inigualable a tu hogar.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cenefas Decorativas?",
@@ -46,7 +46,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/productos/cenefas/cenefas_guatemala_cortina_studio_1.webp"
@@ -157,7 +157,7 @@
     "hero": {
       "title": "Cojines Personalizados en Guatemala: El Toque Decorativo a la Medida Perfecta",
       "subtitle": "Diseñamos y fabricamos tus cojines a la medida exacta con la tela perfecta para combinar con tus cortinas y muebles. Dale a tus ambientes un aspecto renovado, elegante y 100% adaptado a tu estilo único.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestros Cojines Personalizados?",
@@ -194,7 +194,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": null
@@ -263,7 +263,7 @@
     "hero": {
       "title": "Cortinas Con Ojetes en Guatemala: Elegancia y Funcionalidad para tus Tubos Decorativos",
       "subtitle": "Confeccionamos tus cortinas con ojetes a la medida exacta, logrando un deslizamiento suave y un diseño moderno. La solución perfecta para lucir tus bolillos de hierro o madera con un estilo impecable y contemporáneo.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Con Ojetes?",
@@ -300,7 +300,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/productos/ojetes/ojetes_guatemala_cortina_studio_1.webp"
@@ -400,13 +400,13 @@
     "slug": "enrollables-dia-noche",
     "name": "Cortinas Enrollables Día y Noche",
     "images": {
-      "hero": "https://images.unsplash.com/photo-1712149456089-de1ae3471c6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5Njg4Njl8MHwxfHNlYXJjaHwxfHxkYXklMjBuaWdodCUyMHJvbGxlciUyMGJsaW5kJTIwd2luZG93JTIwZG91YmxlJTIwY29ydGluYSUyMGVucm9sbGFibGUlMjBkb2JsZSUyMHNjcmVlbiUyMGJsYWNrb3V0fGVufDF8MHx8fDE3ODA1NDYxNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "hero": "/images/productos/enrollables-dia-noche/enrollables_dia_noche_guatemala_cortina_studio_5.webp",
       "feature": null
     },
     "hero": {
       "title": "Cortinas Enrollables Día y Noche en Guatemala: Control Total de Luz y Privacidad Absoluta",
       "subtitle": "El sistema doble definitivo que combina el filtrado solar Screen con la oscuridad total del Blackout en una sola ventana. Fabrica tus cortinas a la medida exacta para modernizar tus habitaciones y dominar el clima de tu hogar.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Enrollables Día y Noche?",
@@ -443,7 +443,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/productos/enrollables-dia-noche/enrollables_dia_noche_guatemala_cortina_studio_1.webp"
@@ -574,7 +574,7 @@
     "hero": {
       "title": "Cortinas Enrollables en Guatemala: Innovación en Control Solar y Privacidad Total",
       "subtitle": "Fabricamos tus cortinas enrollables a la medida exacta con telas tecnológicas de alta gama que transforman tus ventanas. Disfruta de la solución definitiva para reducir el calor y modernizar el diseño de tus espacios residenciales o de oficina.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Enrollables?",
@@ -611,7 +611,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/productos/enrollables/enrollables_guatemala_cortina_studio_1.webp"
@@ -767,7 +767,7 @@
     "hero": {
       "title": "Cortinas de Pliegue Francés en Guatemala: Elegancia Tradicional y Máxima Altura para tus Ambientes",
       "subtitle": "Fabricamos tus cortinas de pliegue francés a la medida exacta para transformar tus salas o habitaciones con un diseño sofisticado de caída impecable. La solución ideal para maximizar la altura de tus techos y optimizar el espacio de tus ventanas con un estilo exclusivo.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Pliegue Francés?",
@@ -804,7 +804,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/productos/pliegue-frances/pliegue_frances_guatemala_cortina_studio_1.webp"
@@ -925,7 +925,7 @@
     "hero": {
       "title": "Cortinas Ripplefold en Guatemala: Modernidad y Onda Perfecta para tus Ventanas",
       "subtitle": "El sistema de cortinas en tendencia absoluta, diseñado para quienes buscan una estética minimalista de curvas perfectas. Combina la calidez de la tela tradicional con un mecanismo moderno que transforma y estiliza tus espacios de inmediato.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Ripplefold?",
@@ -962,7 +962,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/productos/ripplefold/ripplefold_guatemala_cortina_studio_1.webp"
@@ -1123,7 +1123,7 @@
     "hero": {
       "title": "Cortinas Enrollables en Guatemala: La Solución Definitiva contra el Calor y el Sol Directo",
       "subtitle": "Fabricamos tus cortinas enrollables a la medida exacta para frenar el impacto del sol de la tarde y reducir la temperatura de tus habitaciones. Moderniza tus ventanas y protege tus espacios con un sistema de alta eficiencia térmica.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Enrollables?",
@@ -1160,10 +1160,10 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
-      "image": "/images/soluciones/calor/calor_guatemala_cortina_studio_1.webp"
+      "image": "/images/productos/enrollables/enrollables_guatemala_cortina_studio_8.webp"
     },
     "benefits": {
       "title": "Beneficios de las Cortinas Enrollables",
@@ -1251,7 +1251,7 @@
     "hero": {
       "title": "Cortinas para Privacidad en Guatemala: Soluciones a la Medida para que No Te Vean desde la Calle",
       "subtitle": "Protege tu hogar y tu intimidad de la vista de los vecinos y las nuevas construcciones aledañas. Fabricamos tus cortinas y películas a la medida exacta para resguardar tus espacios sin necesidad de vivir a oscuras.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas de Alta Privacidad?",
@@ -1288,7 +1288,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/soluciones/privacidad/privacidad_guatemala_cortina_studio_1.webp"
@@ -1389,7 +1389,7 @@
     "hero": {
       "title": "Cortinas Acústicas en Guatemala: Reducción de Ruido Exterior y Aislamiento Térmico",
       "subtitle": "Fabricamos tus cortinas termoacústicas a la medida exacta con textiles pesados de alta densidad que absorben el estruendo y frenan el frío. Protege la salud de tus hijos, elimina el eco y moderniza tus habitaciones con un descanso garantizado.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas Térmicas y Acústicas?",
@@ -1426,7 +1426,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/soluciones/acustica/acustica_guatemala_cortina_studio_1.webp"
@@ -1532,7 +1532,7 @@
     "hero": {
       "title": "Cortinas Modernas en Guatemala: Diseño Personalizado y Tendencias de Alta Decoración",
       "subtitle": "Transforma tus ventanas con el estilo aspiracional que siempre has deseado para tu hogar. Creamos tus cortinas a la medida exacta con asesoría en diseño de ambientes para modernizar cada espacio con elegancia.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestras Cortinas de Diseño Decorativo?",
@@ -1569,7 +1569,7 @@
         },
         {
           "label": "Garantía",
-          "value": "De por vida"
+          "value": "Por 1 Año"
         }
       ],
       "image": "/images/soluciones/decorativo/decorativo_guatemala_cortina_studio_1.webp"
@@ -1675,7 +1675,7 @@
     "hero": {
       "title": "Mantenimiento y Reparaciones en Guatemala: Alarga la Vida Útil de tus Cortinas y Persianas",
       "subtitle": "Ofrecemos un servicio técnico especializado a la medida para lavar, reparar y adaptar tus cortinas actuales. Soluciona cualquier fallo mecánico, elimina la suciedad y moderniza el funcionamiento de tus espacios sin gastar de más.",
-      "ctaLabel": "Cotizar por WhatsApp (Medidas Personalizadas)"
+      "ctaLabel": "Cotizar por WhatsApp"
     },
     "why": {
       "title": "¿Por qué elegir nuestro Servicio de Mantenimiento y Reparaciones?",

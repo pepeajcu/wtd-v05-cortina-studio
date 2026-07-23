@@ -6,9 +6,10 @@
     "home": "Inicio",
     "solutions": "Soluciones",
     "products": "Productos",
-    "about": "Nosotros",
-    "contact": "Contacto",
+    "about": "Proyectos",
+    "contact": "FAQ's",
     "cta_contact": "Agendar Cita",
+    "cta_whatsapp_message": "Hola, me gustaría agendar una cita para cotizar cortinas para mi espacio.",
     "open_menu": "Abrir menú",
     "close_menu": "Cerrar menú"
   },
@@ -115,7 +116,7 @@
         "desc": "Cuéntanos qué problema quieres resolver."
       },
       "step_2": {
-        "title": "Visita y asesoría gratis",
+        "title": "Visita y asesoría",
         "desc": "Vamos a tu hogar, medimos y te asesoramos en sitio."
       },
       "step_3": {
@@ -153,7 +154,7 @@
       },
       "q5": {
         "q": "¿A qué zonas de Guatemala llegan?",
-        "a": "Cubrimos Guatemala City y sus alrededores. Escríbenos con tu dirección y confirmamos cobertura sin ningún compromiso."
+        "a": "Cubrimos toda la república de Guatemala. Estamos basados en la ciudad capital, pero llegamos a cualquier departamento sin ningún compromiso."
       },
       "q6": {
         "q": "¿Puedo ver las telas antes de decidir?",
@@ -167,10 +168,10 @@
   },
   "footer": {
     "company": "Empresa",
-    "about": "Nosotros",
-    "services": "Servicios",
-    "faq": "Preguntas Frecuentes",
-    "contact": "Contacto",
+    "about": "Inicio",
+    "services": "Soluciones",
+    "faq": "Proyectos",
+    "contact": "FAQs",
     "products": "Productos",
     "solutions": "Soluciones",
     "solution_heat": "Cortinas Anti-Calor",
@@ -192,6 +193,7 @@
     "cta_title": "Diseñemos juntos tu espacio ideal",
     "cta_description": "Estamos listos para asesorarte en la elección de las cortinas perfectas para tu hogar.",
     "cta_button": "Hablar con un experto",
+    "cta_whatsapp_message": "Hola, me gustaría hablar con un experto sobre las cortinas para mi espacio.",
     "copyright_text": "Cortina Studio",
     "privacy_link": "Privacidad",
     "terms_link": "Términos"

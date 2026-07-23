@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { MessageCircle } from 'lucide-react';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { getIcon } from '@/lib/iconMap';
 import { FAQAccordion } from '@/components/sections/FAQAccordion';
 import { FAQCarousel } from '@/components/sections/FAQCarousel';
 import { buildWhatsAppUrl, cn } from '@/lib/utils';
@@ -13,6 +13,7 @@ interface FAQSectionProps {
 export async function FAQSection({ whatsappNumber }: FAQSectionProps) {
   const t = await getTranslations('faq');
   const whatsappUrl = buildWhatsAppUrl(whatsappNumber, t('bottom_cta_message'));
+  const WhatsAppIcon = getIcon('whatsapp');
 
   return (
     <section
@@ -64,7 +65,7 @@ export async function FAQSection({ whatsappNumber }: FAQSectionProps) {
               'active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
             )}
           >
-            <MessageCircle className="h-5 w-5" aria-hidden="true" strokeWidth={2} />
+            <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
             {t('bottom_cta_label')}
           </Link>
         </FadeIn>

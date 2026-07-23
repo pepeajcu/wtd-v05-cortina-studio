@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { getIcon } from '@/lib/iconMap';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 const AUTOPLAY_MS = 5000;
@@ -68,6 +68,7 @@ export function FAQCarousel({ whatsappNumber }: FAQCarouselProps) {
 
   const whatsappMessage = t('carousel_cta_message');
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
+  const WhatsAppIcon = getIcon('whatsapp');
 
   return (
     <div
@@ -145,7 +146,7 @@ export function FAQCarousel({ whatsappNumber }: FAQCarouselProps) {
             )}
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 ring-1 ring-inset ring-white/20 transition-transform duration-300 ease-premium group-hover/cta:scale-110">
-              <MessageCircle className="h-4 w-4" aria-hidden="true" strokeWidth={2} />
+              <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
             </span>
             <span className="font-sans tracking-tight">{t('carousel_cta')}</span>
           </Link>

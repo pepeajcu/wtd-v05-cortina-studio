@@ -6,7 +6,7 @@ import type { Reel } from '@/components/ui/ReelCard';
 import { ReelsCarousel } from '@/components/sections/ReelsCarousel';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { cn } from '@/lib/utils';
-import { MessageCircle } from 'lucide-react';
+import { getIcon } from '@/lib/iconMap';
 import type { ProyectoData } from '@/lib/wordpress/getProyectos';
 
 interface ReelsSectionProps {
@@ -47,6 +47,7 @@ export async function ReelsSection({ proyectos, whatsappNumber }: ReelsSectionPr
 
   const reelItems = proyectos.map(toReel);
   const whatsappUrl = buildWhatsAppUrl(whatsappNumber, t('cta_whatsapp_message'));
+  const WhatsAppIcon = getIcon('whatsapp');
 
   return (
     <section
@@ -89,7 +90,7 @@ export async function ReelsSection({ proyectos, whatsappNumber }: ReelsSectionPr
               target="_blank"
               className="inline-flex items-center gap-3 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:brightness-105 hover:shadow-strong hover:-translate-y-0.5"
             >
-              <MessageCircle className="h-5 w-5" />
+              <WhatsAppIcon className="h-5 w-5" />
               {t('cta_button')}
             </Link>
           </div>

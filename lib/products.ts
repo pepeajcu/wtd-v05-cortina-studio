@@ -2,8 +2,8 @@ import { z } from 'zod';
 import productsJson from '@/content/productos.json';
 
 const imagesSchema = z.object({
-  hero: z.string().url().nullable(),
-  feature: z.string().url().nullable(),
+  hero: z.string().min(1).nullable(),
+  feature: z.string().min(1).nullable(),
 });
 
 const benefitItemSchema = z.object({

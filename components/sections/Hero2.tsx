@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { buildWhatsAppUrl } from '@/lib/utils';
+import { getIcon } from '@/lib/iconMap';
 
 // Imagen de fondo full-bleed elegida por el cliente. Se puede sobreescribir
 // pasando la prop `image` (p. ej. desde WordPress) sin tocar el componente.
@@ -23,6 +23,7 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
   const t = useTranslations('hero');
   const reduced = useReducedMotion();
   const whatsappUrl = buildWhatsAppUrl(whatsappNumber, t('cta_whatsapp_message'));
+  const WhatsAppIcon = getIcon('whatsapp');
   const bgImage = image || CLIENT_HERO_IMAGE;
 
   const rotatingWords = t.raw('title_rotating_words') as string[];
@@ -87,7 +88,7 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
           >
             {t('title_prefix')}{' '}
             {reduced ? (
-              <span className="font-display italic text-accent">
+              <span className="inline-block min-w-[8ch] font-display italic text-foreground">
                 {rotatingWords[0]}
               </span>
             ) : (
@@ -98,7 +99,7 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-display italic text-accent"
+                  className="inline-block min-w-[8ch] font-display italic text-foreground"
                 >
                   {rotatingWords[wordIndex]}
                 </motion.span>
@@ -121,7 +122,7 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
             >
               {t('cta_label')}
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 ease-premium group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:scale-110">
-                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
               </span>
             </Link>
           </motion.div>

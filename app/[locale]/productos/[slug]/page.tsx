@@ -59,13 +59,13 @@ export default async function ProductPage({ params }: { params: ProductPageParam
         whatsappNumber={general.whatsappNumber}
         whatsappMessage={whatsappMessage}
       />
-      <ProductGallery gallery={product.gallery} />
       <ProductSignature
         signature={product.signature}
         whatsappNumber={general.whatsappNumber}
         whatsappMessage={whatsappMessage}
         whatsappLabel={product.closing.ctaLabel}
       />
+      <ProductGallery gallery={product.gallery} />
       <ProductBenefits
         title={product.benefits.title}
         items={product.benefits.items}

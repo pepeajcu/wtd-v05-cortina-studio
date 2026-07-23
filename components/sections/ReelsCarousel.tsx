@@ -48,17 +48,17 @@ export function ReelsCarousel({ reels, labels }: ReelsCarouselProps) {
       </button>
 
       {/* Carousel Container */}
-      <div 
+      <div
         ref={scrollRef}
         className={cn(
           'flex gap-5 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide',
-          '-mx-6 px-6 lg:-mx-0 lg:px-0',
+          '-mx-6 px-[11vw] scroll-px-[11vw] lg:mx-0 lg:px-0 lg:scroll-px-0',
         )}
       >
         {reels.map((reel) => (
-          <div 
-            key={reel.id} 
-            className="snap-start shrink-0 w-[78vw] sm:w-[45vw] md:w-[30vw] lg:w-[20%] a-px"
+          <div
+            key={reel.id}
+            className="snap-center shrink-0 w-[78vw] sm:w-[45vw] md:w-[30vw] lg:w-[20%] a-px"
           >
             <ReelCard reel={reel} labels={labels} />
           </div>

@@ -180,7 +180,7 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
         <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-1">
           {labels.solution_label}
         </p>
-        <p className="font-display italic text-sm leading-relaxed text-primary-foreground/75">
+        <p className="font-sans font-light text-xs leading-relaxed text-primary-foreground/75">
           {reel.project.solutionSummary}
         </p>
       </div>

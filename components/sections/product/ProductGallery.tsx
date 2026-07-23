@@ -56,7 +56,7 @@ export function ProductGallery({ gallery }: ProductGalleryProps) {
     <section
       id="galeria"
       aria-labelledby="product-gallery-heading"
-      className="bg-background py-20 lg:py-28"
+      className="bg-primary py-20 lg:py-28"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
@@ -71,11 +71,11 @@ export function ProductGallery({ gallery }: ProductGalleryProps) {
           </p>
           <h2
             id="product-gallery-heading"
-            className="font-sans text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance lg:text-4xl"
+            className="font-sans text-3xl font-semibold leading-tight tracking-tight text-primary-foreground text-balance lg:text-4xl"
           >
             {t('title')}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-foreground/55">
+          <p className="mt-4 text-base leading-relaxed text-primary-foreground/55">
             {t('subtitle')}
           </p>
           <div aria-hidden="true" className="mx-auto mt-6 h-px w-12 bg-accent" />
@@ -107,11 +107,11 @@ export function ProductGallery({ gallery }: ProductGalleryProps) {
                 onClick={() => setLightboxIndex(index)}
                 aria-label={t('open_image', { alt: item.alt, index: index + 1, total: gallery.length })}
                 className={cn(
-                  'group relative block w-full overflow-hidden rounded-2xl bg-secondary/30',
-                  'ring-1 ring-border/40 shadow-soft',
+                  'group relative block w-full overflow-hidden rounded-2xl bg-primary-foreground/10',
+                  'ring-1 ring-primary-foreground/10 shadow-soft',
                   'transition-all duration-500 ease-premium',
                   'hover:shadow-medium hover:ring-accent/30',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary',
                 )}
                 style={{ aspectRatio: aspectToRatio(item.aspect) }}
               >
@@ -187,12 +187,12 @@ export function ProductGallery({ gallery }: ProductGalleryProps) {
               aria-controls="product-gallery-grid"
               className={cn(
                 'group inline-flex items-center gap-2.5 rounded-full',
-                'border border-foreground/15 bg-background px-7 py-3.5',
-                'text-sm font-semibold text-foreground',
+                'border border-primary-foreground/15 bg-primary px-7 py-3.5',
+                'text-sm font-semibold text-primary-foreground',
                 'shadow-soft transition-all duration-500 ease-premium',
                 'hover:border-accent/40 hover:shadow-medium hover:-translate-y-0.5',
                 'active:translate-y-0',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary',
               )}
             >
               <span>{expanded ? t('load_less') : t('load_more', { count: hiddenCount })}</span>

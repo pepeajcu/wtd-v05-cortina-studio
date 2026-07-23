@@ -49,7 +49,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${plusJakartaSans.variable} ${playfairDisplay.variable}`}>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
-          <Header products={productLinks} />
+          <Header products={productLinks} whatsappNumber={general.whatsappNumber} />
           <main>
             {children}
           </main>
