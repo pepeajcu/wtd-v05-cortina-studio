@@ -4,6 +4,9 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Build autocontenido para Docker/Dokploy: genera .next/standalone con
+  // server.js + node_modules trazados. No afecta a `next dev` ni a Vercel.
+  output: 'standalone',
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cortinastudio.gainweb.site' },
