@@ -14,7 +14,7 @@ export class WordPressFetchError extends Error {
   }
 }
 
-const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL ?? wpConfig.endpoint;
+const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || wpConfig.endpoint;
 
 export async function wpFetch<TData, TVariables extends Record<string, unknown> = Record<string, never>>(
   query: string | DocumentNode,
