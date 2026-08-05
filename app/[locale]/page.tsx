@@ -4,7 +4,6 @@ import { SolutionsSection } from '@/components/sections/SolutionsSection';
 import { ReelsSection } from '@/components/sections/ReelsSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { FAQSection } from '@/components/sections/FAQSection';
-import { getHome } from '@/lib/wordpress/getHome';
 import { getProyectos } from '@/lib/wordpress/getProyectos';
 import { getGeneral } from '@/lib/wordpress/getGeneral';
 import { getMediaUrls } from '@/lib/wordpress/getMediaUrls';
@@ -20,41 +19,33 @@ export default async function Home({ params }: { params: { locale: string } }) {
   const { locale } = params;
   setRequestLocale(locale);
 
-  const [home, proyectos, general] = await Promise.all([
-    getHome(),
-    getProyectos(),
-    getGeneral(),
-  ]);
+  const [proyectos, general] = await Promise.all([getProyectos(), getGeneral()]);
 
-  const selectedIds = home.reels.selected
-    .map((s) => Number(s.id))
-    .filter((n) => Number.isFinite(n));
-  const proyectosById = new Map(proyectos.map((p) => [p.databaseId, p]));
-  const selectedProyectos: ProyectoData[] = selectedIds
-    .map((id) => proyectosById.get(id))
-    .filter((p): p is ProyectoData => Boolean(p));
-
-  const missing = selectedIds.filter((id) => !proyectosById.has(id));
-  if (missing.length > 0) {
-    console.warn(
-      `[Home] reels.selected referencia databaseId(s) no encontrados: ${missing.join(', ')}`,
-    );
-  }
-
-  const mediaIds = [
-    ...selectedProyectos.flatMap((p) => [toAttachmentId(p.video), toAttachmentId(p.videoPoster)]),
-  ].filter((n): n is number => n !== null);
+  // Los reels de la home son TODOS los proyectos publicados: getProyectos ya
+  // filtra por status PUBLISH y ordena por fecha (mas reciente primero).
+  // No hay seleccion manual en el singleton de Home.
+  const mediaIds = proyectos
+    .flatMap((p) => [toAttachmentId(p.video), toAttachmentId(p.videoPoster)])
+    .filter((n): n is number => n !== null);
   const mediaUrls = await getMediaUrls(mediaIds);
 
-  const resolvedProyectos: ProyectoData[] = selectedProyectos.map((p) => {
-    const videoId = toAttachmentId(p.video);
-    const posterId = toAttachmentId(p.videoPoster);
-    return {
-      ...p,
-      video: videoId !== null ? mediaUrls.get(videoId) ?? '' : p.video,
-      videoPoster: posterId !== null ? mediaUrls.get(posterId) ?? null : p.videoPoster,
-    };
-  });
+  const resolvedProyectos: ProyectoData[] = proyectos
+    .map((p) => {
+      const videoId = toAttachmentId(p.video);
+      const posterId = toAttachmentId(p.videoPoster);
+      return {
+        ...p,
+        video: videoId !== null ? mediaUrls.get(videoId) ?? '' : p.video,
+        videoPoster: posterId !== null ? mediaUrls.get(posterId) ?? null : p.videoPoster,
+      };
+    })
+    // Un proyecto publicado sin video no puede renderizarse como reel.
+    .filter((p) => p.video !== '');
+
+  const sinVideo = proyectos.length - resolvedProyectos.length;
+  if (sinVideo > 0) {
+    console.warn(`[Home] ${sinVideo} proyecto(s) publicado(s) sin video: se omiten del carrusel`);
+  }
 
   return (
     <main>

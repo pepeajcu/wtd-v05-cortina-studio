@@ -1,5 +1,10 @@
 query GetProyectos {
-  proyectos(first: 12) {
+  # Solo proyectos PUBLICADOS, del mas reciente al mas antiguo.
+  # La home consume esta misma lista: no hay seleccion manual en el singleton.
+  proyectos(
+    first: 50
+    where: { status: PUBLISH, orderby: { field: DATE, order: DESC } }
+  ) {
     nodes {
       id
       databaseId
