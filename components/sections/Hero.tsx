@@ -111,6 +111,8 @@ export function Hero({ image, imageCaption, whatsappNumber }: HeroProps) {
               <Link
                 href={whatsappUrl}
                 target="_blank"
+                data-gtm-event="click_whatsapp"
+                data-gtm-location="hero"
                 className="group relative inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-medium transition-all duration-300 active:scale-[0.98] hover:shadow-strong"
               >
                 {t('cta_label')}

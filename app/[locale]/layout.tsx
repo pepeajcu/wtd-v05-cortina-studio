@@ -1,12 +1,17 @@
+import { Suspense } from 'react';
 import { Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
+import { GoogleTagManager } from '@next/third-parties/google';
 import "../globals.css";
 import type { Metadata } from "next";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { getGeneral } from '@/lib/wordpress/getGeneral';
 import { getAllProducts } from '@/lib/products';
+import { getSiteUrl, getBrandDefaults } from '@/lib/seo/metadata';
+import { OrganizationSchema } from '@/components/seo/OrganizationSchema';
+import { RouteChangeTracker } from '@/components/analytics/RouteChangeTracker';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -21,9 +26,22 @@ const playfairDisplay = Playfair_Display({
   weight: ['400'],
 });
 
+const brand = getBrandDefaults();
+
 export const metadata: Metadata = {
-  title: "Cortina Studio | Transformación de Espacios",
-  description: "Expertos en cortinas premium para privacidad, acústica y decoración.",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: brand.defaultTitle,
+    template: brand.titleTemplate,
+  },
+  description: brand.defaultDescription || "Expertos en cortinas premium para privacidad, acústica y decoración.",
+  openGraph: {
+    siteName: brand.name,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export default async function LocaleLayout({
@@ -45,9 +63,26 @@ export default async function LocaleLayout({
       href: `/productos/${p.slug}`,
     }));
 
+  const siteUrl = getSiteUrl();
+  const sameAs = [general.social.instagram, general.social.tiktok, general.social.facebook].filter(
+    (url): url is string => Boolean(url),
+  );
+
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
   return (
     <html lang={locale} className={`${plusJakartaSans.variable} ${playfairDisplay.variable}`}>
       <body className="antialiased">
+        {gtmId && <GoogleTagManager gtmId={gtmId} />}
+        <Suspense fallback={null}>
+          <RouteChangeTracker />
+        </Suspense>
+        <OrganizationSchema
+          name={brand.name}
+          url={siteUrl}
+          logo={general.brand.logo}
+          sameAs={sameAs}
+        />
         <NextIntlClientProvider messages={messages}>
           <Header products={productLinks} whatsappNumber={general.whatsappNumber} />
           <main>

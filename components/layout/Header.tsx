@@ -239,6 +239,8 @@ export function Header({ products, whatsappNumber }: HeaderProps) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            data-gtm-event="click_whatsapp"
+            data-gtm-location="header"
             className="group relative inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all duration-300 active:scale-[0.98] hover:shadow-medium"
           >
             {t('cta_contact')}
@@ -367,6 +369,8 @@ export function Header({ products, whatsappNumber }: HeaderProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  data-gtm-event="click_whatsapp"
+                  data-gtm-location="header_mobile"
                   className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg"
                 >
                   <WhatsAppIcon className="h-5 w-5" />

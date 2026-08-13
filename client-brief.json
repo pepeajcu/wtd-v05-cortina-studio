@@ -5,6 +5,10 @@
     "domain": "cortinastudio.com.gt",
     "target_audience": "Personas que buscan transformar sus espacios, enfocados en resolver problemas específicos sin necesidad de tener conocimientos técnicos sobre estilos de cortinas."
   },
+  "seo": {
+    "default_title": "Cortina Studio | Transformación de Espacios",
+    "default_description": "Expertos en cortinas premium para privacidad, acústica y decoración."
+  },
   "business_goals": [
     "Prioridad máxima: Conversión y generación de prospectos directamente hacia WhatsApp Business (+502).",
     "Invitar a los nuevos usuarios a explorar productos y capacidades a través de la educación visual.",

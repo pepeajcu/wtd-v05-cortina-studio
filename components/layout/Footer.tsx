@@ -111,6 +111,8 @@ export function Footer({ general }: { general: GeneralData }) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-gtm-event="click_whatsapp"
+              data-gtm-location="footer"
               className="inline-flex items-center gap-2.5 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:brightness-105 hover:shadow-strong hover:-translate-y-0.5 active:translate-y-0"
             >
               <WhatsAppIcon className="h-4 w-4" />
@@ -130,20 +132,29 @@ export function Footer({ general }: { general: GeneralData }) {
                   {column.title}
                 </h3>
                 <ul className="space-y-3">
-                  {column.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="group flex items-center text-sm text-primary-foreground/65 transition-colors duration-200 hover:text-accent"
-                      >
-                        {link.label}
-                        <span
-                          aria-hidden="true"
-                          className="ml-2 h-px w-0 bg-accent transition-all duration-300 ease-premium group-hover:w-3"
-                        />
-                      </Link>
-                    </li>
-                  ))}
+                  {column.links.map((link) => {
+                    const gtmEvent = link.href.startsWith('tel:')
+                      ? 'click_call'
+                      : link.href.startsWith('mailto:')
+                        ? 'click_email'
+                        : undefined;
+                    return (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          data-gtm-event={gtmEvent}
+                          data-gtm-location="footer"
+                          className="group flex items-center text-sm text-primary-foreground/65 transition-colors duration-200 hover:text-accent"
+                        >
+                          {link.label}
+                          <span
+                            aria-hidden="true"
+                            className="ml-2 h-px w-0 bg-accent transition-all duration-300 ease-premium group-hover:w-3"
+                          />
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
@@ -159,6 +170,9 @@ export function Footer({ general }: { general: GeneralData }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
+                  data-gtm-event="click_social"
+                  data-gtm-location="footer"
+                  data-gtm-label={label}
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-primary-foreground transition-all duration-300 ease-premium hover:border-accent/40 hover:bg-accent/10 hover:text-accent"
                 >
                   <Icon className="h-5 w-5" />

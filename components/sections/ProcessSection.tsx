@@ -106,6 +106,8 @@ export async function ProcessSection({ whatsappNumber }: ProcessSectionProps) {
           <Link
             href={whatsappUrl}
             target="_blank"
+            data-gtm-event="click_whatsapp"
+            data-gtm-location="process_section"
             className={cn(
               'inline-flex items-center gap-3 rounded-xl bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-medium',
               'transition-all duration-300 ease-premium hover:bg-primary/90 hover:shadow-strong hover:-translate-y-0.5',

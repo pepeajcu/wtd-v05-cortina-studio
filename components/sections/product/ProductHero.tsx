@@ -101,6 +101,9 @@ export function ProductHero({
             <Link
               href={whatsappUrl}
               target="_blank"
+              data-gtm-event="click_whatsapp"
+              data-gtm-location="product_hero"
+              data-gtm-label={eyebrow}
               className="group relative inline-flex items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-medium ring-1 ring-white/15 transition-all duration-300 ease-premium hover:shadow-strong active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
               {ctaLabel}

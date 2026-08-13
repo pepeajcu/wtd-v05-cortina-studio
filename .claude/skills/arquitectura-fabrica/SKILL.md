@@ -40,10 +40,16 @@ Manual del **motor**. Aplica a cualquier cliente. Lo que cambia por cliente vive
 - **next-intl** (ver `i18n-fabrica`).
 
 ### SEO
-- **next-sitemap** para sitemap automatico.
-- **Metadata API** de Next.js 14 en cada pagina.
-- **JSON-LD** structured data para Articles, BreadcrumbList, Organization.
-- Imagenes con `next/image` siempre; nunca `<img>` nativo.
+- **Convenciones nativas de Next 14 App Router** (`app/sitemap.ts`, `app/robots.ts`, `app/[locale]/opengraph-image.tsx`) para sitemap, robots y tarjetas Open Graph/Twitter — sin dependencias externas (no se usa `next-sitemap`).
+- **Metadata API** de Next.js 14 en cada pagina, compuesta via el helper `lib/seo/metadata.ts` (`buildMetadata`, `getSiteUrl`, `getBrandDefaults`).
+- **JSON-LD** structured data (`components/seo/*`) para Organization, Product, BreadcrumbList.
+- Imagenes con `next/image` siempre; nunca `<img>` nativo (excepcion: dentro de `ImageResponse`/`next/og`, que exige `<img>` plano por requisito de satori).
+
+### Analytics
+- **`@next/third-parties`** (`GoogleTagManager`) para inyectar el contenedor de GTM, condicionado a `NEXT_PUBLIC_GTM_ID`.
+- **GA4 se configura como tag dentro de GTM** (Tag "GA4 Configuration"), no como script `gtag.js` separado en el codigo del frontend.
+- Tracker de pageview SPA (`components/analytics/RouteChangeTracker.tsx`) montado una vez en el layout raiz, necesario porque la navegacion interna de `next/link` no dispara un nuevo page load.
+- Eventos de interaccion via atributos declarativos `data-gtm-event`/`data-gtm-location`/`data-gtm-label` en los `<a>`/`<button>` existentes, capturados por Auto-Event Listeners de GTM — sin agregar `onClick` handlers nuevos en React.
 
 ---
 

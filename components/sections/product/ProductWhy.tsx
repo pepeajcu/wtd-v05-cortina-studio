@@ -54,6 +54,8 @@ export function ProductWhy({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-gtm-event="click_whatsapp"
+                data-gtm-location="product_why"
                 className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:brightness-105 hover:shadow-strong active:translate-y-0 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <WhatsAppIcon className="h-5 w-5" />

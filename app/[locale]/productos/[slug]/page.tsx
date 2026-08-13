@@ -13,6 +13,9 @@ import {
   getProductSlugs,
   buildProductWhatsAppMessage,
 } from '@/lib/products';
+import { buildMetadata, getSiteUrl } from '@/lib/seo/metadata';
+import { ProductSchema } from '@/components/seo/ProductSchema';
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 
 interface ProductPageParams {
   locale: string;
@@ -27,15 +30,12 @@ export function generateMetadata({ params }: { params: ProductPageParams }): Met
   const product = getProductBySlug(params.slug);
   if (!product) return {};
 
-  return {
-    title: `${product.hero.title} | Cortina Studio`,
+  return buildMetadata({
+    title: product.hero.title,
     description: product.hero.subtitle,
-    openGraph: {
-      title: product.hero.title,
-      description: product.hero.subtitle,
-      type: 'website',
-    },
-  };
+    path: `/productos/${params.slug}`,
+    locale: params.locale,
+  });
 }
 
 export default async function ProductPage({ params }: { params: ProductPageParams }) {
@@ -47,9 +47,23 @@ export default async function ProductPage({ params }: { params: ProductPageParam
 
   const general = await getGeneral();
   const whatsappMessage = buildProductWhatsAppMessage(product.name);
+  const siteUrl = getSiteUrl();
+  const productUrl = `${siteUrl}/productos/${slug}`;
 
   return (
     <main>
+      <ProductSchema
+        name={product.hero.title}
+        description={product.hero.subtitle}
+        image={product.images.hero}
+        url={productUrl}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Inicio', url: siteUrl },
+          { name: product.name, url: productUrl },
+        ]}
+      />
       <ProductHero
         eyebrow={product.name}
         title={product.hero.title}

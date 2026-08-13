@@ -77,6 +77,9 @@ export async function SolutionsSection() {
                   key={solution.key}
                   id={`solucion-${solution.key}`}
                   href={`/productos/${solution.productSlug}`}
+                  data-gtm-event="select_content"
+                  data-gtm-location="solutions_section"
+                  data-gtm-label={solution.productSlug}
                   className={cn(
                     'group relative flex h-full flex-col rounded-2xl bg-background p-7',
                     'border border-border/60',

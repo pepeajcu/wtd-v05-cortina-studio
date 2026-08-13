@@ -13,13 +13,13 @@ description: Checklist de Fase 1-4 para levantar un cliente nuevo desde el repo 
 
 | # | Archivo | Que llevar del cliente | Quien lo edita |
 |---|---|---|---|
-| 1 | `client-brief.json` | Paleta, tipografias, **`design_system.vibe`** (`high-end` \| `minimalist` \| `brutalist`), **`design_system.motion`** (`calm` \| `fluid` \| `perpetual`), audiencia, estructura de paginas | Dev/Disenador (input creativo) |
+| 1 | `client-brief.json` | Paleta, tipografias, **`design_system.vibe`** (`high-end` \| `minimalist` \| `brutalist`), **`design_system.motion`** (`calm` \| `fluid` \| `perpetual`), audiencia, estructura de paginas, bloque opcional `seo.{default_title,default_description}` (defaults de metadata/OG) | Dev/Disenador (input creativo) |
 | 2 | `messages/{es,en}.json` | **Tier A completo**: copy de marca (hero, problems, reels, process, footer), navegacion, microcopy, mensajes prellenados de WhatsApp. Es la fuente de verdad del copy del sitio | Dev (Fase 1 del cliente) |
 | 3 | `wp-config.json` | `endpoint`, `siteUrl`, `cpt.*` (slug, single, plural, limit), `fields.*.{seccion}.{campo}` solo Tier B/C (operativo y dinamico) | Dev (Fase 1 del cliente) |
 | 4 | `wordpress/plugins/cortinastudio-wpgraphql-bridge/bridge-fields.json` | Lista plana de meta keys solo Tier B/C — debe espejar el #3 | Dev (Fase 2 del cliente) |
 | 5 | `tailwind.config.ts` | `colors.*` y `fontFamily.*` derivados del brief; resto sin tocar | Dev (Fase 1) |
 | 6 | `app/[locale]/page.tsx` y `components/sections/*` | Constantes estructurales (keys de cards, iconos por seccion); el copy viene de `messages/` | Dev (Fase 1 / Fase 4) |
-| 7 | `.env.local` | `NEXT_PUBLIC_WORDPRESS_API_URL`, secrets de revalidacion/preview, `NEXT_PUBLIC_SITE_URL`. **No commiteado** (secreto de entorno) | Dev (Fase 1) |
+| 7 | `.env.local` | `NEXT_PUBLIC_WORDPRESS_API_URL`, secrets de revalidacion/preview, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID` (contenedor de Google Tag Manager del cliente; vacio = GTM desactivado). **No commiteado** (secreto de entorno) | Dev (Fase 1) |
 | 8 | `app/[locale]/<ruta-cliente>/*` | Rutas/paginas propias del cliente mas alla de la home (catalogo de producto/servicio, paginas informativas, landings). **Estructura y contenido los define el cliente** | Dev (Fase 1 / Fase 4) |
 | 9 | `content/*.json` | Contenido local de esas paginas (pre-WP), leido por un loader tipado en `lib/` con Zod. Migrable a WP (Tier C) si el cliente lo edita recurrente | Dev (Fase 1 / Fase 4) |
 
@@ -36,8 +36,12 @@ description: Checklist de Fase 1-4 para levantar un cliente nuevo desde el repo 
 - `wordpress/plugins/cortinastudio-wpgraphql-bridge/cortinastudio-wpgraphql-bridge.php`
 - `components/motion/FadeIn.tsx`, `components/motion/FadeInStagger.tsx`
 - `app/globals.css` (la base CSS de la fabrica — ver `diseno-fabrica`)
-- `i18n/request.ts`, `middleware.ts`
+- `i18n/request.ts`, `middleware.ts`, `i18n/locales.ts`
 - `codegen.ts`
+- `app/sitemap.ts`, `app/robots.ts`, `app/[locale]/opengraph-image.tsx` y `app/[locale]/productos/[slug]/opengraph-image.tsx` (estructura/logica; el contenido que renderizan SI varia porque leen `client-brief.json`, el archivo no se toca por cliente)
+- `lib/seo/metadata.ts`, `lib/seo/og-template.tsx`
+- `components/seo/*` (`JsonLd`, `OrganizationSchema`, `ProductSchema`, `BreadcrumbSchema`)
+- `components/analytics/RouteChangeTracker.tsx`, `lib/analytics/dataLayer.ts`
 - Reglas de diseno: paddings, easing, anatomia de seccion, jerarquia tipografica, opacidades estandar (ver `diseno-fabrica`)
 
 Si necesitas cambiar algo de esta lista, **es una evolucion de la fabrica**, no del cliente. Discutela con el usuario, actualiza la base para todos los proyectos, y deja un commit explicito.

@@ -88,6 +88,8 @@ export async function ReelsSection({ proyectos, whatsappNumber }: ReelsSectionPr
             <Link
               href={whatsappUrl}
               target="_blank"
+              data-gtm-event="click_whatsapp"
+              data-gtm-location="reels_section"
               className="inline-flex items-center gap-3 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:brightness-105 hover:shadow-strong hover:-translate-y-0.5"
             >
               <WhatsAppIcon className="h-5 w-5" />

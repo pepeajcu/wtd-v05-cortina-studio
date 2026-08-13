@@ -170,6 +170,9 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
           rel="noopener noreferrer"
           className="absolute right-4 bottom-4 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur-md text-white transition-transform duration-300 hover:scale-110"
           aria-label={`View on ${reel.platform}`}
+          data-gtm-event="click_social"
+          data-gtm-location="reel_card"
+          data-gtm-label={reel.platform}
         >
           {reel.platform === 'instagram' ? <InstagramIcon /> : <TikTokIcon />}
         </a>

@@ -106,6 +106,9 @@ export function ProductGallery({ gallery }: ProductGalleryProps) {
                 type="button"
                 onClick={() => setLightboxIndex(index)}
                 aria-label={t('open_image', { alt: item.alt, index: index + 1, total: gallery.length })}
+                data-gtm-event="select_item"
+                data-gtm-location="product_gallery"
+                data-gtm-label={item.alt}
                 className={cn(
                   'group relative block w-full overflow-hidden rounded-2xl bg-primary-foreground/10',
                   'ring-1 ring-primary-foreground/10 shadow-soft',

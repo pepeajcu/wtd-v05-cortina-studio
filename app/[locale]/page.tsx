@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Hero2 } from '@/components/sections/Hero2';
 import { SolutionsSection } from '@/components/sections/SolutionsSection';
@@ -8,6 +9,17 @@ import { getProyectos } from '@/lib/wordpress/getProyectos';
 import { getGeneral } from '@/lib/wordpress/getGeneral';
 import { getMediaUrls } from '@/lib/wordpress/getMediaUrls';
 import type { ProyectoData } from '@/lib/wordpress/getProyectos';
+import { buildMetadata, getBrandDefaults } from '@/lib/seo/metadata';
+
+export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
+  const brand = getBrandDefaults();
+  return buildMetadata({
+    title: brand.defaultTitle,
+    description: brand.defaultDescription || 'Expertos en cortinas premium para privacidad, acústica y decoración.',
+    path: '/',
+    locale: params.locale,
+  });
+}
 
 function toAttachmentId(raw: string | null | undefined): number | null {
   if (!raw) return null;

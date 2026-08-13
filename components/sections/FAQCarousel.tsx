@@ -132,6 +132,8 @@ export function FAQCarousel({ whatsappNumber }: FAQCarouselProps) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t('carousel_cta')}
+            data-gtm-event="click_whatsapp"
+            data-gtm-location="faq_carousel"
             className={cn(
               'group/cta flex w-full items-center justify-center gap-3 rounded-2xl',
               'bg-gradient-to-r from-primary via-primary to-accent px-6 py-4',

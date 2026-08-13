@@ -20,7 +20,11 @@
       "PowerShell(Get-Process *)",
       "PowerShell(Get-NetTCPConnection *)",
       "PowerShell(Stop-Process *)",
-      "PowerShell(Copy-Item *)"
+      "PowerShell(Copy-Item *)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 *)",
+      "Bash(git diff *)",
+      "Bash(npx --no-install playwright --version)"
     ]
   }
 }
