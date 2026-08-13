@@ -1,7 +1,7 @@
 {
   "endpoint": "https://cortinastudio.gainweb.site/graphql",
   "siteUrl": "https://cortinastudio.gainweb.site",
-  "revalidateSeconds": 3600,
+  "revalidateSeconds": 10,
   "locales": { "default": "es", "supported": ["es"] },
   "cpt": {
     "home": {
