@@ -13,7 +13,7 @@ interface WhatsAppFloatingCtaProps {
 }
 
 const ATTENTION_INITIAL_DELAY_MS = 4_000;
-const ATTENTION_INTERVAL_MS = 120_000;
+const ATTENTION_INTERVAL_MS = 45_000;
 const BUBBLE_VISIBLE_MS = 15_000;
 
 export function WhatsAppFloatingCta({ whatsappNumber }: WhatsAppFloatingCtaProps) {
@@ -39,9 +39,9 @@ export function WhatsAppFloatingCta({ whatsappNumber }: WhatsAppFloatingCtaProps
       setShowBubble(true);
       dismissBubbleAfterDelay();
       controls.start({
-        scale: [1, 0.85, 0.85, 0.95, 1],
-        x: [0, -4, 4, -3, 0],
-        transition: { duration: 0.9, ease: 'easeInOut' },
+        scale: [1, 1.25, 1.1, 1.2, 1],
+        x: [0, -6, 6, -3, 0],
+        transition: { duration: 0.5, ease: 'easeInOut' },
       });
     };
 
