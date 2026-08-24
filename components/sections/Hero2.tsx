@@ -84,7 +84,7 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
           <motion.h1
             id="hero2-heading"
             {...fadeUp(0.1)}
-            className="font-sans text-3xl font-semibold leading-[1.1] tracking-tight text-primary-foreground text-balance sm:text-4xl lg:text-6xl xl:text-7xl"
+            className="font-sans text-3xl font-semibold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl lg:text-6xl lg:text-accent xl:text-7xl"
           >
             {t('title_prefix')}{' '}
             {reduced ? (
