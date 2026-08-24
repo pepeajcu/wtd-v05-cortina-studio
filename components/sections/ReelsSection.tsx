@@ -17,6 +17,7 @@ interface ReelsSectionProps {
 function toReel(p: ProyectoData): Reel {
   return {
     id: p.id,
+    title: p.title,
     src: p.video,
     poster: p.videoPoster ?? undefined,
     alt: p.videoAlt || p.title,

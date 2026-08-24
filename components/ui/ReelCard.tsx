@@ -15,6 +15,7 @@ export interface ProjectDetails {
 
 export interface Reel {
   id: string;
+  title: string;
   src: string;
   poster?: string;
   alt: string;
@@ -53,26 +54,45 @@ const TikTokIcon = () => (
 
 export function ReelCard({ reel, labels }: ReelCardProps) {
   const [infoOpen, setInfoOpen] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isVideoError, setIsVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = useReducedMotion();
 
+  // Precarga el video un poco antes de que entre al viewport, para que ya
+  // tenga datos cuando el usuario llegue a la tarjeta.
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const el = videoRef.current;
+    if (!el) return;
+    const preloadObserver = new IntersectionObserver(
       ([entry]) => {
-        if (!videoRef.current) return;
+        if (entry.isIntersecting) {
+          setShouldLoadVideo(true);
+          preloadObserver.disconnect();
+        }
+      },
+      { rootMargin: '600px 0px' }
+    );
+    preloadObserver.observe(el);
+    return () => preloadObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const playObserver = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting && !reduced) {
-          videoRef.current.play().catch(() => {});
+          el.play().catch(() => {});
         } else {
-          videoRef.current.pause();
+          el.pause();
         }
       },
       { threshold: 0.5 }
     );
-
-    if (videoRef.current) observer.observe(videoRef.current);
-    return () => observer.disconnect();
+    playObserver.observe(el);
+    return () => playObserver.disconnect();
   }, [reduced]);
 
   useEffect(() => {
@@ -86,25 +106,39 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
   return (
     <div className="group/card relative h-full w-full">
       <div className="relative aspect-[9/16] overflow-hidden rounded-2xl bg-gradient-to-b from-primary/20 to-primary/10 shadow-soft">
-        {/* Video Element */}
+        {/* Poster: se ve de inmediato mientras el video carga en segundo plano */}
+        {reel.poster && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={reel.poster}
+            alt={reel.alt}
+            loading="lazy"
+            className={cn(
+              'absolute inset-0 h-full w-full object-cover transition-opacity duration-700',
+              isVideoLoaded ? 'opacity-0' : 'opacity-100'
+            )}
+          />
+        )}
+
+        {/* Video Element: carga (src) diferida hasta acercarse al viewport */}
         <video
           ref={videoRef}
-          src={reel.src}
+          src={shouldLoadVideo ? reel.src : undefined}
           poster={reel.poster}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload={shouldLoadVideo ? 'auto' : 'none'}
           onCanPlay={() => setIsVideoLoaded(true)}
           onError={() => setIsVideoError(true)}
           className={cn(
-            'h-full w-full object-cover transition-opacity duration-700',
+            'absolute inset-0 h-full w-full object-cover transition-opacity duration-700',
             isVideoLoaded ? 'opacity-100' : 'opacity-0'
           )}
         />
 
-        {/* Loading Placeholder */}
-        {!isVideoLoaded && !isVideoError && (
+        {/* Loading Placeholder: solo si no hay poster disponible */}
+        {!reel.poster && !isVideoLoaded && !isVideoError && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-primary/30">
             <div className="h-12 w-12 animate-pulse rounded-full bg-primary/10" />
             <div className="h-2 w-24 animate-pulse rounded-full bg-primary/10" />
@@ -127,7 +161,7 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
           className={cn(
             'absolute left-4 top-4 z-30 flex h-10 w-10 items-center justify-center rounded-full',
             'bg-black/40 backdrop-blur-md text-white transition-all duration-300',
-            'md:opacity-0 md:group-hover/card:opacity-100',
+            'lg:opacity-0 lg:group-hover/card:opacity-100',
             infoOpen && 'opacity-100'
           )}
         >
@@ -139,7 +173,7 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
           className={cn(
             'absolute inset-0 z-20 flex flex-col justify-end p-6 text-white bg-gradient-to-t from-black/95 via-black/60 to-transparent',
             'transition-transform duration-500 ease-premium',
-            'translate-y-full group-hover/card:translate-y-0',
+            'translate-y-full lg:group-hover/card:translate-y-0',
             infoOpen && 'translate-y-0'
           )}
         >
@@ -178,7 +212,7 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
       {/* Bottom Caption */}
       <div className="mt-4">
         <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-1">
-          {labels.solution_label}
+          {reel.title}
         </p>
         <p className="font-sans font-light text-xs leading-relaxed text-primary-foreground/75">
           {reel.project.solutionSummary}
