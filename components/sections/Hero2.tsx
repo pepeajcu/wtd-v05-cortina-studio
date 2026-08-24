@@ -84,11 +84,11 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
           <motion.h1
             id="hero2-heading"
             {...fadeUp(0.1)}
-            className="font-sans text-3xl font-semibold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl lg:text-6xl lg:text-accent xl:text-7xl"
+            className="font-sans text-3xl font-semibold leading-[1.1] tracking-tight text-white text-balance sm:text-4xl lg:text-6xl xl:text-7xl"
           >
             {t('title_prefix')}{' '}
             {reduced ? (
-              <span className="inline-block min-w-[8ch] font-display italic text-foreground">
+              <span className="inline-block min-w-[8ch] font-display italic text-black lg:text-accent">
                 {rotatingWords[0]}
               </span>
             ) : (
@@ -99,7 +99,7 @@ export function Hero2({ image, whatsappNumber }: Hero2Props) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-block min-w-[8ch] font-display italic text-foreground"
+                  className="inline-block min-w-[8ch] font-display italic text-black lg:text-accent"
                 >
                   {rotatingWords[wordIndex]}
                 </motion.span>
