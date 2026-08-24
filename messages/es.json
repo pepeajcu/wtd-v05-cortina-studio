@@ -1,6 +1,7 @@
 {
   "common": {
-    "whatsapp": "Contactar por WhatsApp"
+    "whatsapp": "Contactar por WhatsApp",
+    "close": "Cerrar"
   },
   "nav": {
     "home": "Inicio",
@@ -11,7 +12,8 @@
     "cta_contact": "Agendar Cita",
     "cta_whatsapp_message": "Hola, me gustaría agendar una cita para cotizar cortinas para mi espacio.",
     "open_menu": "Abrir menú",
-    "close_menu": "Cerrar menú"
+    "close_menu": "Cerrar menú",
+    "attention_bubble": "Agenda tu cita por WhatsApp"
   },
   "brand": {
     "name": "Cortina Studio"
