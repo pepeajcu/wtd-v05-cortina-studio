@@ -40,7 +40,7 @@ export function WhatsAppFloatingCta({ whatsappNumber }: WhatsAppFloatingCtaProps
       </div>
 
       {/* Tablet / Desktop: burbuja circular flotante */}
-      <div className="fixed bottom-6 left-6 z-30 hidden md:block">
+      <div className="fixed bottom-6 right-6 z-30 hidden md:block">
         <Link
           href={whatsappUrl}
           target="_blank"
