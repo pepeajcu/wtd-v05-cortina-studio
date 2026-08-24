@@ -105,7 +105,7 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
 
   return (
     <div className="group/card relative h-full w-full">
-      <div className="relative aspect-[9/16] overflow-hidden rounded-2xl bg-gradient-to-b from-primary/20 to-primary/10 shadow-soft">
+      <div className="relative aspect-[9/16] overflow-hidden rounded-2xl bg-gradient-to-b from-primary/20 to-primary/10 shadow-soft [transform:translateZ(0)]">
         {/* Poster: se ve de inmediato mientras el video carga en segundo plano */}
         {reel.poster && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -161,7 +161,7 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
           className={cn(
             'absolute left-4 top-4 z-30 flex h-10 w-10 items-center justify-center rounded-full',
             'bg-black/40 backdrop-blur-md text-white transition-all duration-300',
-            'lg:opacity-0 lg:group-hover/card:opacity-100',
+            '[@media(hover:hover)_and_(pointer:fine)]:opacity-0 [@media(hover:hover)_and_(pointer:fine)]:group-hover/card:opacity-100',
             infoOpen && 'opacity-100'
           )}
         >
@@ -171,13 +171,13 @@ export function ReelCard({ reel, labels }: ReelCardProps) {
         {/* Project Details Overlay */}
         <div
           className={cn(
-            'absolute inset-0 z-20 flex flex-col justify-end p-6 text-white bg-gradient-to-t from-black/95 via-black/60 to-transparent',
+            'absolute inset-0 z-20 flex flex-col overflow-y-auto p-6 text-white bg-gradient-to-t from-black/95 via-black/60 to-transparent',
             'transition-transform duration-500 ease-premium',
-            'translate-y-full lg:group-hover/card:translate-y-0',
+            'translate-y-full [@media(hover:hover)_and_(pointer:fine)]:group-hover/card:translate-y-0',
             infoOpen && 'translate-y-0'
           )}
         >
-          <dl className="space-y-4">
+          <dl className="space-y-4 mt-auto">
             <div>
               <dt className="text-[9px] font-semibold uppercase tracking-widest text-accent">{labels.space_label}</dt>
               <dd className="text-sm font-medium leading-tight">{reel.project.spaceType}</dd>
