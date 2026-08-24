@@ -5,7 +5,7 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { WhatsAppMobileBar } from '@/components/layout/WhatsAppMobileBar';
+import { WhatsAppFloatingCta } from '@/components/layout/WhatsAppFloatingCta';
 import { getGeneral } from '@/lib/wordpress/getGeneral';
 import { getAllProducts } from '@/lib/products';
 
@@ -55,7 +55,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer general={general} />
-          <WhatsAppMobileBar whatsappNumber={general.whatsappNumber} />
+          <WhatsAppFloatingCta whatsappNumber={general.whatsappNumber} />
         </NextIntlClientProvider>
       </body>
     </html>
