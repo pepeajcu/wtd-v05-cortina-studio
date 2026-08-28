@@ -1,4 +1,5 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import clientRedirects from './content/redirects.json' with { type: 'json' };
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -16,6 +17,11 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'plus.unsplash.com' },
     ],
+  },
+  // Redirects 301 del cliente (URLs heredadas de un sitio previo hacia las
+  // rutas actuales) viven como datos en content/redirects.json, no aqui.
+  async redirects() {
+    return clientRedirects;
   },
 };
 

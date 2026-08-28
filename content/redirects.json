@@ -1,0 +1,53 @@
+[
+  { "source": "/product/cenefas-habitacion-principal", "destination": "/productos/cenefas", "permanent": true },
+  { "source": "/product/cenefas", "destination": "/productos/cenefas", "permanent": true },
+  { "source": "/product/cenefas-de-sala-2", "destination": "/productos/cenefas", "permanent": true },
+  { "source": "/product-category/cenerfas", "destination": "/productos/cenefas", "permanent": true },
+
+  { "source": "/product-category/pliegue-frances", "destination": "/productos/pliegue-frances", "permanent": true },
+  { "source": "/product/blanca-de-pliegue-frances-en-dormitorio", "destination": "/productos/pliegue-frances", "permanent": true },
+  { "source": "/product/cafe-de-pliegue-frances-en-habitacion", "destination": "/productos/pliegue-frances", "permanent": true },
+  { "source": "/product/blanca-de-pliegue-frances-en-sala-2", "destination": "/productos/pliegue-frances", "permanent": true },
+  { "source": "/product/amarilla-de-pliegue-frances-en-sala", "destination": "/productos/pliegue-frances", "permanent": true },
+  { "source": "/product/blanca-de-pliegue-frances-en-bano-2", "destination": "/productos/pliegue-frances", "permanent": true },
+
+  { "source": "/product-category/ripplefold", "destination": "/productos/ripplefold", "permanent": true },
+  { "source": "/product/ripplefold-9", "destination": "/productos/ripplefold", "permanent": true },
+  { "source": "/product/ripplefold-11", "destination": "/productos/ripplefold", "permanent": true },
+  { "source": "/product/ripplefold-3", "destination": "/productos/ripplefold", "permanent": true },
+  { "source": "/product/ripplefold-8", "destination": "/productos/ripplefold", "permanent": true },
+  { "source": "/product/ripplefold-7", "destination": "/productos/ripplefold", "permanent": true },
+
+  { "source": "/product-category/enrollable-dia-y-noche", "destination": "/productos/enrollables-dia-noche", "permanent": true },
+  { "source": "/product/enrollable-dia-y-noche-3", "destination": "/productos/enrollables-dia-noche", "permanent": true },
+  { "source": "/product/enrollable-dia-y-noche", "destination": "/productos/enrollables-dia-noche", "permanent": true },
+  { "source": "/product/enrollable-dia-y-noche-10", "destination": "/productos/enrollables-dia-noche", "permanent": true },
+
+  { "source": "/product-category/enrollables", "destination": "/productos/enrollables", "permanent": true },
+  { "source": "/product/enrollables-13", "destination": "/productos/enrollables", "permanent": true },
+  { "source": "/product/enrollables-7", "destination": "/productos/enrollables", "permanent": true },
+  { "source": "/product/enrollables", "destination": "/productos/enrollables", "permanent": true },
+  { "source": "/product/enrollables-14", "destination": "/productos/enrollables", "permanent": true },
+  { "source": "/product/enrollables-8", "destination": "/productos/enrollables", "permanent": true },
+  { "source": "/product/enrollables-4", "destination": "/productos/enrollables", "permanent": true },
+
+  { "source": "/product-category/con-ojetes", "destination": "/productos/ojetes", "permanent": true },
+  { "source": "/product/beige-con-ojetes-en-sala", "destination": "/productos/ojetes", "permanent": true },
+  { "source": "/product/gris-con-ojetes-en-estudio", "destination": "/productos/ojetes", "permanent": true },
+  { "source": "/product/gris-con-ojetes-en-dormitorio", "destination": "/productos/ojetes", "permanent": true },
+  { "source": "/product-category/con-argollas", "destination": "/productos/ojetes", "permanent": true },
+
+  { "source": "/product/cojines-y-fundas-4", "destination": "/productos/cojines", "permanent": true },
+  { "source": "/product/cojines-y-fundas-5", "destination": "/productos/cojines", "permanent": true },
+  { "source": "/product/cojines-y-fundas-7", "destination": "/productos/cojines", "permanent": true },
+
+  { "source": "/contacto", "destination": "/#faq", "permanent": true },
+  { "source": "/about", "destination": "/#proyectos", "permanent": true },
+
+  { "source": "/shop", "destination": "/", "permanent": true },
+  { "source": "/cotizador", "destination": "/", "permanent": true },
+  { "source": "/evercompare", "destination": "/", "permanent": true },
+  { "source": "/product-category/romana", "destination": "/", "permanent": true },
+  { "source": "/product-category/edredones-y-duve", "destination": "/", "permanent": true },
+  { "source": "/blog/como-deben-quedar-tus-cortinas-cuando-son-hechas-a-la-medida", "destination": "/", "permanent": true }
+]
