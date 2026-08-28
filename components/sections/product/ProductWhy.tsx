@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { getIcon } from '@/lib/iconMap';
+import { WhatsAppCtaLink } from '@/components/ui/WhatsAppCtaLink';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { ImagePlaceholder } from './ImagePlaceholder';
 
@@ -50,15 +50,16 @@ export function ProductWhy({
               ))}
             </div>
             <div className="mt-8">
-              <Link
+              <WhatsAppCtaLink
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                location="content"
                 className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:brightness-105 hover:shadow-strong active:translate-y-0 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <WhatsAppIcon className="h-5 w-5" />
                 {whatsappLabel}
-              </Link>
+              </WhatsAppCtaLink>
             </div>
           </FadeIn>
 

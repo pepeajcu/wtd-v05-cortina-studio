@@ -8,6 +8,7 @@ import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { cn, buildWhatsAppUrl } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getIcon } from '@/lib/iconMap';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 export interface HeaderProductLink {
   label: string;
@@ -239,6 +240,7 @@ export function Header({ products, whatsappNumber }: HeaderProps) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('header_menu')}
             className="group relative inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all duration-300 active:scale-[0.98] hover:shadow-medium"
           >
             {t('cta_contact')}
@@ -366,7 +368,10 @@ export function Header({ products, whatsappNumber }: HeaderProps) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    trackWhatsAppClick('header_menu');
+                    setIsMobileMenuOpen(false);
+                  }}
                   className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg"
                 >
                   <WhatsAppIcon className="h-5 w-5" />

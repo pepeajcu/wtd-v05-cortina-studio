@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from 'framer-motion';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 interface WhatsAppFloatingCtaProps {
   whatsappNumber: string;
@@ -74,6 +75,7 @@ export function WhatsAppFloatingCta({ whatsappNumber }: WhatsAppFloatingCtaProps
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t('cta_contact')}
+            onClick={() => trackWhatsAppClick('floating_cta')}
             className="inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-full border border-border/40 bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-strong backdrop-blur-xl transition-all duration-300 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
@@ -109,6 +111,7 @@ export function WhatsAppFloatingCta({ whatsappNumber }: WhatsAppFloatingCtaProps
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick('floating_cta')}
                   className="block text-sm font-medium leading-snug text-foreground hover:text-accent"
                 >
                   {t('attention_bubble')}
@@ -129,6 +132,7 @@ export function WhatsAppFloatingCta({ whatsappNumber }: WhatsAppFloatingCtaProps
             rel="noopener noreferrer"
             aria-label={tCommon('whatsapp')}
             title={tCommon('whatsapp')}
+            onClick={() => trackWhatsAppClick('floating_cta')}
             className="group flex h-14 w-14 items-center justify-center rounded-full border border-border/40 bg-primary text-primary-foreground shadow-strong transition-all duration-300 ease-premium hover:scale-105 hover:shadow-[0_8px_32px_-4px_rgb(0_0_0_/_0.25)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <WhatsAppIcon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />

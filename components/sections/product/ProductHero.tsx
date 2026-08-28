@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 
@@ -101,6 +102,7 @@ export function ProductHero({
             <Link
               href={whatsappUrl}
               target="_blank"
+              onClick={() => trackWhatsAppClick('content')}
               className="group relative inline-flex items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-medium ring-1 ring-white/15 transition-all duration-300 ease-premium hover:shadow-strong active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
               {ctaLabel}

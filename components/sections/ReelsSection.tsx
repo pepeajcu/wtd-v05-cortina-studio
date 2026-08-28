@@ -1,9 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { FadeIn } from '@/components/motion/FadeIn';
 import type { Reel } from '@/components/ui/ReelCard';
 import { ReelsCarousel } from '@/components/sections/ReelsCarousel';
+import { WhatsAppCtaLink } from '@/components/ui/WhatsAppCtaLink';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
@@ -86,14 +86,15 @@ export async function ReelsSection({ proyectos, whatsappNumber }: ReelsSectionPr
             <p className="text-lg font-medium leading-relaxed text-primary-foreground/90 mb-8">
               {t('cta_text')}
             </p>
-            <Link
+            <WhatsAppCtaLink
               href={whatsappUrl}
               target="_blank"
+              location="content"
               className="inline-flex items-center gap-3 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:brightness-105 hover:shadow-strong hover:-translate-y-0.5"
             >
               <WhatsAppIcon className="h-5 w-5" />
               {t('cta_button')}
-            </Link>
+            </WhatsAppCtaLink>
           </div>
         </FadeIn>
       </div>

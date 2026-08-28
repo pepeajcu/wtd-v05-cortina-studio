@@ -7,6 +7,7 @@ import type { ComponentType } from 'react';
 import type { GeneralData } from '@/lib/wordpress/getGeneral';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 const FacebookIcon: ComponentType<{ className?: string }> = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -111,6 +112,7 @@ export function Footer({ general }: { general: GeneralData }) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('content')}
               className="inline-flex items-center gap-2.5 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-300 ease-premium hover:brightness-105 hover:shadow-strong hover:-translate-y-0.5 active:translate-y-0"
             >
               <WhatsAppIcon className="h-4 w-4" />

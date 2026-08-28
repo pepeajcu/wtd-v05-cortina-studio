@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
 const AUTOPLAY_MS = 5000;
@@ -131,6 +132,7 @@ export function FAQCarousel({ whatsappNumber }: FAQCarouselProps) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('content')}
             aria-label={t('carousel_cta')}
             className={cn(
               'group/cta flex w-full items-center justify-center gap-3 rounded-2xl',

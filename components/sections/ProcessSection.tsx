@@ -1,10 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { z } from 'zod';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { FadeInStagger } from '@/components/motion/FadeInStagger';
 import { ProcessTitle, type WordEntry } from '@/components/motion/ProcessTitle';
+import { WhatsAppCtaLink } from '@/components/ui/WhatsAppCtaLink';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
@@ -103,9 +103,10 @@ export async function ProcessSection({ whatsappNumber }: ProcessSectionProps) {
         </div>
 
         <FadeIn className="mt-20 flex justify-center">
-          <Link
+          <WhatsAppCtaLink
             href={whatsappUrl}
             target="_blank"
+            location="content"
             className={cn(
               'inline-flex items-center gap-3 rounded-xl bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-medium',
               'transition-all duration-300 ease-premium hover:bg-primary/90 hover:shadow-strong hover:-translate-y-0.5',
@@ -114,7 +115,7 @@ export async function ProcessSection({ whatsappNumber }: ProcessSectionProps) {
           >
             <CtaIcon className="h-5 w-5" />
             {t('cta_label')}
-          </Link>
+          </WhatsAppCtaLink>
         </FadeIn>
       </div>
     </section>

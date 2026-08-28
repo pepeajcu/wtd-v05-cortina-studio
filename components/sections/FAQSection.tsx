@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { getIcon } from '@/lib/iconMap';
 import { FAQAccordion } from '@/components/sections/FAQAccordion';
 import { FAQCarousel } from '@/components/sections/FAQCarousel';
+import { WhatsAppCtaLink } from '@/components/ui/WhatsAppCtaLink';
 import { buildWhatsAppUrl, cn } from '@/lib/utils';
 
 interface FAQSectionProps {
@@ -55,10 +55,11 @@ export async function FAQSection({ whatsappNumber }: FAQSectionProps) {
         </div>
 
         <FadeIn className="mt-20 flex justify-center">
-          <Link
+          <WhatsAppCtaLink
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            location="content"
             className={cn(
               'inline-flex items-center gap-3 rounded-xl bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-medium',
               'transition-all duration-300 ease-premium hover:bg-primary/90 hover:shadow-strong hover:-translate-y-0.5',
@@ -67,7 +68,7 @@ export async function FAQSection({ whatsappNumber }: FAQSectionProps) {
           >
             <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
             {t('bottom_cta_label')}
-          </Link>
+          </WhatsAppCtaLink>
         </FadeIn>
       </div>
     </section>

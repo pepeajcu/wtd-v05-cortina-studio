@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { WhatsAppCtaLink } from '@/components/ui/WhatsAppCtaLink';
 import { buildWhatsAppUrl } from '@/lib/utils';
 import { getIcon } from '@/lib/iconMap';
 import type { ProductSignatureData } from '@/lib/products';
@@ -88,10 +88,11 @@ export function ProductSignature({
             </div>
 
             <FadeIn delay={0.5} className="mt-9">
-              <Link
+              <WhatsAppCtaLink
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                location="content"
                 className="group inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-medium transition-all duration-500 ease-premium hover:-translate-y-0.5 hover:brightness-105 hover:shadow-strong active:translate-y-0 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
@@ -113,7 +114,7 @@ export function ProductSignature({
                     <path d="M8 7h9v9" />
                   </svg>
                 </span>
-              </Link>
+              </WhatsAppCtaLink>
             </FadeIn>
           </div>
 

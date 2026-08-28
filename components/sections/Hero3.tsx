@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { MessageCircle } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { buildWhatsAppUrl } from '@/lib/utils';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 // Imagen de fondo full-bleed elegida por el cliente. Se puede sobreescribir
 // pasando la prop `image` (p. ej. desde WordPress) sin tocar el componente.
@@ -96,6 +97,7 @@ export function Hero3({ image, whatsappNumber }: Hero3Props) {
             <Link
               href={whatsappUrl}
               target="_blank"
+              onClick={() => trackWhatsAppClick('content')}
               className="group relative inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-medium transition-all duration-300 ease-premium hover:shadow-strong active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
               {t('cta_label')}
