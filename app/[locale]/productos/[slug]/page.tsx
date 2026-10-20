@@ -27,13 +27,25 @@ export function generateMetadata({ params }: { params: ProductPageParams }): Met
   const product = getProductBySlug(params.slug);
   if (!product) return {};
 
+  const ogImage = product.images.hero ?? '/images/og/og-cortina-studio.jpg';
+
   return {
     title: `${product.hero.title} | Cortina Studio`,
     description: product.hero.subtitle,
     openGraph: {
       title: product.hero.title,
       description: product.hero.subtitle,
+      url: `/productos/${params.slug}`,
+      siteName: 'Cortina Studio',
+      locale: 'es_GT',
       type: 'website',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: product.hero.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.hero.title,
+      description: product.hero.subtitle,
+      images: [ogImage],
     },
   };
 }

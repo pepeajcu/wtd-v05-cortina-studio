@@ -23,9 +23,28 @@ const playfairDisplay = Playfair_Display({
   weight: ['400'],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cortinastudio.com.gt';
+const OG_IMAGE_PATH = '/images/og/og-cortina-studio.jpg';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Cortina Studio | Transformación de Espacios",
   description: "Expertos en cortinas premium para privacidad, acústica y decoración.",
+  openGraph: {
+    title: "Cortina Studio | Transformación de Espacios",
+    description: "Expertos en cortinas premium para privacidad, acústica y decoración.",
+    url: SITE_URL,
+    siteName: "Cortina Studio",
+    locale: "es_GT",
+    type: "website",
+    images: [{ url: OG_IMAGE_PATH, width: 1200, height: 630, alt: "Cortina Studio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cortina Studio | Transformación de Espacios",
+    description: "Expertos en cortinas premium para privacidad, acústica y decoración.",
+    images: [OG_IMAGE_PATH],
+  },
 };
 
 export default async function LocaleLayout({
